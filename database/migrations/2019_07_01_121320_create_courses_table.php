@@ -17,6 +17,7 @@ class CreateCoursesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name_en');
             $table->string('name_ar');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

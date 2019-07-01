@@ -19,7 +19,7 @@ class CreateProgramsTable extends Migration
             $table->string('name_ar');
             $table->bigInteger('department_id')->unsigned();
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }
