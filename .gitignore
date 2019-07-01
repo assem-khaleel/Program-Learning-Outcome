@@ -22,11 +22,9 @@ Homestead.json
 .rocketeer/
 
 .idea/
-/public/images/
 /public/css/
 /public/scss/
-/public/plugins/
-/public/icons/
+/public/assets/
 /public/js/
 /node_modules/
 /_ide_helper.php
