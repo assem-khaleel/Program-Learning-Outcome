@@ -20,5 +20,15 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::group(['prefix' => 'settings', 'namespace' => 'Settings'], function () {
+
+        Route::resource('institution', 'InstitutionController')->except('destroy');
+        Route::resource('user', 'UserController');
+        Route::resource('college', 'CollegeController')->except('show');
+        Route::resource('department', 'DepartmentController')->except('show');
+        Route::resource('program', 'ProgramController')->except('show');
+
+    });
+
 });
 Auth::routes();

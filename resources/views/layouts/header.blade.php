@@ -250,15 +250,21 @@
                 <!-- Profile -->
                 <!-- ============================================================== -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('assets/images/users/1.jpg')}}" alt="user" class="profile-pic" /></a>
+                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img alt="user" class="profile-pic"
+                        src="@if(!empty(Auth::user()->image->path)){{asset('storage/'.Auth::user()->image->path)}}">@else
+                            /images/avatar.png">@endif</a>
                     <div class="dropdown-menu dropdown-menu-right scale-up">
                         <ul class="dropdown-user">
                             <li>
                                 <div class="dw-user-box">
-                                    <div class="u-img"><img src="{{asset('assets/images/users/1.jpg')}}" alt="user"></div>
+                                    <div class="u-img"><img alt="user"
+                                                            src="@if(!empty(Auth::user()->image->path)){{asset('storage/'.Auth::user()->image->path)}}">@else
+                                            /images/avatar.png">@endif </div>
                                     <div class="u-text">
-                                        <h4>Steave Jobs</h4>
-                                        <p class="text-muted">varun@gmail.com</p><a href="pages-profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+                                        <h4>{{Auth::user()->name}}</h4>
+                                        <p class="text-muted">{{Auth::user()->email}}</p>
+                                    </div>
                                 </div>
                             </li>
                             <li role="separator" class="divider"></li>
@@ -268,7 +274,15 @@
                             <li role="separator" class="divider"></li>
                             <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                            <a href="{{ route('logout') }}" class="dropdown-item"
+                               onclick="event.preventDefault();
+                               document.getElementById('logout-form').submit();">
+                                <i class="fa fa-power-off"></i>
+                                {{trans('common.logout')}}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                            </form>
                         </ul>
                     </div>
                 </li>
