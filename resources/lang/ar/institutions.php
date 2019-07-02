@@ -17,4 +17,15 @@ return [
     'createInstitution' => 'Create institution',
     'thereAreNoInstitution' => 'There Are No institution',
     'notFoundInstitution' => 'Not found institution',
+    'nameEn' => 'Name (En)',
+    'nameAr' => 'Name (Ar)',
+    'descriptionEn' => 'Description (En)',
+    'descriptionAr' => 'Description (Ar)',
+    'visionEn' => 'Vision (En)',
+    'visionAr' => 'Vision (Ar)',
+    'missionEn' => 'Mission (En)',
+    'missionAr' => 'Mission (Ar)',
+    'location' => 'Location',
+
+
 ];
