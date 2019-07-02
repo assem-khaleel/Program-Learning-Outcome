@@ -15,6 +15,11 @@ class CreateDepartmentsTable extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name_en');
+            $table->string('name_ar');
+            $table->bigInteger('college_id')->unsigned();
+            $table->foreign('college_id')->references('id')->on('colleges')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models\Settings;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\College
@@ -14,5 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class College extends Model
 {
+    use SoftDeletes;
+
     //
 }

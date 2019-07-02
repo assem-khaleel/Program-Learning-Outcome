@@ -25,6 +25,7 @@ Homestead.json
 /public/css/
 /public/scss/
 /public/assets/
+/storage/
 /public/js/
 /node_modules/
 /_ide_helper.php
