@@ -5,7 +5,6 @@
  * Date: 2/28/19
  * Time: 10:17 AM
  */
-$dir = !empty($currentLanguage) && $currentLanguage->locale == 'en' ? 'ltr' : 'rtl';
 
 @endphp
 <!-- ============================================================== -->
@@ -26,6 +25,9 @@ $dir = !empty($currentLanguage) && $currentLanguage->locale == 'en' ? 'ltr' : 'r
 <script src="{{asset('assets/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
 <!--Custom JavaScript -->
 <script src="{{asset('js/custom.min.js')}}"></script>
+<script src="{{asset('js/custom-theme.js')}}"></script>
+<script src="{{asset('assets/plugins/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{asset('assets/plugins/select2/dist/js/select2.full.min.js')}}" type="text/javascript"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>

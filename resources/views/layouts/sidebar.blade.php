@@ -136,20 +136,17 @@
                         <li><a href="form-tinymce.html">Tinymce Editor</a></li>
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Tables</span></a>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-cog fa-fw"></i><span class="hide-menu">Settings</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="table-basic.html">Basic Tables</a></li>
-                        <li><a href="table-layout.html">Table Layouts</a></li>
-                        <li><a href="table-data-table.html">Data Tables</a></li>
-                        <li><a href="table-footable.html">Footable</a></li>
-                        <li><a href="table-jsgrid.html">Js Grid Table</a></li>
-                        <li><a href="table-responsive.html">Responsive Table</a></li>
-                        <li><a href="table-bootstrap.html">Bootstrap Tables</a></li>
-                        <li><a href="table-editable-table.html">Editable Table</a></li>
+                        <li><a href="{{route('institution.index')}}">Institution</a></li>
+                        <li><a href="{{route('user.index')}}">Users</a></li>
+                        <li><a href="{{route('college.index')}}">Colleges</a></li>
+                        <li><a href="{{route('department.index')}}">Departments</a></li>
+                        <li><a href="{{route('program.index')}}">Programs</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-widgets"></i><span class="hide-menu">Extra</span></a>
+                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-cog fa-fw"></i><span class="hide-menu">Extra</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li>
                             <a class="has-arrow " href="#" aria-expanded="false">Widgets</a>

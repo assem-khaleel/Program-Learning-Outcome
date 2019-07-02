@@ -26,6 +26,7 @@
                     icon: '{{$message['type']}}',
                     hideAfter: 3000,
                     stack: 6
+
                 });
         });
 
