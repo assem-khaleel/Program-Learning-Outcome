@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Requests\Programs\ProgramsRequest;
 use App\Models\Settings\Department;
 use App\Models\Settings\Program;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 
@@ -86,23 +85,15 @@ class ProgramController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  int  $id
+     * @param ProgramsRequest $request
+     * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(ProgramsRequest $request, $id)
     {
         $program = $this->program->find($id);
 
         if (!empty($program)) {
-
-            $request->validate([
-                'name_en' => "required|unique:programs,name_en,$id,id,department_id," . $program->department_id,
-                'name_ar' => "required|unique:programs,name_ar,$id,id,department_id," . $program->department_id,
-                'responsible_id' => 'nullable|numeric',
-                'department_id' => 'required|numeric',
-
-            ]);
 
             $program->update($request->all());
 

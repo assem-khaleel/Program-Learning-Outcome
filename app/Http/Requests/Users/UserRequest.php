@@ -6,6 +6,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
 {
+    protected $rules = [
+        'name' => 'required|string|max:255',
+        'password' => 'required| string| min:8| confirmed',
+        'image' => 'mimes:jpeg,jpg,bmp,png|max:10000',
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,11 +29,30 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required| string| min:8| confirmed',
-            'image' => 'mimes:jpeg,jpg,bmp,png|max:10000',
-        ];
+
+        $method = $this->method();
+        if($this->get('_method', null) !== null)
+        {
+            $method = $this->get('_method');
+        }
+        $this->offsetUnset("_method");
+
+        switch ($method) {
+            case 'GET':
+            case 'DELETE':
+                {
+                    return [];
+                }
+            case 'POST':
+                $this->rules['email'] = 'required|string|email|max:255|unique:users';
+                break;
+            case 'PATCH':
+            case 'PUT':
+                $this->rules['email'] = 'required|string|email|max:255|unique:users,email,' . $this->id;
+                break;
+            default:
+                break;
+        }
+        return $this->rules;
     }
 }

@@ -97,18 +97,6 @@ class InstitutionController extends Controller
 
         if (!empty($institution)) {
 
-            $request->validate([
-                'name_en' => "required|unique:institutions,name_en,$id,id" ,
-                'name_ar' => "required|unique:institutions,name_ar,$id,id" ,
-                'description_en' => 'required',
-                'description_ar' => 'required',
-                'vision_en' => 'required',
-                'vision_ar' => 'required',
-                'mission_en' => 'required',
-                'mission_ar' => 'required',
-                'location' => 'required',
-            ]);
-
             $institution->update($request->all());
 
             return redirect()->route('institution.index')->with('message', ['type' => 'success', 'text' => trans('common.updateSuccess')]);

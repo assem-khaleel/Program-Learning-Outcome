@@ -6,7 +6,6 @@ use App\Http\Requests\Departments\DepartmentRequest;
 use App\Models\Settings\College;
 use App\Models\Settings\Department;
 use Exception;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 
@@ -89,21 +88,15 @@ class DepartmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param DepartmentRequest $request
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(DepartmentRequest $request, $id)
     {
         $department = $this->department->find($id);
 
         if (!empty($department)) {
-
-            $request->validate([
-                'name_en' => "required|unique:departments,name_en,$id,id,college_id," . $request->get('college_id'),
-                'name_ar' => "required|unique:departments,name_ar,$id,id,college_id," . $request->get('college_id'),
-                'college_id' => 'required|numeric',
-            ]);
 
             $department->update($request->all());
 

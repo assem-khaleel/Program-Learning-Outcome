@@ -6,6 +6,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CollegeRequest extends FormRequest
 {
+    protected $rules = [
+
+    ];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,9 +27,31 @@ class CollegeRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name_en' => 'required|unique:colleges,name_en',
-            'name_ar' => 'required|unique:colleges,name_ar',
-        ];
+        $method = $this->method();
+        if($this->get('_method', null) !== null)
+        {
+            $method = $this->get('_method');
+        }
+        $this->offsetUnset("_method");
+
+        switch ($method) {
+            case 'GET':
+            case 'DELETE':
+                {
+                    return [];
+                }
+            case 'POST':
+                $this->rules['name_en'] = 'required|unique:colleges,name_en';
+                $this->rules['name_ar'] = 'required|unique:colleges,name_ar';
+                break;
+            case 'PATCH':
+            case 'PUT':
+                $this->rules['name_en'] = 'required|unique:colleges,name_en,' . $this->college;
+                $this->rules['name_ar'] = 'required|unique:colleges,name_ar,' . $this->college;
+                break;
+            default:
+                break;
+        }
+        return $this->rules;
     }
 }

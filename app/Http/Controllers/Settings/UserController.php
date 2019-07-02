@@ -8,7 +8,6 @@ use App\Models\Settings\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 use Storage;
 
 class UserController extends Controller
@@ -113,21 +112,15 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UserRequest $request
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $user = $this->user->find($id);
 
         if (!empty($user)){
-
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-                'image' => 'mimes:jpeg,jpg,bmp,png|max:10000',
-            ]);
 
             $user->update($request->all());
 

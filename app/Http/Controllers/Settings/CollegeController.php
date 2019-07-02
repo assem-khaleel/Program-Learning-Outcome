@@ -6,7 +6,6 @@ use App\Http\Requests\Colleges\CollegeRequest;
 use App\Models\Settings\College;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
-use Illuminate\Http\Request;
 
 class CollegeController extends Controller
 {
@@ -75,20 +74,15 @@ class CollegeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param CollegeRequest $request
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(CollegeRequest $request, $id)
     {
         $college = $this->college->find($id);
 
         if (!empty($college)) {
-
-            $request->validate([
-                'name_en' => "required|unique:colleges,name_en,$id,id" ,
-                'name_ar' => "required|unique:colleges,name_ar,$id,id" ,
-            ]);
 
             $college->update($request->all());
 
