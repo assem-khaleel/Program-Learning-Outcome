@@ -98,14 +98,22 @@
                                             <input type="text" value="{{$user->name}}"
                                                    class="form-control form-control-line" name="name" required>
                                         </div>
+                                        @error('name')
+                                        <div class="form-control-feedback"><code> {{ $message }} </code></div>
+                                        @enderror
                                     </div>
+
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">{{trans('profiles.email')}}</label>
                                         <div class="col-md-12">
                                             <input type="email" value="{{$user->email}}"
                                                    class="form-control form-control-line" name="email" required>
                                         </div>
+                                        @error('email')
+                                        <div class="form-control-feedback"><code> {{ $message }} </code></div>
+                                        @enderror
                                     </div>
+
                                     <div class="form-group">
                                         <label class="col-md-12">{{trans('profiles.imageUpload')}}</label>
                                         <div class="fileinput fileinput-new input-group" data-provides="fileinput">
@@ -114,17 +122,17 @@
                                             <input type="file" name="image"> </span>
                                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">{{trans('profiles.remove')}}</a>
                                         </div>
-                                        @if(count( $errors->get('image') ) > 0)
-                                            @foreach ($errors->get('image') as $error)
-                                                <div class="form-control-feedback"><code> {{ $error}} </code></div>
-                                            @endforeach
-                                        @endif
+                                        @error('image')
+                                        <div class="form-control-feedback"><code> {{ $message }} </code></div>
+                                        @enderror
                                     </div>
+
                                     <div class="form-group">
                                         <div class="col-sm-12">
                                             <button class="btn btn-linkedin">{{trans('profiles.updateProfile')}}</button>
                                         </div>
                                     </div>
+
                                 </form>
                             </div>
                         </div>
