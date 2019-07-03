@@ -52,7 +52,7 @@
                                                        type="text" name="name" value="{{ old('name') }}" required=""
                                                        placeholder="{{trans('common.name')}}">
                                                 @error('name')
-                                                    <small class="form-control-feedback text-danger">{{ $errors->first('name') }}</small>
+                                                    <small class="form-control-feedback text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
                                         </div>
@@ -65,7 +65,7 @@
                                                        name="email" value="{{ old('email') }}" type="email" required=""
                                                        placeholder="{{trans('users.email') }}">
                                                 @error('email')
-                                                    <small class="form-control-feedback text-danger">{{ $errors->first('email') }}</small>
+                                                    <small class="form-control-feedback text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
                                         </div>
@@ -86,31 +86,8 @@
                                                    data-dismiss="fileinput">{{trans('users.remove')}}</a>
                                             </div>
                                             @error('image')
-                                                <small class="form-control-feedback text-danger">{{ $errors->first('image') }}</small>
+                                                <small class="form-control-feedback text-danger">{{ $message }}</small>
                                             @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="control-label col-md-2">{{trans('users.password')}}</label>
-                                            <div class="col-md-10">
-                                                <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                                       name="password" type="password" required=""
-                                                       placeholder="{{trans('users.password')}}">
-                                                @error('password')
-                                                    <small class="form-control-feedback text-danger">{{ $errors->first('password') }}</small>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="control-label col-md-2">  {{trans('users.passwordConfirmation')}}</label>
-                                            <div class="col-md-10">
-                                                <input class="form-control" type="password" name="password_confirmation"
-                                                       required="" placeholder="{{trans('users.passwordConfirmation')}}">
-
-                                            </div>
                                         </div>
                                     </div>
 

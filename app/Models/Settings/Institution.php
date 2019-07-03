@@ -47,6 +47,10 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|Institution whereVisionEn($value)
  * @method static Builder|Institution withTrashed()
  * @method static Builder|Institution withoutTrashed()
+ * @property-read string $description
+ * @property-read string $mission
+ * @property-read string $name
+ * @property-read string $vision
  */
 class Institution extends Model
 {

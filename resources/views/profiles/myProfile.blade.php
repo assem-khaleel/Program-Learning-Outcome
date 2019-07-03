@@ -1,23 +1,26 @@
 @php
     /**
-      * Created by PhpStorm.
-      * User: dura
-      * Date: 7/2/19
-      * Time: 1:25 PM
-      */
+     * Created by PhpStorm.
+     * User: dura
+     * Date: 7/3/19
+     * Time: 8:34 AM
+     */
 @endphp
+
 @extends('layouts.app')
 
 @section('wrapper')
 
-
-    <!-- ============================================================== -->
+  <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
     <div class="row page-titles">
-        <div class="col-md-12 align-self-center">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor">{{trans('profiles.profile')}}</h3>
+        </div>
+        <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
+                <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('profiles.home')}}</a></li>
             </ol>
         </div>
     </div>
@@ -37,7 +40,7 @@
             <div class="col-lg-4 col-xlg-3 col-md-5">
                 <div class="card">
                     <div class="card-body">
-                        <center class="m-t-30"><img class="img-circle" width="150" src="{{(!empty($user->image->path)) ? asset('storage/'.$user->image->path):'/images/avatar.png'}} ">
+                        <center class="m-t-30"><img class="img-circle" width="150" src="@if(!empty($user->image->path)){{asset('storage/'.$user->image->path)}}">@else /images/avatar.png">@endif
                             <h4 class="card-title m-t-10">{{$user->name}}</h4>
                             <div class="row text-center justify-content-md-center">
                             </div>
@@ -70,24 +73,25 @@
                         <div class="tab-pane active" id="profile" role="tabpanel">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6 col-xs-6 b-r"><strong>{{trans('profiles.fullName')}}</strong>
+                                    <div class="col-md-4 col-xs-6 b-r"><strong>{{trans('profiles.fullName')}}</strong>
                                         <br>
                                         <p class="text-muted">{{$user->name}}</p>
                                     </div>
-                                    <div class="col-md-6 col-xs-6 b-r"><strong>{{trans('profiles.email')}}</strong>
+                                    <div class="col-md-4 col-xs-6 b-r"><strong>{{trans('profiles.email')}}</strong>
                                         <br>
                                         <p class="text-muted">{{$user->email}}</p>
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="settings" role="tabpanel">
                             <div class="card-body">
                                 <form class="form-horizontal form-material"
-                                      action="{{route('user.update',$user->id)}}" method="post" enctype="multipart/form-data">
+                                      action="{{route('profiles.update',$user->id)}}" method="post" enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf
-
                                     <div class="form-group">
                                         <label class="col-md-12">{{trans('profiles.fullName')}}</label>
                                         <div class="col-md-12">
@@ -106,7 +110,7 @@
                                                    class="form-control form-control-line" name="email" required>
                                         </div>
                                         @error('email')
-                                                <div class="form-control-feedback"><code> {{ $message }} </code></div>
+                                        <div class="form-control-feedback"><code> {{ $message }} </code></div>
                                         @enderror
                                     </div>
 
@@ -119,7 +123,7 @@
                                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">{{trans('profiles.remove')}}</a>
                                         </div>
                                         @error('image')
-                                                <div class="form-control-feedback"><code> {{ $message }} </code></div>
+                                        <div class="form-control-feedback"><code> {{ $message }} </code></div>
                                         @enderror
                                     </div>
 
@@ -132,14 +136,12 @@
                                 </form>
                             </div>
                         </div>
-
                         <div class="tab-pane" id="security" role="tabpanel">
                             <div class="card-body">
                                 <form class="form-horizontal form-material"
-                                      action="{{route('users.changePassword', ['userId' => $user->id])}}" method="post">
+                                      action="{{route('profiles.changePassword')}}" method="post">
                                     @method('PUT')
                                     @csrf
-
                                     <div class="form-group">
                                         <label class="col-md-12">{{trans('profiles.password')}}</label>
                                         <div class="col-md-12">
@@ -147,14 +149,12 @@
                                                    required>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">{{trans('profiles.newPassword')}}</label>
                                         <div class="col-md-12">
                                             <input type="password" class="form-control" name="new-password" required>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">{{trans('profiles.newPasswordConfirmation')}}</label>
                                         <div class="col-md-12">
@@ -162,13 +162,11 @@
                                                    required>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <div class="col-sm-12">
                                             <button class="btn btn-linkedin">{{trans('profiles.updatePassword')}}</button>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>

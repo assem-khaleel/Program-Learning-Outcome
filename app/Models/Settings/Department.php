@@ -36,6 +36,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Department withTrashed()
  * @method static Builder|Department withoutTrashed()
  * @property-read string $name
+ * @property-read \App\Models\Settings\College $college
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Settings\Program[] $programs
  */
 class Department extends Model
 {

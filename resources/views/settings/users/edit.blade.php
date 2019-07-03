@@ -53,7 +53,7 @@
                                                        type="text" name="name" value="{{$user->name}}" required=""
                                                        placeholder="{{trans('users.name')}}">
                                                 @error('name')
-                                                    <small class="form-control-feedback text-danger">{{ $errors->first('name') }}</small>
+                                                    <small class="form-control-feedback text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
                                         </div>
@@ -66,7 +66,7 @@
                                                        name="email" value="{{$user->email}}" type="email" required=""
                                                        placeholder="{{trans('users.email') }}">
                                                 @error('email')
-                                                    <small class="form-control-feedback text-danger">{{ $errors->first('email') }}</small>
+                                                    <small class="form-control-feedback text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
                                         </div>
@@ -87,7 +87,7 @@
                                                    data-dismiss="fileinput">{{trans('users.remove')}}</a>
                                             </div>
                                             @error('image')
-                                                <small class="form-control-feedback text-danger">{{ $errors->first('image') }}</small>
+                                                <small class="form-control-feedback text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                     </div>

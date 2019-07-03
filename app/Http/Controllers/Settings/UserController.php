@@ -3,11 +3,18 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Requests\Users\UserRequest;
+use App\Mail\UserPassword;
 use App\model\File;
 use App\Models\Settings\User;
 use App\Http\Controllers\Controller;
+use App\Notifications\ChangePassword;
+use Exception;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Storage;
 
 class UserController extends Controller
@@ -62,11 +69,13 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+            $newPassword = str_random(9);
+            $password = Hash::make($newPassword);
 
             $user = $this->user->create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' => $password,
             ]);
 
             if ($request->file('image')) {
@@ -78,6 +87,9 @@ class UserController extends Controller
                 $this->file->createFile($attributes);
 
             }
+
+            Mail::to($user->email)->send(new UserPassword($user, $newPassword));
+            $user->notify(new ChangePassword($user, $newPassword));
 
         return redirect()->route('user.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
 
@@ -160,7 +172,7 @@ class UserController extends Controller
      *
      * @param int $id
      * @return Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy($id)
     {
@@ -178,5 +190,50 @@ class UserController extends Controller
         }
 
         return redirect()->route('system-user.index')->with('message', ['type' => 'error', 'text' => 'users.notFoundUser']);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param $userId
+     * @return User
+     * @throws ValidationException
+     */
+    public function changePassword(Request $request, $userId)
+    {
+
+            if (Auth::Check()) {
+
+                $user = $this->user->find($userId);
+                $current_password = $user->password;
+
+                if (Hash::check($request->get('current-password'), $current_password)) {
+
+                    if ($request->get('new-password') == $request->get('new-password_confirmation')) {
+                        $this->validate($request, [
+                            'current-password' => 'required',
+                            'new-password' => 'required|string|min:8|confirmed',
+                        ]);
+
+                        $user->password = Hash::make($request->get('new-password'));;
+                        $user->save();
+
+                        return redirect()->back()->with('message', ['type' => 'success', 'text' => 'Password Changed Successfully !']);
+
+                    } else {
+                        return redirect()->back()->with('message', ['type' => 'error', 'text' => 'New Password Cannot Be Same As Your Current Password. Please Choose A Different Password']);
+
+                    }
+
+                } else {
+                    return redirect()->back()->with('message', ['type' => 'error', 'text' => 'Your Current Password Does Not Matches With The Password You Provided. Please Try Again']);
+
+                }
+
+            } else {
+                return redirect()->route('home');
+            }
+
     }
 }

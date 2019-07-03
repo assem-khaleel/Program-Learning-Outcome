@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Users;
+namespace App\Http\Requests\Semesters;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class SemesterRequest extends FormRequest
 {
     protected $rules = [
-        'name' => 'required|string|max:255',
-        'image' => 'mimes:jpeg,jpg,bmp,png|max:10000',
+
     ];
 
     /**
@@ -28,7 +27,6 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-
         $method = $this->method();
         if($this->get('_method', null) !== null)
         {
@@ -43,11 +41,17 @@ class UserRequest extends FormRequest
                     return [];
                 }
             case 'POST':
-                $this->rules['email'] = 'required|string|email|max:255|unique:users';
+                $this->rules['name_en'] = 'required|unique:semesters,name_en';
+                $this->rules['name_ar'] = 'required|unique:semesters,name_ar';
+                $this->rules['start_date'] = 'required|date|before_or_equal:end_date';
+                $this->rules['end_date'] = 'required|date|after_or_equal:start_date';
                 break;
             case 'PATCH':
             case 'PUT':
-                $this->rules['email'] = 'required|string|email|max:255|unique:users,email,' . $this->id;
+                $this->rules['name_en'] = 'required|unique:semesters,name_en,' . $this->semester;
+                $this->rules['name_ar'] = 'required|unique:semesters,name_ar,' . $this->semester;
+                $this->rules['start_date'] = 'required|date|before_or_equal:end_date';
+                $this->rules['end_date'] = 'required|date|after_or_equal:start_date';
                 break;
             default:
                 break;

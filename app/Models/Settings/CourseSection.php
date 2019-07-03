@@ -2,8 +2,11 @@
 
 namespace App\Models\Settings;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Settings\CourseSection
@@ -12,25 +15,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $user_id
  * @property int $course_id
  * @property int $semester_id
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Settings\CourseSection newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Settings\CourseSection newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Settings\CourseSection onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Settings\CourseSection query()
+ * @method static \Illuminate\Database\Eloquent\Builder|CourseSection newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CourseSection newQuery()
+ * @method static Builder|CourseSection onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CourseSection query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Settings\CourseSection whereCourseId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Settings\CourseSection whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Settings\CourseSection whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Settings\CourseSection whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Settings\CourseSection whereSemesterId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Settings\CourseSection whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Settings\CourseSection whereUserId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Settings\CourseSection withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Settings\CourseSection withoutTrashed()
- * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|CourseSection whereCourseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CourseSection whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CourseSection whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CourseSection whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CourseSection whereSemesterId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CourseSection whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CourseSection whereUserId($value)
+ * @method static Builder|CourseSection withTrashed()
+ * @method static Builder|CourseSection withoutTrashed()
+ * @mixin Eloquent
  */
 class CourseSection extends Model
 {
