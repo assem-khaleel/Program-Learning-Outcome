@@ -63,7 +63,7 @@ class ProfileController extends Controller
 
         $request->validate([
             'name'  => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|exists:users|unique:users,email,'.$user->id,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'image' => 'mimes:jpeg,jpg,bmp,png|max:10000',
         ]);
 
@@ -91,7 +91,7 @@ class ProfileController extends Controller
                 $user->image->updateFile($attributes);
             }
         }
-        return redirect()->route('profiles.myProfile')->with('message',['type'=>'success','text'=>'common.updateSuccess']);
+        return redirect()->route('profiles.myProfile')->with('message',['type'=>'success','text'=> trans('common.updateSuccess')]);
     }
 
     /**
