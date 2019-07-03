@@ -92,10 +92,12 @@
     <script>
         // Date Picker
         jQuery('#start_date').datepicker({
+            startDate: '+1d',
             autoclose: true,
             todayHighlight: true
         });
         jQuery('#end_date').datepicker({
+            startDate: '+1d',
             autoclose: true,
             todayHighlight: true
         });
