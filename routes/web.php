@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('college', 'CollegeController')->except('show');
         Route::resource('department', 'DepartmentController')->except('show');
         Route::resource('program', 'ProgramController')->except('show');
+        Route::resource('course', 'CourseController');
+        Route::resource('semester', 'SemesterController');
 
     });
 
