@@ -127,13 +127,13 @@ class ProfileController extends Controller
                     $user = $this->user->find($user_id);
                     $user->password = Hash::make($request->get('new-password'));;
                     $user->save();
-                    return redirect()->back()->with('message',['type'=>'success','text' => 'users.passwordChangedSuccessfully']);
+                    return redirect()->back()->with('message',['type'=>'success','text' => 'Password Changed Successfully !']);
                 else:
-                    return redirect()->back()->with('message',['type'=>'error','text' => 'users.newPasswordCannotBe']);
+                    return redirect()->back()->with('message',['type'=>'error','text' => 'New Password Cannot Be Same As Your Current Password. Please Choose A Different Password']);
 
                 endif;
             } else {
-                return redirect()->back()->with('message',['type'=>'error','text' => 'users.yourCurrentPasswordDoesNot']);
+                return redirect()->back()->with('message',['type'=>'error','text' => 'Your Current Password Does Not Matches With The Password You Provided. Please Try Again']);
 
             }
 
