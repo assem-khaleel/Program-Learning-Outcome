@@ -86,11 +86,11 @@ class SemesterController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  int  $id
+     * @param SemesterRequest $request
+     * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(SemesterRequest $request, $id)
     {
         $semester = $this->semester->find($id);
 

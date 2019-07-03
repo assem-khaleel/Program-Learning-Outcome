@@ -43,14 +43,14 @@ class SemesterRequest extends FormRequest
             case 'POST':
                 $this->rules['name_en'] = 'required|unique:semesters,name_en';
                 $this->rules['name_ar'] = 'required|unique:semesters,name_ar';
-                $this->rules['start_date'] = 'required|date';
+                $this->rules['start_date'] = 'required|date|before_or_equal:end_date';
                 $this->rules['end_date'] = 'required|date|after_or_equal:start_date';
                 break;
             case 'PATCH':
             case 'PUT':
                 $this->rules['name_en'] = 'required|unique:semesters,name_en,' . $this->semester;
                 $this->rules['name_ar'] = 'required|unique:semesters,name_ar,' . $this->semester;
-                $this->rules['start_date'] = 'required|date';
+                $this->rules['start_date'] = 'required|date|before_or_equal:end_date';
                 $this->rules['end_date'] = 'required|date|after_or_equal:start_date';
                 break;
             default:
