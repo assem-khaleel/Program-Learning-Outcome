@@ -34,6 +34,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|College whereUpdatedAt($value)
  * @method static Builder|College withTrashed()
  * @method static Builder|College withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Settings\Department[] $departments
  */
 class College extends Model
 {

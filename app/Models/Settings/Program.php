@@ -36,6 +36,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Program withTrashed()
  * @method static Builder|Program withoutTrashed()
  * @property-read string $name
+ * @property-read \App\Models\Settings\Department $department
  */
 class Program extends Model
 {

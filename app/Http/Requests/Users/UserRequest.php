@@ -8,7 +8,6 @@ class UserRequest extends FormRequest
 {
     protected $rules = [
         'name' => 'required|string|max:255',
-        'password' => 'required| string| min:8| confirmed',
         'image' => 'mimes:jpeg,jpg,bmp,png|max:10000',
     ];
 
