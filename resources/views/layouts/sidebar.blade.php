@@ -136,7 +136,7 @@
                         <li><a href="form-tinymce.html">Tinymce Editor</a></li>
                     </ul>
                 </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-cog fa-fw"></i><span class="hide-menu">Program Learning Outcome</span></a>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book fa-fw"></i><span class="hide-menu">Program Learning Outcome</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="{{route('learning-outcome.index')}}">Learning Outcome</a></li>
                     </ul>
