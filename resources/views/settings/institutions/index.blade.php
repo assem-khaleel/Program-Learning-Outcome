@@ -16,7 +16,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
                 <li class="breadcrumb-item"><a
-                            href="{{route('institution.index')}}">{{trans('institutions.institution')}}</a></li>
+                            href="{{route('institution.index')}}">{{trans('institutions.institutions')}}</a></li>
             </ol>
         </div>
     </div>
@@ -45,7 +45,7 @@
                         @if ($institutions->isEmpty())
                             <div class="bd-footer">
                                 <div class="text-center">
-                                    <h5>{{trans('institutions.thereAreNoInstitution')}}</h5>
+                                    <h5>{{trans('institutions.thereAreNoInstitutions')}}</h5>
                                 </div>
                             </div>
                         @else
