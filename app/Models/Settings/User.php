@@ -5,6 +5,7 @@ namespace App\Models\Settings;
 use App\model\File;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -45,6 +46,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  * @property-read File $image
+ * @property-read Collection|CourseSection[] $courseSection
  */
 class User extends Authenticatable
 {
@@ -79,9 +81,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    function image()
+    public function image()
     {
         return $this->morphOne(File::class,'fileable');
 
+    }
+
+    public function courseSection(){
+        return $this->hasMany(CourseSection::class);
     }
 }
