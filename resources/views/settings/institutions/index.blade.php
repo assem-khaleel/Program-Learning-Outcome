@@ -35,7 +35,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title pull-left">{{trans('institutions.institution') }} </h4>
+                        <h4 class="card-title pull-left">{{trans('institutions.institutions') }} </h4>
                         <a href="{{route('institution.create')}}" class="pull-right btn-sm btn btn-info"
                            type="button"><span class="btn-label"><i
                                         class="fa fa-plus"></i></span> {{trans('institutions.createInstitution')}}</a>
