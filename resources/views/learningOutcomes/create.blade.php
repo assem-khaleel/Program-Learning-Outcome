@@ -7,7 +7,9 @@
         <div class="col-md-12 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('learning-outcome.index')}}">{{trans('learningOutcome.learningOutcomes')}}</a></li>
+                <li class="breadcrumb-item active"><a
+                            href="{{route('learning-outcome.index')}}">{{trans('learningOutcome.learningOutcomes')}}</a>
+                </li>
             </ol>
         </div>
     </div>
@@ -32,9 +34,9 @@
                     </div>
                     <div class="card-body">
                         <form method="post" action='{{route('learning-outcome.store')}}' class="form-horizontal">
-                        @csrf
+                            @csrf
 
-                        @include('learningOutcomes.forms.fields')
+                            @include('learningOutcomes.forms.fields')
                         </form>
                     </div>
                 </div>

@@ -5,7 +5,8 @@
             <div class="form-group row">
                 <label class="control-label col-md-2">{{trans('programs.programs')}}</label>
                 <div class="col-md-10">
-                    <select class="select2 form-control custom-select" style="width: 100%; height:36px;" name="program_id"
+                    <select class="select2 form-control custom-select" style="width: 100%; height:36px;"
+                            name="program_id"
                             data-placeholder="{{trans('programs.selectProgram')}}">
                         <option value="">{{trans('programs.selectProgram')}}</option>
                         @foreach($programs as $program)
@@ -31,7 +32,7 @@
                            placeholder="{{trans('common.nameEn')}}"
                            value="{{ old('name_en', ($learningOutcome->name_en ?? '')) }}">
                     @error('name_en')
-                        <small class="form-control-feedback text-danger"> {{ $message }} </small>
+                    <small class="form-control-feedback text-danger"> {{ $message }} </small>
                     @enderror
                 </div>
             </div>
@@ -46,7 +47,7 @@
                            placeholder="{{trans('common.nameAr')}}"
                            value="{{ old('name_ar', ($learningOutcome->name_ar ?? '')) }}">
                     @error('name_ar')
-                        <small class="form-control-feedback text-danger">{{ $message }}</small>
+                    <small class="form-control-feedback text-danger">{{ $message }}</small>
                     @enderror
                 </div>
             </div>
@@ -54,7 +55,8 @@
 
         <div class="col-md-12">
             <div class="form-group row">
-                <label for="description_en" class="control-label col-md-2">{{trans('institutions.descriptionEn')}}</label>
+                <label for="description_en"
+                       class="control-label col-md-2">{{trans('institutions.descriptionEn')}}</label>
                 <div class="col-md-10">
                     <textarea id="description_en" name="description_en"
                               class="form-control {{ $errors->has('description_en') ? 'is-invalid' : '' }}"
@@ -68,7 +70,8 @@
 
         <div class="col-md-12">
             <div class="form-group row">
-                <label for="description_ar" class="control-label col-md-2">{{trans('institutions.descriptionAr')}}</label>
+                <label for="description_ar"
+                       class="control-label col-md-2">{{trans('institutions.descriptionAr')}}</label>
                 <div class="col-md-10">
                     <textarea id="description_ar" name="description_ar"
                               class="form-control {{ $errors->has('description_ar') ? 'is-invalid' : '' }}"
@@ -104,7 +107,7 @@
 </div>
 @push('script')
     <script type="text/javascript">
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
             // For select 2
             $(".select2").select2();
         });

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LearningOutcomes\LearningOutcomeRequest;
 use App\Models\LearningOutcome;
 use App\Models\Settings\Program;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class LearningOutcomeController extends Controller
@@ -57,7 +56,7 @@ class LearningOutcomeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param LearningOutcomeRequest $request
      * @return Response
      */
     public function store(LearningOutcomeRequest $request)
@@ -70,8 +69,8 @@ class LearningOutcomeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return void
      */
     public function show($id)
     {
@@ -81,7 +80,7 @@ class LearningOutcomeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -96,8 +95,8 @@ class LearningOutcomeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  int  $id
+     * @param LearningOutcomeRequest $request
+     * @param int $id
      * @return Response
      */
     public function update(LearningOutcomeRequest $request, $id)

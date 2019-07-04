@@ -16,7 +16,8 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
                 <li class="breadcrumb-item"><a
-                            href="{{route('learning-outcome.index')}}">{{trans('learningOutcome.learningOutcomes')}}</a></li>
+                            href="{{route('learning-outcome.index')}}">{{trans('learningOutcome.learningOutcomes')}}</a>
+                </li>
             </ol>
         </div>
     </div>
@@ -38,7 +39,8 @@
                         <h4 class="card-title pull-left">{{trans('learningOutcome.learningOutcomes') }} </h4>
                         <a href="{{route('learning-outcome.create')}}" class="pull-right btn-sm btn btn-info"
                            type="button"><span class="btn-label"><i
-                                        class="fa fa-plus"></i></span> {{trans('learningOutcome.createLearningOutcome')}}</a>
+                                        class="fa fa-plus"></i></span> {{trans('learningOutcome.createLearningOutcome')}}
+                        </a>
                     </div>
                     <div class="card-body">
 

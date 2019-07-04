@@ -7,7 +7,6 @@ use App\Models\Settings\Course;
 use App\Models\Settings\CourseSection;
 use App\Models\Settings\Semester;
 use App\Models\Settings\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 

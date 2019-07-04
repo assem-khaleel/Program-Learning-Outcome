@@ -9,7 +9,8 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
                 <li class="breadcrumb-item"><a
-                            href="{{route('learning-outcome.index')}}">{{trans('learningOutcome.learningOutcomes')}}</a></li>
+                            href="{{route('learning-outcome.index')}}">{{trans('learningOutcome.learningOutcomes')}}</a>
+                </li>
             </ol>
         </div>
     </div>
@@ -33,7 +34,8 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{route('learning-outcome.update',[$learningOutcome->id])}}" class="form-horizontal">
+                        <form method="post" action="{{route('learning-outcome.update',[$learningOutcome->id])}}"
+                              class="form-horizontal">
                             @csrf
                             @method('PUT')
                             @include('learningOutcomes.forms.fields')
