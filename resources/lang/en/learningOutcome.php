@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Departments Language Lines
+    | Colleges Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during authentication for various
@@ -13,13 +13,9 @@ return [
     |
     */
 
-    'programs' => 'Programs',
-    'createProgram' => 'Create Program',
-    'thereAreNoPrograms' => 'There Are No Programs',
-    'notFoundProgram' => 'Not found Program',
-    'department' => 'Department',
-    'selectDepartment' => 'Select Department',
+    'learningOutcomes' => 'Learning Outcomes',
+    'createLearningOutcome' => 'Create Learning Outcome',
+    'thereAreNoLearningOutcomes' => 'There Are No Learning Outcomes',
+    'notFoundLearningOutcome' => 'Not found Learning Outcome',
     'selectProgram' => 'Select Program',
-    'program' => 'Program',
-
 ];

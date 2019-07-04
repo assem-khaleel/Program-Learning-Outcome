@@ -41,5 +41,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     });
 
+    Route::resource('learning-outcome', 'LearningOutcomeController');
+
+
 });
 Auth::routes();

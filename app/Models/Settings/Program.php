@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
+use App\Models\LearningOutcome;
 
 /**
  * App\Program
@@ -37,6 +38,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Program withoutTrashed()
  * @property-read string $name
  * @property-read Department $department
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\LearningOutcome[] $learningOutcome
  */
 class Program extends Model
 {
@@ -58,5 +60,9 @@ class Program extends Model
 
     public function department(){
         return $this->belongsTo(department::class);
+    }
+
+    public function learningOutcome(){
+        return $this->hasMany(LearningOutcome::class);
     }
 }

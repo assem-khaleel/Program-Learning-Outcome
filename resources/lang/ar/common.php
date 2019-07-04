@@ -36,5 +36,7 @@ return [
     'teacher' => 'Teacher',
     'course' => 'Course',
     'semester' => 'Semester',
+    'descriptionEn' => 'Description (En)',
+    'descriptionAr' => 'Description (Ar)',
 
 ];
