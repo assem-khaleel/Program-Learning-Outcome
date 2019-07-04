@@ -19,6 +19,7 @@ return [
     'notFoundUser' => 'Not found User',
     'User' => 'User',
     'email' => 'Email',
+    'name' => 'Name',
     'selectImage' => 'Select Image',
     'imageUpload' => 'Image Upload',
 
