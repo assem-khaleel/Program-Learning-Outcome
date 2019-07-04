@@ -29,7 +29,7 @@
                 <div class="card card-outline-info">
                     <div class="card-header">
                         <h4 class="m-b-0 text-white">
-                            {{trans('learningOutcome.learningOutcomes')}}
+                            {{trans('learningOutcome.createLearningOutcome')}}
                         </h4>
                     </div>
                     <div class="card-body">
