@@ -19,5 +19,7 @@ return [
     'notFoundProgram' => 'Not found Program',
     'department' => 'Department',
     'selectDepartment' => 'Select Department',
+    'selectProgram' => 'Select Program',
+    'program' => 'Program',
 
 ];

@@ -4,6 +4,7 @@ namespace App\Models\Settings;
 
 use App;
 use Eloquent;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
@@ -36,8 +37,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Department withTrashed()
  * @method static Builder|Department withoutTrashed()
  * @property-read string $name
- * @property-read \App\Models\Settings\College $college
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Settings\Program[] $programs
+ * @property-read College $college
+ * @property-read Collection|Program[] $programs
  */
 class Department extends Model
 {

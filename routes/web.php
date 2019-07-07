@@ -36,9 +36,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('department', 'DepartmentController')->except('show');
         Route::resource('program', 'ProgramController')->except('show');
         Route::resource('course', 'CourseController');
-        Route::resource('semester', 'SemesterController');
+        Route::get('course-section/create/{course_section}', 'CourseSectionController@create')->name('course-section.create');
+        Route::resource('course-section', 'CourseSectionController')->except('create');
+        Route::resource('semester', 'SemesterController')->except('show');
 
     });
+
+    Route::resource('learning-outcome', 'LearningOutcomeController');
+
 
 });
 Auth::routes();

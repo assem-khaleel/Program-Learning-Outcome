@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Semesters;
+namespace App\Http\Requests\Courses;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SemesterRequest extends FormRequest
+class CourseSectionRequest extends FormRequest
 {
     protected $rules = [
+        'teacher_id' => 'required|numeric',
+        'course_id' => 'required|numeric',
+        'semester_id' => 'required|numeric',
 
     ];
 
@@ -41,17 +44,11 @@ class SemesterRequest extends FormRequest
                     return [];
                 }
             case 'POST':
-                $this->rules['name_en'] = 'required|unique:semesters,name_en';
-                $this->rules['name_ar'] = 'required|unique:semesters,name_ar';
-                $this->rules['start_date'] = 'required|date|before:end_date';
-                $this->rules['end_date'] = 'required|date|after:start_date';
+                $this->rules['code'] = 'required|unique:course_sections,code';
                 break;
             case 'PATCH':
             case 'PUT':
-                $this->rules['name_en'] = 'required|unique:semesters,name_en,' . $this->semester;
-                $this->rules['name_ar'] = 'required|unique:semesters,name_ar,' . $this->semester;
-                $this->rules['start_date'] = 'required|date|before:end_date';
-                $this->rules['end_date'] = 'required|date|after:start_date';
+                $this->rules['code'] = 'required|unique:course_sections,code,' . $this->course_section;
                 break;
             default:
                 break;

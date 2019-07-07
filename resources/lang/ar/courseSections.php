@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Users Language Lines
+    | courseSections Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during authentication for various
@@ -13,14 +13,14 @@ return [
     |
     */
 
-    'users' => 'Users',
-    'createUsers' => 'Create Users',
-    'thereAreNoUsers' => 'There Are No Users',
-    'notFoundUser' => 'Not found User',
-    'User' => 'User',
-    'email' => 'Email',
-    'name' => 'Name',
-    'selectImage' => 'Select Image',
-    'imageUpload' => 'Image Upload',
+    'courseSection' => 'Course Section',
+    'courseSections' => 'Course Sections',
+    'createSection' => 'Create Section',
+    'thereAreNoCourseSections' => 'There Are No Course Sections',
+    'notFoundCourseSection' => 'Not found Course Section',
+    'selectTeacher' => 'Select Teacher',
+    'selectCourse' => 'Select Course',
+    'selectSemester' => 'Select Semester',
+
 
 ];
