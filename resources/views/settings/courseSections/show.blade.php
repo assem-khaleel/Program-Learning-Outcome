@@ -16,7 +16,10 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
                 <li class="breadcrumb-item"><a
-                            href="{{route('course-section.index')}}">{{trans('courseSections.courseSections')}}</a></li>
+                            href="{{route('course.index')}}">{{trans('courses.courses')}}</a></li>
+                <li class="breadcrumb-item"><a
+                            href="{{route('course-section.show',[$course->id])}}">{{trans('courseSections.courseSections')}}</a>
+                </li>
             </ol>
         </div>
     </div>
@@ -36,13 +39,14 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title pull-left">{{trans('courseSections.courseSections') }} </h4>
-                        <a href="{{route('course-section.create')}}" class="pull-right btn-sm btn btn-info"
+                        <a href="{{route('course-section.create',['courseId'=>$course->id])}}"
+                           class="pull-right btn-sm btn btn-info"
                            type="button"><span class="btn-label"><i
                                         class="fa fa-plus"></i></span> {{trans('courseSections.createSection')}}</a>
                     </div>
                     <div class="card-body">
 
-                        @if ($courseSections->isEmpty())
+                        @if ($courseSection->isEmpty())
                             <div class="bd-footer">
                                 <div class="text-center">
                                     <h5>{{trans('courseSections.thereAreNoCourseSections')}}</h5>
@@ -61,31 +65,31 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($courseSections as $courseSection)
+                                    @foreach($courseSection as $section)
                                         <tr>
 
-                                            <td>{{$courseSection->code}}</td>
-                                            <td>{{$courseSection->teacher->name}}</td>
-                                            <td>{{$courseSection->course->name}}</td>
-                                            <td>{{$courseSection->semester->name}}</td>
+                                            <td>{{$section->code}}</td>
+                                            <td>{{$section->teacher->name}}</td>
+                                            <td>{{$section->course->name}}</td>
+                                            <td>{{$section->semester->name}}</td>
 
                                             <td class="text-nowrap text-center">
-                                                <a href="{{route('course-section.edit', [$courseSection->id])}}"
+                                                <a href="{{route('course-section.edit', [$section->id])}}"
                                                    data-toggle="tooltip"
                                                    data-original-title="{{trans('common.edit')}}"><i
                                                             class="fa fa-edit"
                                                             style="margin: 5px"></i></a>
 
                                                 <a href="javascript:void(0);" class="sa-warning"
-                                                   data-id="{{ $courseSection->id }}"
+                                                   data-id="{{ $section->id }}"
                                                    data-toggle="tooltip"
                                                    data-original-title="{{trans('common.delete')}}"><i
                                                             class="fa fa-trash"
                                                             style="margin: 5px"></i></a>
 
                                                 <form style="display: inline-block;" method="POST"
-                                                      id="id-{{ $courseSection->id }}"
-                                                      action="{{route('course-section.destroy', $courseSection->id)}}">
+                                                      id="id-{{ $section->id }}"
+                                                      action="{{route('course-section.destroy', $section->id)}}">
                                                     @method('DELETE')
                                                     @csrf
                                                 </form>
@@ -99,7 +103,7 @@
                     </div>
                     <div class="card-footer text-center">
                         <div class="btn-group mr-2" role="group" aria-label="First group">
-                            {{$courseSections->links()}}
+                            {{$courseSection->links()}}
                         </div>
                     </div>
                 </div>

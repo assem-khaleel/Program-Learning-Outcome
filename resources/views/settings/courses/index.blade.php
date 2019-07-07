@@ -73,7 +73,7 @@
                                                             class="fa fa-edit"
                                                             style="margin: 5px"></i></a>
 
-                                                <a href="{{route('course-section.index', [$course->id])}}"
+                                                <a href="{{route('course-section.show', [$course->id])}}"
                                                    data-toggle="tooltip"
                                                    data-original-title="{{trans('courseSections.courseSections')}}"><i
                                                             class="fa fa-leanpub"

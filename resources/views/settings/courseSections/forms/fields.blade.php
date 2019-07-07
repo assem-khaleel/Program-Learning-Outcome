@@ -46,12 +46,10 @@
                             name="course_id"
                             data-placeholder="{{trans('courseSections.selectCourse')}}">
                         <option value="">{{trans('courseSections.selectCourse')}}</option>
-                        @foreach($courses as $course)
-                            <option value="{{$course->id}}"
-                                    {{old('course_id') == $course->id || !empty($courseSection->course_id) && ($course->id == $courseSection->course_id) ? 'selected' : '' }}>
-                                {{$course->name}}
-                            </option>
-                        @endforeach
+                        <option value="{{$course->id}}"
+                                {{old('course_id') == $course->id || !empty($courseSection->course_id) && ($course->id == $courseSection->course_id) ? 'selected' : '' }}>
+                            {{$course->name}}
+                        </option>
                     </select>
                     @error('course_id')
                     <small class="form-control-feedback text-danger">{{ $message }}</small>
@@ -92,7 +90,7 @@
                 <div class="col-md-offset-3 col-md-9">
                     <button type="submit"
                             class="btn btn-linkedin">{{empty($courseSection->id) ? trans('common.save') : trans('common.update')}}</button>
-                    <a href="{{route('course-section.index')}}"
+                    <a href="{{route('course-section.show', [$course->id])}}"
                        class="btn btn-danger"> {{trans('common.cancel')}}</a>
                 </div>
             </div>

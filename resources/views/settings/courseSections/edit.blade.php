@@ -9,7 +9,10 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
                 <li class="breadcrumb-item"><a
-                            href="{{route('course-section.index')}}">{{trans('courseSections.courseSections')}}</a></li>
+                            href="{{route('course.index')}}">{{trans('courses.courses')}}</a></li>
+                <li class="breadcrumb-item"><a
+                            href="{{route('course-section.show', [$course->id])}}">{{trans('courseSections.courseSections')}}</a>
+                </li>
             </ol>
         </div>
     </div>

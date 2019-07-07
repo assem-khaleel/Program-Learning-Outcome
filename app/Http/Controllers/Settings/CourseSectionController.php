@@ -8,7 +8,10 @@ use App\Models\Settings\CourseSection;
 use App\Models\Settings\Semester;
 use App\Models\Settings\User;
 use App\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class CourseSectionController extends Controller
 {
@@ -44,30 +47,32 @@ class CourseSectionController extends Controller
         $this->semester = $semester;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        $courseSections = $this->courseSection->paginate(15);
 
-        return view('settings.courseSections.index')->with('courseSections', $courseSections);
+    /**
+     * @param $id
+     * @return Factory|View
+     */
+    public function show($id)
+    {
+        $courseSection = $this->courseSection->whereCourseId($id)->with('course')->paginate(15);
+        $course = $this->course->find($id);
+
+        return view('settings.courseSections.show')->with('courseSection', $courseSection)->with('course', $course);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param $courseId
      * @return Response
      */
-    public function create()
+    public function create($courseId)
     {
         $teachers = $this->user->all();
-        $courses = $this->course->all();
+        $course = $this->course->find($courseId);
         $semesters = $this->semester->all();
 
-        return view('settings.courseSections.create')->with('teachers', $teachers)->with('courses', $courses)->with('semesters', $semesters);
+        return view('settings.courseSections.create')->with('teachers', $teachers)->with('course', $course)->with('semesters', $semesters);
     }
 
     /**
@@ -80,23 +85,23 @@ class CourseSectionController extends Controller
     {
         $this->courseSection->create($request->all());
 
-        return redirect()->route('course-section.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
+        return redirect()->route('course-section.show', [$request->course_id])->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
     {
         $courseSection = $this->courseSection->find($id);
         $teachers = $this->user->all();
-        $courses = $this->course->all();
+        $course = $this->course->find($courseSection->course_id);
         $semesters = $this->semester->all();
 
-        return view('settings.courseSections.edit')->with('courseSection', $courseSection)->with('teachers', $teachers)->with('courses', $courses)->with('semesters', $semesters);
+        return view('settings.courseSections.edit')->with('courseSection', $courseSection)->with('teachers', $teachers)->with('course', $course)->with('semesters', $semesters);
     }
 
     /**
@@ -114,7 +119,7 @@ class CourseSectionController extends Controller
 
             $courseSection->update($request->all());
 
-            return redirect()->route('course-section.index')->with('message', ['type' => 'success', 'text' => trans('common.updateSuccess')]);
+            return redirect()->route('course-section.show', [$courseSection->course_id])->with('message', ['type' => 'success', 'text' => trans('common.updateSuccess')]);
         }
 
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('courseSections.notFoundCourseSection')]);
@@ -125,7 +130,7 @@ class CourseSectionController extends Controller
      *
      * @param int $id
      * @return Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy($id)
     {
@@ -133,7 +138,7 @@ class CourseSectionController extends Controller
 
         if (!empty($courseSection)) {
             $courseSection->delete();
-            return redirect()->route('course-section.index')->with('message', ['type' => 'success', 'text' => trans('common.successRemoved')]);
+            return redirect()->route('course-section.show', [$courseSection->course_id])->with('message', ['type' => 'success', 'text' => trans('common.successRemoved')]);
         }
 
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('courseSections.notFoundCourseSection')]);
