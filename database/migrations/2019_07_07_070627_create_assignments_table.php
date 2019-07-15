@@ -20,8 +20,8 @@ class CreateAssignmentsTable extends Migration
             $table->string('created_by');
             $table->longText('description_en');
             $table->longText('description_ar');
-            $table->bigInteger('course_id')->unsigned();
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->bigInteger('course_sections_id')->unsigned();
+            $table->foreign('course_sections_id')->references('id')->on('course_sections')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -63,8 +63,9 @@ class AssignmentController extends Controller
     public function create()
     {
         $courses = $this->course->all();
+        $course_scetions = $this->courseSection->all();
 
-        return view('settings.assignments.create')->with('courses',$courses);
+        return view('settings.assignments.create')->with('courses',$courses)->with('courseSections',$course_scetions);
 
     }
 

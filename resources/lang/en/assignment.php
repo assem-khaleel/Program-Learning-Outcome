@@ -7,7 +7,7 @@ return [
     'notFoundAssignment' => 'Not found Assignment',
     'selectAssignment' => 'Select Assignment',
     'course' => 'Course',
-    'selectCourse' => 'Select Course',
+    'selectCourse' => 'Select Course section',
     'descriptionEn' => 'Description English',
     'descriptionar' => 'Description Arabic',
     'publishSudents' => 'publish',

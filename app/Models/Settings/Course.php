@@ -51,4 +51,8 @@ class Course extends Model
     public function getNameAttribute() {
         return App::getLocale() == 'ar' ? $this->name_en : $this->name_en;
     }
+
+    public function courseSection(){
+        return $this->belongsTo(CourseSection::class);
+    }
 }
