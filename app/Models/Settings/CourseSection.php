@@ -39,5 +39,13 @@ class CourseSection extends Model
 {
     use SoftDeletes;
 
-    //
+    /**
+     * The students that belong to the course section.
+     */
+    public function students()
+    {
+        return $this->belongsToMany(Student::class,'course_section_student','course_section_id','student_id');
+    }
+
+
 }

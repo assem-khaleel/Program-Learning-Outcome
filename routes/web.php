@@ -29,6 +29,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'settings', 'namespace' => 'Settings'], function () {
 
+        Route::resource('assignment', 'AssignmentController');
+        Route::get('assignment-publish/{assignment_id?}', 'AssignmentController@publish');
+
+
         Route::resource('institution', 'InstitutionController')->except('destroy');
         Route::resource('user', 'UserController');
         Route::put('change-password/{userId}', 'UserController@changePassword')->name('users.changePassword');

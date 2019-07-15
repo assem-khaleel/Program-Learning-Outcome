@@ -220,6 +220,13 @@
                         <li><a href="#">item 1.4</a></li>
                     </ul>
                 </li>
+
+
+
+
+                <li> <a class="has-arrow waves-effect waves-dark" href="{{route('assignment.index')}}" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Assignments</span></a>
+                </li>
+
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

@@ -59,4 +59,8 @@ class Program extends Model
     public function department(){
         return $this->belongsTo(department::class);
     }
+
+    public function courseSection(){
+        return $this->hasMany(CourseSection::class);
+    }
 }
