@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Requests\Institutions\InstitutionRequest;
 use App\Models\Settings\Institution;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 
@@ -62,8 +61,8 @@ class InstitutionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return void
      */
     public function show($id)
     {
@@ -87,11 +86,11 @@ class InstitutionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param InstitutionRequest $request
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(InstitutionRequest $request, $id)
     {
         $institution = $this->institution->find($id);
 

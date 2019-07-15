@@ -33,7 +33,7 @@
 
         <div class="col-md-12">
             <div class="form-group row">
-                <label for="name_ar" class="control-label col-md-2">{{trans('semesters.startDate')}}</label>
+                <label for="start_date" class="control-label col-md-2">{{trans('semesters.startDate')}}</label>
                 <div class="col-md-10">
                     <input type="text"  class="form-control {{ $errors->has('start_date') ? 'is-invalid' : '' }}" id="start_date" name="start_date"
                            placeholder="mm/dd/yyyy"
@@ -47,7 +47,7 @@
 
         <div class="col-md-12">
             <div class="form-group row">
-                <label for="name_ar" class="control-label col-md-2">{{trans('semesters.endDate')}}</label>
+                <label for="end_date" class="control-label col-md-2">{{trans('semesters.endDate')}}</label>
                 <div class="col-md-10">
                     <input type="text"  class="form-control {{ $errors->has('end_date') ? 'is-invalid' : '' }}" id="end_date" name="end_date"
                            placeholder="mm/dd/yyyy"
@@ -81,7 +81,10 @@
     <!-- ============================================================== -->
 
 </div>
+@push('head')
+    <link href="{{asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css">
 
+@endpush
 @push('script')
     <!-- Sweet-Alert  -->
     <script src="{{asset('assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js')}}"></script>

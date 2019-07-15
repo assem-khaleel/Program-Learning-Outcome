@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Requests\Semesters\SemesterRequest;
 use App\Models\Settings\Semester;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 
@@ -57,17 +56,6 @@ class SemesterController extends Controller
         $this->semester->create($request->all());
 
         return redirect()->route('semester.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

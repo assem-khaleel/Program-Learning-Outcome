@@ -14,8 +14,9 @@ return [
     */
 
     'institution' => 'institution',
+    'institutions' => 'institutions',
     'createInstitution' => 'Create institution',
-    'thereAreNoInstitution' => 'There Are No institution',
+    'thereAreNoInstitutions' => 'There Are No institutions',
     'notFoundInstitution' => 'Not found institution',
     'nameEn' => 'Name (En)',
     'nameAr' => 'Name (Ar)',

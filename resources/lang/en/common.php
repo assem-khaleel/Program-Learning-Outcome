@@ -32,5 +32,11 @@ return [
     'actions' => 'Actions',
     'name' => 'Name',
     'logout' => 'Logout',
+    'code' => 'Code',
+    'teacher' => 'Teacher',
+    'course' => 'Course',
+    'semester' => 'Semester',
+    'descriptionEn' => 'Description (En)',
+    'descriptionAr' => 'Description (Ar)',
 
 ];

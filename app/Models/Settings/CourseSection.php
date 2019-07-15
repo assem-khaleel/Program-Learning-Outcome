@@ -34,18 +34,34 @@ use Illuminate\Support\Carbon;
  * @method static Builder|CourseSection withTrashed()
  * @method static Builder|CourseSection withoutTrashed()
  * @mixin Eloquent
+ * @property string $code
+ * @property int $teacher_id
+ * @method static \Illuminate\Database\Eloquent\Builder|CourseSection whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CourseSection whereTeacherId($value)
+ * @property-read Course $course
+ * @property-read Semester $semester
+ * @property-read User $teacher
  */
 class CourseSection extends Model
 {
     use SoftDeletes;
 
     /**
-     * The students that belong to the course section.
+     * The attributes that are mass assignable.
+     *
+     * @var array
      */
-    public function students()
-    {
-        return $this->belongsToMany(Student::class,'course_section_student','course_section_id','student_id');
+    protected $fillable = ['code', 'teacher_id', 'course_id', 'semester_id'];
+
+    public function course(){
+        return $this->belongsTo(Course::class);
     }
 
+    public function teacher(){
+        return $this->belongsTo(User::class);
+    }
 
+    public function semester(){
+        return $this->belongsTo(Semester::class);
+    }
 }

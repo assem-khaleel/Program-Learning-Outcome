@@ -4,6 +4,7 @@ namespace App\Models\Settings;
 
 use App;
 use Eloquent;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
@@ -33,6 +34,8 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|Course whereUpdatedAt($value)
  * @method static Builder|Course withTrashed()
  * @method static Builder|Course withoutTrashed()
+ * @property-read string $name
+ * @property-read Collection|CourseSection[] $courseSection
  */
 class Course extends Model
 {
@@ -49,7 +52,11 @@ class Course extends Model
      * @return string
      */
     public function getNameAttribute() {
-        return App::getLocale() == 'ar' ? $this->name_en : $this->name_en;
+        return App::getLocale() == 'ar' ? $this->name_ar : $this->name_en;
+    }
+
+    public function courseSection(){
+        return $this->hasMany(CourseSection::class);
     }
 
     public function courseSection(){

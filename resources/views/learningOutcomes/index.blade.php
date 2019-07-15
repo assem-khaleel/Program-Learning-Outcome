@@ -16,7 +16,8 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
                 <li class="breadcrumb-item"><a
-                            href="{{route('institution.index')}}">{{trans('institutions.institutions')}}</a></li>
+                            href="{{route('learning-outcome.index')}}">{{trans('learningOutcome.learningOutcomes')}}</a>
+                </li>
             </ol>
         </div>
     </div>
@@ -35,17 +36,18 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title pull-left">{{trans('institutions.institutions') }} </h4>
-                        <a href="{{route('institution.create')}}" class="pull-right btn-sm btn btn-info"
+                        <h4 class="card-title pull-left">{{trans('learningOutcome.learningOutcomes') }} </h4>
+                        <a href="{{route('learning-outcome.create')}}" class="pull-right btn-sm btn btn-info"
                            type="button"><span class="btn-label"><i
-                                        class="fa fa-plus"></i></span> {{trans('institutions.createInstitution')}}</a>
+                                        class="fa fa-plus"></i></span> {{trans('learningOutcome.createLearningOutcome')}}
+                        </a>
                     </div>
                     <div class="card-body">
 
-                        @if ($institutions->isEmpty())
+                        @if ($learningOutcomes->isEmpty())
                             <div class="bd-footer">
                                 <div class="text-center">
-                                    <h5>{{trans('institutions.thereAreNoInstitutions')}}</h5>
+                                    <h5>{{trans('learningOutcome.thereAreNoLearningOutcomes')}}</h5>
                                 </div>
                             </div>
                         @else
@@ -55,37 +57,42 @@
                                     <tr>
                                         <th>{{trans('common.nameEn') }}</th>
                                         <th>{{trans('common.nameAr') }}</th>
+                                        <th>{{trans('common.descriptionEn') }}</th>
+                                        <th>{{trans('common.descriptionAr') }}</th>
+                                        <th>{{trans('programs.program') }}</th>
                                         <th class="text-nowrap text-center">{{trans('common.actions')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($institutions as $institution)
+                                    @foreach($learningOutcomes as $learningOutcome)
                                         <tr>
 
-                                            <td>{{$institution->name_en}}</td>
-                                            <td>{{$institution->name_ar}}</td>
-
+                                            <td>{{$learningOutcome->name_en}}</td>
+                                            <td>{{$learningOutcome->name_ar}}</td>
+                                            <td>{{$learningOutcome->description_en}}</td>
+                                            <td>{{$learningOutcome->description_ar}}</td>
+                                            <td>{{$learningOutcome->program->name}}</td>
 
                                             <td class="text-nowrap text-center">
-                                                <a href="{{route('institution.edit', [$institution->id])}}"
+                                                <a href="{{route('learning-outcome.edit', [$learningOutcome->id])}}"
                                                    data-toggle="tooltip"
                                                    data-original-title="{{trans('common.edit')}}"><i
                                                             class="fa fa-edit"
                                                             style="margin: 5px"></i></a>
 
-{{--                                                <a href="javascript:void(0);" class="sa-warning"--}}
-{{--                                                   data-id="{{ $institution->id }}"--}}
-{{--                                                   data-toggle="tooltip"--}}
-{{--                                                   data-original-title="{{trans('common.delete')}}"><i--}}
-{{--                                                            class="fa fa-trash"--}}
-{{--                                                            style="margin: 5px"></i></a>--}}
+                                                <a href="javascript:void(0);" class="sa-warning"
+                                                   data-id="{{ $learningOutcome->id }}"
+                                                   data-toggle="tooltip"
+                                                   data-original-title="{{trans('common.delete')}}"><i
+                                                            class="fa fa-trash"
+                                                            style="margin: 5px"></i></a>
 
-{{--                                                <form style="display: inline-block;" method="POST"--}}
-{{--                                                      id="id-{{ $institution->id }}"--}}
-{{--                                                      action="{{route('institution.destroy', $institution->id)}}">--}}
-{{--                                                    @method('DELETE')--}}
-{{--                                                    @csrf--}}
-{{--                                                </form>--}}
+                                                <form style="display: inline-block;" method="POST"
+                                                      id="id-{{ $learningOutcome->id }}"
+                                                      action="{{route('learning-outcome.destroy', $learningOutcome->id)}}">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -96,7 +103,7 @@
                     </div>
                     <div class="card-footer text-center">
                         <div class="btn-group mr-2" role="group" aria-label="First group">
-                            {{$institutions->links()}}
+                            {{$learningOutcomes->links()}}
                         </div>
                     </div>
                 </div>

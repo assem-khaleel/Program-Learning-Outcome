@@ -33,7 +33,7 @@
 
         <div class="col-md-12">
             <div class="form-group row">
-                <label for="description_en" class="control-label col-md-2">{{trans('institutions.descriptionAr')}}</label>
+                <label for="description_en" class="control-label col-md-2">{{trans('institutions.descriptionEn')}}</label>
                 <div class="col-md-10">
                     <textarea id="description_en" name="description_en"
                               class="form-control {{ $errors->has('description_en') ? 'is-invalid' : '' }}"

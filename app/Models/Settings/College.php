@@ -4,6 +4,7 @@ namespace App\Models\Settings;
 
 use App;
 use Eloquent;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
@@ -34,7 +35,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|College whereUpdatedAt($value)
  * @method static Builder|College withTrashed()
  * @method static Builder|College withoutTrashed()
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Settings\Department[] $departments
+ * @property-read Collection|Department[] $departments
  */
 class College extends Model
 {
@@ -51,7 +52,7 @@ class College extends Model
      * @return string
      */
     public function getNameAttribute() {
-        return App::getLocale() == 'ar' ? $this->name_en : $this->name_en;
+        return App::getLocale() == 'ar' ? $this->name_ar : $this->name_en;
     }
 
     public function departments(){
