@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('assignment', 'AssignmentController');
         Route::get('assignment-publish/{assignment_id?}', 'AssignmentController@publish');
 
+        Route::get('assignment/publish/{id}', 'AssignmentController@toogle')->name('publish');
 
         Route::resource('institution', 'InstitutionController')->except('destroy');
         Route::resource('user', 'UserController');

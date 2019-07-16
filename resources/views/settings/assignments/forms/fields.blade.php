@@ -5,17 +5,17 @@
             <div class="form-group row">
                 <label class="control-label col-md-2">{{trans('courses.courses')}}</label>
                 <div class="col-md-10">
-                    <select class="select2 form-control custom-select" style="width: 100%; height:36px;" name="section_id"
+                    <select class="select2 form-control custom-select" style="width: 100%; height:36px;" name="course_sections_id"
                             data-placeholder="{{trans('assignment.selectCourse')}}">
                         <option value="">{{trans('assignment.selectCourse')}}</option>
                         @foreach($courseSections as $section)
                             <option value="{{$section->id}}"
-                                    {{old('section_id') == $section->id || !empty($assignment->course_sections_id) && ($section->id == $assignment->course_sections_id) ? 'selected' : '' }}>
-                                {{$section->name.'-'. " "}}  {{$section->course_id}}
+                                    {{old('course_sections_id') == $section->id || !empty($assignment->course_sections_id) && ($section->id == $assignment->course_sections_id) ? 'selected' : '' }}>
+                                {{$section->code." ". '-'. " "}}  {{$section->course->name}}
                             </option>
                         @endforeach
                     </select>
-                    @error('course_id')
+                    @error('course_sections_id')
                     <small class="form-control-feedback text-danger">{{ $message }}</small>
                     @enderror
                 </div>

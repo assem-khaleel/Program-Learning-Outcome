@@ -65,7 +65,7 @@
 
                                             <td>{{$assignment->name_en}}</td>
                                             <td>{{$assignment->name_ar}}</td>
-                                            <td>{{$assignment->course->name}}</td>
+                                            <td>{{$assignment->courseSection->course->name ?? '-'}}</td>
 
                                             <td class="text-nowrap text-center">
                                                 <a href="{{route('assignment.edit', [$assignment->id])}}"
@@ -88,12 +88,22 @@
                                                     @csrf
                                                 </form>
 
-                                                <a  class="share-assignment"
+                                                <a href="{{route('publish', $assignment->id)}}" class="share-assignment" name="published"
                                                    data-toggle="tooltip"
                                                    data-id-upload="{{ $assignment->id }}"
                                                    data-original-title="{{trans('assignment.publishSudents')}}"><i
                                                             class="fa fa-upload"
                                                             style="margin: 5px"></i></a>
+
+                                                @if($assignment->published)
+
+                                                <a  class="share-assignment"
+                                                    data-toggle="tooltip"
+                                                    data-id-upload="{{ $assignment->id }}"
+                                                    data-original-title="{{trans('assignment.evaluate')}}"><i
+                                                            class="fa fa-check"
+                                                            style="margin: 5px"></i></a>
+                                                    @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -127,32 +137,32 @@
     @push('script')
 <script>
 
-        $(".share-assignment").click(function (e) {
-            e.preventDefault();
-
-            var $modal = $('#assignment-publish-modal');
-
-            var assignment_id = $(this).data('id-upload');
-            var course_id = $(this).data('id-upload');
-
-            $modal.find('#publish-form').empty();
-            $.ajax({
-                url: '/assignment-publish/'+assignment_id,
-                dataType:'json',
-                success: function (e) {
-                    console.log(e.length);
-                    if(e.length===0){
-                        $modal.find('#publish-form').append('<div class="col-lg-12 text-center h1">There is no assignment</div>');
-                    }else{
-                        $('#publish-form').html(e.html);
-                        $('#assignment-publish-modal').modal('show');
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
-        });
+        // $(".share-assignment").click(function (e) {
+        //     e.preventDefault();
+        //
+        //     var $modal = $('#assignment-publish-modal');
+        //
+        //     var assignment_id = $(this).data('id-upload');
+        //     var course_id = $(this).data('id-upload');
+        //
+        //     $modal.find('#publish-form').empty();
+        //     $.ajax({
+        //         url: '/assignment-publish/'+assignment_id,
+        //         dataType:'json',
+        //         success: function (e) {
+        //             console.log(e.length);
+        //             if(e.length===0){
+        //                 $modal.find('#publish-form').append('<div class="col-lg-12 text-center h1">There is no assignment</div>');
+        //             }else{
+        //                 $('#publish-form').html(e.html);
+        //                 $('#assignment-publish-modal').modal('show');
+        //             }
+        //         },
+        //         error: function (e) {
+        //             console.log(e);
+        //         }
+        //     });
+        // });
 
 </script>
 

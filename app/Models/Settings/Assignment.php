@@ -16,7 +16,7 @@ class Assignment extends Model
      *
      * @var array
      */
-    protected $fillable = ['name_en', 'name_ar','course_id','description_en','description_ar','created_by'];
+    protected $fillable = ['name_en', 'name_ar','course_id','description_en','description_ar','course_sections_id','created_by','published'];
 
     /**
      * @return string
@@ -32,8 +32,8 @@ class Assignment extends Model
         return App::getLocale() == 'ar' ? $this->description_ar : $this->description_en;
     }
 
-    public function course(){
-        return $this->belongsTo(Course::class);
+    public function courseSection(){
+        return $this->belongsTo(CourseSection::class);
     }
 
     public function students()

@@ -61,6 +61,10 @@ class CourseSection extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function assignments(){
+        return $this->hasMany(Assignment::class);
+    }
+
     public function semester(){
         return $this->belongsTo(Semester::class);
     }

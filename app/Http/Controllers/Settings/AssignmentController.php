@@ -21,7 +21,7 @@ class AssignmentController extends Controller
 {
 
     /**
-     * @var Assignment
+     * @var Assignment $assignment
      * @var Course
 
      */
@@ -78,6 +78,8 @@ class AssignmentController extends Controller
     public function store(AssignmentRequest $request)
     {
 
+
+
         $request['created_by'] = Auth::user()->id;
 
         $this->assignment->create($request->all());
@@ -105,10 +107,11 @@ class AssignmentController extends Controller
     public function edit($id)
     {
         $assignment = $this->assignment->find($id);
+        $course_scetions = $this->courseSection->all();
 
         $courses = $this->course->all();
 
-        return view('settings.assignments.edit')->with('courses', $courses)->with('assignment', $assignment);
+        return view('settings.assignments.edit')->with('courses', $courses)->with('assignment', $assignment)->with('courseSections',$course_scetions);
     }
 
     /**
@@ -141,7 +144,17 @@ class AssignmentController extends Controller
     public function destroy($id)
     {
 
+        $assignment = $this->assignment->find($id);
+
+        if (!empty($assignment)) {
+            $assignment->delete();
+            return redirect()->route('assignment.index')->with('message', ['type' => 'success', 'text' => trans('common.successRemoved')]);
+        }
+
+        return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);
+
     }
+
 
     public function publish(Assignment $assignment,CourseSection $courseSection,$id,Student $student,Request $request)
     {
@@ -159,4 +172,23 @@ class AssignmentController extends Controller
 
 
 
+    public function toogle($id)
+    {
+        $assignment = $this->assignment->findOrFail($id);
+
+        $assignment->published = !$assignment->published;
+
+        $assignment->save();
+
+        if ($assignment->published) {
+
+            return redirect()->back()->with('message', ['type' => 'success', 'text' => trans('common.updatePublished')]);
+        } else{
+            return redirect()->back()->with('message', ['type' => 'success', 'text' => trans('common.updateUNPublished')]);
+
+        }
+
     }
+
+
+}

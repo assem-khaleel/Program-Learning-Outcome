@@ -12,4 +12,6 @@ return [
     'descriptionar' => 'Description Arabic',
     'publishSudents' => 'publish',
     'shareAssignment' => 'Share Assignment',
+    'evaluate' => 'Evaluate',
+
 ];

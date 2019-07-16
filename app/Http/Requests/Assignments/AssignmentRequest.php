@@ -43,15 +43,17 @@ class AssignmentRequest extends FormRequest
                     return [];
                 }
             case 'POST':
-                $this->rules['name_en'] = 'required|unique:assignments,name_en,0,id,course_id,' . $this->course_id;
-                $this->rules['name_ar'] = 'required|unique:assignments,name_ar,0,id,course_id,' . $this->course_id;
+                $this->rules['name_en'] = 'required';
+                $this->rules['course_sections_id'] = "required|exists:course_sections,id";
+                $this->rules['name_ar'] = 'required';
                 $this->rules['created_by'] =   'nullable|numeric';
 
                 break;
             case 'PATCH':
             case 'PUT':
-            $this->rules['name_en'] = "required|unique:assignments,name_en,$this->assignment,id,course_id," . $this->course_id;
-            $this->rules['name_ar'] =  "required|unique:assignments,name_ar,$this->assignment,id,course_id," . $this->course_id;
+            $this->rules['name_en'] = 'required';
+            $this->rules['course_sections_id'] = "required|exists:course_sections,id";
+            $this->rules['name_ar'] =  'required';
             $this->rules['created_by'] =   'nullable|numeric';
 
             break;
