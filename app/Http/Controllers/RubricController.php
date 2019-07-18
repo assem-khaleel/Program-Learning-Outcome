@@ -358,6 +358,7 @@ class RubricController extends Controller
 
     /**
      * @param Request $request
+     * @param $id
      * @return JsonResponse
      * @throws Exception
      */
@@ -389,6 +390,7 @@ class RubricController extends Controller
 
     /**
      * @param Request $request
+     * @param $id
      * @return JsonResponse
      * @throws Exception
      */
