@@ -21,6 +21,8 @@ return [
     'successRemoved' => 'Successfully Removed !',
     'saveSuccess' => 'Saved successfully',
     'updateSuccess' => 'Successfully updated',
+    'updatePublished' => 'Successfully Published',
+    'updateUNPublished' => 'Successfully Unpublished',
     'update' => 'Update',
     'updateAndClose' => 'Update & Close',
     'updateAndContinue' => 'Update & Continue',

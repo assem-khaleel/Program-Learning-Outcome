@@ -2,13 +2,14 @@
 
 namespace App\Models\Settings;
 
-use App;
-use Eloquent;
+
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
+
 
 /**
  * App\Course
@@ -58,4 +59,5 @@ class Course extends Model
     public function courseSection(){
         return $this->hasMany(CourseSection::class);
     }
+
 }
