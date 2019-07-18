@@ -122,7 +122,6 @@ class RubricController extends Controller
     {
         $rubric = $this->rubric->with(['rubricIndicators', 'rubricLevels'])->find($id);
 
-
         return view('rubrics.edit')->with('rubric', $rubric);
     }
 
@@ -161,7 +160,6 @@ class RubricController extends Controller
 
                 } else {
 
-
                     $level = $this->levels->create(['level' => $level, 'rubric_id' => $rubric->id, 'order' => $request->orderLevel[$key]]);
                     $levelsID[$key] = $level->id;
 
@@ -180,7 +178,6 @@ class RubricController extends Controller
                     $indicatorId = $indicator->id;
                 }
 
-
                 foreach ($request->levels as $levelKey => $level) {
                     if (!empty($request->descriptionIds[$indicatorKey][$levelKey])) {
                         $descriptionId = $request->descriptionIds[$indicatorKey][$levelKey];
@@ -193,7 +190,6 @@ class RubricController extends Controller
                 }
 
             }
-
 
             return redirect()->route('rubric.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
 
@@ -350,7 +346,6 @@ class RubricController extends Controller
 
             }
         }
-
 
         return redirect()->route('rubric.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
 
