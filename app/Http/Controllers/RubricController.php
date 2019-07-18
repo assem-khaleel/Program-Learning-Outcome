@@ -363,6 +363,10 @@ class RubricController extends Controller
      */
     public function deleteColumn(Request $request, $id)
     {
+        if (!$request->ajax()) {
+            return redirect()->route('home');
+        }
+
         $rubric = $this->rubric->find($id);
         /**  Delete Level*/
         $checkLevelDelete = $rubric->rubricLevels->pluck('id')->diff($request->levelIds);
@@ -389,6 +393,10 @@ class RubricController extends Controller
      */
     public function deleteRow(Request $request, $id)
     {
+        if (!$request->ajax()) {
+            return redirect()->route('home');
+        }
+
         $rubric = $this->rubric->find($id);
         /**  Delete Indicator*/
         $checkIndicatorDelete = $rubric->rubricIndicators->pluck('id')->diff($request->indicatorIds);
