@@ -4,6 +4,9 @@ namespace App\Http\Requests\Colleges;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed college
+ */
 class CollegeRequest extends FormRequest
 {
     protected $rules = [

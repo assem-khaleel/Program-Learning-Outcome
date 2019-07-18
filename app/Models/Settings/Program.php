@@ -4,6 +4,7 @@ namespace App\Models\Settings;
 
 use App;
 use Eloquent;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
@@ -38,7 +39,7 @@ use App\Models\LearningOutcome;
  * @method static Builder|Program withoutTrashed()
  * @property-read string $name
  * @property-read Department $department
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\LearningOutcome[] $learningOutcome
+ * @property-read Collection|LearningOutcome[] $learningOutcome
  */
 class Program extends Model
 {

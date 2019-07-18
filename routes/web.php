@@ -43,7 +43,15 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::resource('learning-outcome', 'LearningOutcomeController');
-
-
+    Route::resource('rubric', 'RubricController');
+    Route::post('rubric/{rubric}', 'RubricController@storeRubric')->name('rubric.storeRubric');
+    Route::get('draw-rubric/{rows}/{columns}/{rubricId}', 'RubricController@drawRubric')->name('rubric.draw');
+    Route::post('add-row', 'RubricController@addRow')->name('rubric.row');
+    Route::post('add-column', 'RubricController@addColumn')->name('rubric.column');
+    Route::post('store-draw-rubric', 'RubricController@storeDrawRubric')->name('rubric.storeDrawRubric');
+    Route::put('add-row/{rubric}', 'RubricController@addRowUpdate')->name('rubric.rowUpdate');
+    Route::put('add-column/{rubric}', 'RubricController@addColumnUpdate')->name('rubric.columnUpdate');
+    Route::put('delete-row/{rubric}', 'RubricController@deleteRow')->name('rubric.deleteRow');
+    Route::put('delete-column/{rubric}', 'RubricController@deleteColumn')->name('rubric.deleteColumn');
 });
 Auth::routes();

@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Programs Language Lines
+    | Rubrics Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during authentication for various
@@ -13,13 +13,13 @@ return [
     |
     */
 
-    'programs' => 'Programs',
-    'createProgram' => 'Create Program',
-    'thereAreNoPrograms' => 'There Are No Programs',
-    'notFoundProgram' => 'Not found Program',
-    'department' => 'Department',
-    'selectDepartment' => 'Select Department',
-    'selectProgram' => 'Select Program',
-    'program' => 'Program',
+    'rubrics' => 'Rubrics',
+    'createRubric' => 'Create Rubric',
+    'thereAreNoRubrics' => 'There Are No Rubrics',
+    'notFoundRubric' => 'Not found Rubric',
+    'Rubric' => 'Rubric',
+    'selectRubric' => 'Select Rubric',
+    'theTotalScoreMustBe100' => 'The total score must be 100.',
+    'editRubric' => 'Edit Rubric',
 
 ];

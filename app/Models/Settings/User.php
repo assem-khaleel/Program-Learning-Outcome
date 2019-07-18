@@ -3,6 +3,7 @@
 namespace App\Models\Settings;
 
 use App\model\File;
+use App\Models\Rubric;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,7 +22,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
  * @method static Builder|User query()
- * @mixin Eloquent
  * @property int $id
  * @property string $name
  * @property string $email
@@ -47,6 +47,8 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  * @property-read File $image
  * @property-read Collection|CourseSection[] $courseSection
+ * @property-read Collection|Rubric[] $rubric
+ * @mixin \Eloquent
  */
 class User extends Authenticatable
 {
@@ -89,5 +91,9 @@ class User extends Authenticatable
 
     public function courseSection(){
         return $this->hasMany(CourseSection::class);
+    }
+
+    public function rubric(){
+        return $this->hasMany(Rubric::class, 'created_by');
     }
 }
