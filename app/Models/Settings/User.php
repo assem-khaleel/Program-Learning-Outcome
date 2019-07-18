@@ -49,6 +49,7 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|CourseSection[] $courseSection
  * @property-read Collection|Rubric[] $rubric
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Settings\Assignment[] $assignment
  */
 class User extends Authenticatable
 {
@@ -85,15 +86,22 @@ class User extends Authenticatable
 
     public function image()
     {
-        return $this->morphOne(File::class,'fileable');
+        return $this->morphOne(File::class, 'fileable');
 
     }
 
-    public function courseSection(){
+    public function courseSection()
+    {
         return $this->hasMany(CourseSection::class);
     }
 
-    public function rubric(){
+    public function rubric()
+    {
         return $this->hasMany(Rubric::class, 'created_by');
+    }
+
+    public function assignment()
+    {
+        return $this->hasMany(Assignment::class, 'created_by');
     }
 }

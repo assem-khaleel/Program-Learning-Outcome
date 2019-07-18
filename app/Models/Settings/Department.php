@@ -54,15 +54,18 @@ class Department extends Model
     /**
      * @return string
      */
-    public function getNameAttribute() {
+    public function getNameAttribute()
+    {
         return App::getLocale() == 'ar' ? $this->name_ar : $this->name_en;
     }
 
-    public function college(){
+    public function college()
+    {
         return $this->belongsTo(College::class);
     }
 
-    public function programs(){
+    public function programs()
+    {
         return $this->hasMany(Program::class);
     }
 }

@@ -55,15 +55,18 @@ class Program extends Model
     /**
      * @return string
      */
-    public function getNameAttribute() {
+    public function getNameAttribute()
+    {
         return App::getLocale() == 'ar' ? $this->name_ar : $this->name_en;
     }
 
-    public function department(){
+    public function department()
+    {
         return $this->belongsTo(department::class);
     }
 
-    public function learningOutcome(){
+    public function learningOutcome()
+    {
         return $this->hasMany(LearningOutcome::class);
     }
 }

@@ -55,19 +55,23 @@ class CourseSection extends Model
      */
     protected $fillable = ['code', 'teacher_id', 'course_id', 'semester_id'];
 
-    public function course(){
+    public function course()
+    {
         return $this->belongsTo(Course::class);
     }
 
-    public function teacher(){
+    public function teacher()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function assignments(){
+    public function assignments()
+    {
         return $this->hasMany(Assignment::class);
     }
 
-    public function semester(){
+    public function semester()
+    {
         return $this->belongsTo(Semester::class);
     }
 }

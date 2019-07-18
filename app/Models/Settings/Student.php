@@ -50,7 +50,7 @@ class Student extends Model
      *
      * @var array
      */
-    protected $fillable = ['name_en','program_id','student_no'];
+    protected $fillable = ['name_en', 'program_id', 'student_no'];
 
 
     /**
@@ -58,16 +58,17 @@ class Student extends Model
      */
     public function CourseSections()
     {
-        return $this->belongsToMany(CourseSection::class,'course_section_student','course_section_id','student_id');
+        return $this->belongsToMany(CourseSection::class, 'course_section_student', 'course_section_id', 'student_id');
     }
 
     public function assignments()
     {
-        return $this->belongsToMany(Assignment::class,'assignment_student','assignment_id','student_id');
+        return $this->belongsToMany(Assignment::class, 'assignment_student', 'assignment_id', 'student_id');
     }
 
 
-    public function program(){
+    public function program()
+    {
         return $this->belongsTo(Program::class);
     }
 

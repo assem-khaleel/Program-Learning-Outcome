@@ -38,7 +38,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|RubricLevels whereRubricId($value)
  * @property int $order
  * @method static \Illuminate\Database\Eloquent\Builder|RubricLevels whereOrder($value)
- * @property-read \App\Models\Rubric $rubric
+ * @property-read Rubric $rubric
  */
 class RubricLevels extends Model
 {
@@ -54,7 +54,8 @@ class RubricLevels extends Model
     /**
      * @return BelongsTo
      */
-    public function rubric(){
+    public function rubric()
+    {
         return $this->belongsTo(Rubric::class);
     }
 

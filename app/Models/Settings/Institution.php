@@ -66,28 +66,32 @@ class Institution extends Model
     /**
      * @return string
      */
-    public function getNameAttribute() {
+    public function getNameAttribute()
+    {
         return App::getLocale() == 'ar' ? $this->name_ar : $this->name_en;
     }
 
     /**
      * @return string
      */
-    public function getDescriptionAttribute() {
+    public function getDescriptionAttribute()
+    {
         return App::getLocale() == 'ar' ? $this->description_ar : $this->description_en;
     }
 
     /**
      * @return string
      */
-    public function getVisionAttribute() {
+    public function getVisionAttribute()
+    {
         return App::getLocale() == 'ar' ? $this->vision_ar : $this->vision_en;
     }
 
     /**
      * @return string
      */
-    public function getMissionAttribute() {
+    public function getMissionAttribute()
+    {
         return App::getLocale() == 'ar' ? $this->mission_ar : $this->mission_en;
     }
 }

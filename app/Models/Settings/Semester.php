@@ -57,11 +57,13 @@ class Semester extends Model
     /**
      * @return string
      */
-    public function getNameAttribute() {
+    public function getNameAttribute()
+    {
         return App::getLocale() == 'ar' ? $this->name_ar : $this->name_en;
     }
 
-    public function courseSection(){
+    public function courseSection()
+    {
         return $this->hasMany(CourseSection::class);
     }
 }
