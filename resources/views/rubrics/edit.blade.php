@@ -97,7 +97,7 @@
             }
         });
         var columnCount = 0;
-            $("#remove_column").click( function() {
+        $('body').on('click', 'input.deleteColumn', function () {
                 var columnCount = $("#rubric-table").find('tr')[0].cells.length;
             if (columnCount > 2) {
                 var index = $(this).parents('th').index() + 1;

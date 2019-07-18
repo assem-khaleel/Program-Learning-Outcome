@@ -71,7 +71,7 @@
                                 <div class="col-md-12">
                                     <input id="level-{{$columnLevel}}" name="levels[{{$columnLevel}}]" type="text"
                                            class="form-control {{ $errors->has('level') ? 'is-invalid' : '' }} form-control-sm"
-                                           placeholder="{{trans('common.level').' '.$columns}}"
+                                           placeholder="{{trans('common.level').' '.++$count}}"
                                            value="{{ old('levels.'.$columnLevel)  }}">
                                     @error('levels.'.$columnLevel)
                                     <small class="form-control-feedback text-white"> {{ $message }} </small>
@@ -82,7 +82,7 @@
                                     <input id="orderLevel-{{$columnLevel}}" name="orderLevel[{{$columnLevel}}]"
                                            type="text"
                                            class="form-control {{ $errors->has('orderLevel') ? 'is-invalid' : '' }} form-control-sm"
-                                           placeholder="{{trans('common.order').' '.$columns}}"
+                                           placeholder="{{trans('common.order').' '.$count}}"
                                            value="{{ old('orderLevel.'.$columnLevel)  }}">
                                     @error('orderLevel.'.$columnLevel)
                                     <small class="form-control-feedback text-white"> {{ $message }} </small>
