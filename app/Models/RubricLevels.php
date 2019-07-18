@@ -38,6 +38,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|RubricLevels whereRubricId($value)
  * @property int $order
  * @method static \Illuminate\Database\Eloquent\Builder|RubricLevels whereOrder($value)
+ * @property-read \App\Models\Rubric $rubric
  */
 class RubricLevels extends Model
 {

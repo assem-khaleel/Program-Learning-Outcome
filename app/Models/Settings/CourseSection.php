@@ -3,6 +3,7 @@
 namespace App\Models\Settings;
 
 use Eloquent;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
@@ -41,6 +42,7 @@ use Illuminate\Support\Carbon;
  * @property-read Course $course
  * @property-read Semester $semester
  * @property-read User $teacher
+ * @property-read Collection|Assignment[] $assignments
  */
 class CourseSection extends Model
 {
