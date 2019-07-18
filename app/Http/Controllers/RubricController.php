@@ -368,16 +368,17 @@ class RubricController extends Controller
         }
 
         $rubric = $this->rubric->find($id);
-        /**  Delete Level*/
-        $checkLevelDelete = $rubric->rubricLevels->pluck('id')->diff($request->levelIds);
-
-        if (!empty($checkLevelDelete)) {
-            foreach ($checkLevelDelete as $deleteLevel) {
-                $deletedLevel = $this->levels->find($deleteLevel);
-                if (!empty($deletedLevel)) {
-                    $deletedLevel->delete();
-                    foreach ($deletedLevel->rubricCells as $deletedCell) {
-                        $deletedCell->delete();
+        if(!empty($rubric)){
+            /**  Delete Level*/
+            $checkLevelDelete = $rubric->rubricLevels->pluck('id')->diff($request->levelIds);
+            if (!empty($checkLevelDelete)) {
+                foreach ($checkLevelDelete as $deleteLevel) {
+                    $deletedLevel = $this->levels->find($deleteLevel);
+                    if (!empty($deletedLevel)) {
+                        $deletedLevel->delete();
+                        foreach ($deletedLevel->rubricCells as $deletedCell) {
+                            $deletedCell->delete();
+                        }
                     }
                 }
             }
@@ -399,15 +400,17 @@ class RubricController extends Controller
 
         $rubric = $this->rubric->find($id);
         /**  Delete Indicator*/
-        $checkIndicatorDelete = $rubric->rubricIndicators->pluck('id')->diff($request->indicatorIds);
-        if (!empty($checkIndicatorDelete)) {
-            foreach ($checkIndicatorDelete as $deleteIndicator) {
-                $deletedIndicator = $this->indicators->find($deleteIndicator);
-                if (!empty($deletedIndicator)) {
-                    $deletedIndicator->delete();
-                    foreach ($deletedIndicator->rubricCells as $deleteCell) {
-                        $deleteCell->delete();
+        if(!empty($rubric)){
+            $checkIndicatorDelete = $rubric->rubricIndicators->pluck('id')->diff($request->indicatorIds);
+            if (!empty($checkIndicatorDelete)) {
+                foreach ($checkIndicatorDelete as $deleteIndicator) {
+                    $deletedIndicator = $this->indicators->find($deleteIndicator);
+                    if (!empty($deletedIndicator)) {
+                        $deletedIndicator->delete();
+                        foreach ($deletedIndicator->rubricCells as $deleteCell) {
+                            $deleteCell->delete();
 
+                        }
                     }
                 }
             }
