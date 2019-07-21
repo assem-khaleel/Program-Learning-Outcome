@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Departments Language Lines
+    | Programs Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during authentication for various

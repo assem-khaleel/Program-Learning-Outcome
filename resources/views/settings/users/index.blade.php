@@ -106,48 +106,5 @@
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
-    @push('head')
-        <link href="{{asset('plugins/sweetalert/sweetalert.css')}}" rel="stylesheet" type="text/css">
 
-    @endpush
-    @push('script')
-        <!-- Sweet-Alert  -->
-        <script src="{{asset('plugins/sweetalert/sweetalert.min.js')}}"></script>
-        <script>
-            //Warning Message
-            !function ($) {
-                "use strict";
-
-                var SweetAlert = function () {
-                };
-                //examples
-                SweetAlert.prototype.init = function () {
-                    //Warning Message
-                    $('.sa-warning').click(function () {
-                        var that = $(this);
-                        swal({
-                            title: "{{trans('users.areYouSure')}}",
-                            type: "warning",
-                            showCancelButton: true,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "{{trans('users.yesDeleteIt')}}",
-                            closeOnConfirm: false
-                        }, function () {
-                            console.log(that);
-                            var userId = that.data('id');
-                            $('#user-' + userId).submit();
-                        });
-                    });
-                },
-                    //init
-                    $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert
-            }(window.jQuery),
-
-//initializing
-                function ($) {
-                    "use strict";
-                    $.SweetAlert.init()
-                }(window.jQuery);
-        </script>
-    @endpush
 @endsection

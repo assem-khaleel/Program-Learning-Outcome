@@ -18,4 +18,6 @@ return [
     'thereAreNoColleges' => 'There Are No Colleges',
     'notFoundCollege' => 'Not found college',
     'selectCollege' => 'Select College',
+    'college' => 'College',
+
 ];

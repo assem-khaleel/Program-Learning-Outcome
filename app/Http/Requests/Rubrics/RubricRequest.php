@@ -1,15 +1,21 @@
 <?php
 
-namespace App\Http\Requests\Courses;
+namespace App\Http\Requests\Rubrics;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @property mixed course
+ * @property mixed rows
+ * @property mixed columns
+ * @property mixed description
+ * @property mixed name
+ * @property mixed descriptionRubric
+ * @property mixed rubric
  */
-class CourseRequest extends FormRequest
+class RubricRequest extends FormRequest
 {
     protected $rules = [
+        'created_by' => 'numeric',
 
     ];
 
@@ -44,13 +50,15 @@ class CourseRequest extends FormRequest
                     return [];
                 }
             case 'POST':
-                $this->rules['name_en'] = 'required|unique:courses,name_en';
-                $this->rules['name_ar'] = 'required|unique:courses,name_ar';
+                $this->rules['name'] = 'required|unique:rubrics,name';
+                $this->rules['description'] = 'required|unique:rubrics,description';
+
                 break;
             case 'PATCH':
             case 'PUT':
-                $this->rules['name_en'] = 'required|unique:courses,name_en,' . $this->course;
-                $this->rules['name_ar'] = 'required|unique:courses,name_ar,' . $this->course;
+                $this->rules['name'] = 'required|unique:rubrics,name,' . $this->rubric;
+                $this->rules['description'] = 'required|unique:rubrics,description,' . $this->rubric;
+
                 break;
             default:
                 break;

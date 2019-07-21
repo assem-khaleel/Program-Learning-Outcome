@@ -3,7 +3,7 @@
 
         <div class="col-md-12">
             <div class="form-group row">
-                <label class="control-label col-md-2">{{trans('colleges.colleges')}}</label>
+                <label class="control-label col-md-2">{{trans('colleges.college')}}</label>
                 <div class="col-md-10">
                     <select class="select2 form-control custom-select" style="width: 100%; height:36px;" name="college_id"
                             data-placeholder="{{trans('colleges.selectCollege')}}">

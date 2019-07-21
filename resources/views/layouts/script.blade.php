@@ -25,7 +25,6 @@
 <script src="{{asset('assets/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
 <!--Custom JavaScript -->
 <script src="{{asset('js/custom.min.js')}}"></script>
-<script src="{{asset('js/custom-theme.js')}}"></script>
 <script src="{{asset('assets/plugins/sweetalert/sweetalert.min.js')}}"></script>
 <script src="{{asset('assets/plugins/select2/dist/js/select2.full.min.js')}}" type="text/javascript"></script>
 
