@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::resource('learning-outcome', 'LearningOutcomeController');
-    Route::resource('rubric', 'RubricController');
+    Route::resource('rubric', 'RubricController')->except('show');
     Route::post('rubric/{rubric}', 'RubricController@storeRubric')->name('rubric.storeRubric');
     Route::get('draw-rubric/{rows}/{columns}/{rubricId}', 'RubricController@drawRubric')->name('rubric.draw');
     Route::post('add-row', 'RubricController@addRow')->name('rubric.row');
