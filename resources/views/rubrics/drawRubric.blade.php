@@ -25,7 +25,7 @@
             <button type="button" class="close" data-dismiss="alert">×</button>
             <strong>{{trans('common.warning')}}</strong> {{ $message }}
         </div>
-    @enderror
+        @enderror
         <div id="errorTable">
 
         </div>
