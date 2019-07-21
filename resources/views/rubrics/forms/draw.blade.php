@@ -18,9 +18,6 @@
                                 <small class="form-control-feedback text-white"> {{ $message }} </small>
                                 @enderror
 
-
-                            </div>
-                            <div class="col-md-12">
                                 <input id="orderLevel-{{$columnLevel}}" name="orderLevel[{{$columnLevel}}]" type="text"
                                        class="form-control {{ $errors->has('level') ? 'is-invalid' : '' }} form-control-sm"
                                        placeholder="{{trans('common.order').' '.$count}}"
