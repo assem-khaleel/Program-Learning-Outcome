@@ -36,15 +36,12 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title pull-left">{{trans('rubrics.createRubric')}} </h4>
-                        <span class="pull-right btn-sm btn btn-info" onclick="addRow()"
-                              type="button"><span class="btn-label"><i
-                                        class="fa fa-plus"></i></span> {{trans('common.addRow')}}
-                        </span>
-
-                        <span class="pull-right btn-sm btn-info" onclick="addColumn()"
-                              type="button"><span class="btn-label"><i
-                                        class="fa fa-plus"></i></span> {{trans('common.addColumn')}}
-                        </span>
+                        <div class="text-right">
+                            <button class="btn-sm btn-info" data-toggle="tooltip" title="{{trans('common.addRow')}}" onclick="addRow()"><i class="fa fa-plus"></i>
+                            </button>
+                            <button class="btn-sm btn-info" data-toggle="tooltip" title="{{trans('common.addColumn')}}" onclick="addColumn()"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-body" id="rubric-area">
                         <form method="post" action='{{route('rubric.storeDrawRubric')}}' class="form-horizontal" id="rubric-form">

@@ -60,7 +60,8 @@
                                 <small class="form-control-feedback text-white"> {{ $message }} </small>
                                 @enderror
 
-                                <input type="button" class="btn btn-sm btn-danger deleteColumn" value="Delete Column"/>
+                                <input type="button" class="btn btn-sm btn-danger deleteColumn"
+                                       value="{{trans('common.deleteColumn')}}"/>
 
                             </div>
                         </th>
@@ -262,3 +263,29 @@
     <!-- End PAge Content -->
     <!-- ============================================================== -->
 </div>
+<!-- start: Delete Coupon Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="myModalLabel">Warning!</h3>
+
+            </div>
+            <div class="modal-body">
+                <h4> Are you sure you want to DELETE?</h4>
+
+            </div>
+            <!--/modal-body-collapse -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btnDeleteYes" >Yes</button>
+
+                <button type="button" class="btn btn-info" id="btnDeleteNo">No</button>
+            </div>
+            <!--/modal-footer-collapse -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

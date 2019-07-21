@@ -16,7 +16,6 @@
                 confirmButtonText: "{{trans('common.yesDeleteIt')}}",
                 closeOnConfirm: false
             }, function () {
-                console.log(that);
                 var Id = that.data('id');
                 $('#id-' + Id).submit();
             });

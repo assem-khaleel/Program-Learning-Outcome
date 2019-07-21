@@ -38,16 +38,16 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title pull-left">{{trans('rubrics.editRubric')}} </h4>
-                        <span class="pull-right btn-sm btn btn-info" onclick="addRow()"
-                              type="button"><span class="btn-label"><i
-                                        class="fa fa-plus"></i></span> {{trans('common.addRow')}}
-                        </span>
+                        <h4 class="card-title pull-left ">{{trans('rubrics.editRubric')}} </h4>
 
-                        <span class="pull-right btn-sm btn-info" onclick="addColumn()"
-                              type="button"><span class="btn-label"><i
-                                        class="fa fa-plus"></i></span> {{trans('common.addColumn')}}
-                        </span>
+                        <div class="text-right">
+                            <button class="btn-sm btn-info" data-toggle="tooltip" title="{{trans('common.addRow')}}"
+                                    onclick="addRow()"><i class="fa fa-plus"></i>
+                            </button>
+                            <button class="btn-sm btn-info" data-toggle="tooltip" title="{{trans('common.addColumn')}}"
+                                    onclick="addColumn()"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="card-body" id="rubric-area">
                         <form method="post" action="{{route('rubric.update',[$rubric->id])}}"
@@ -80,13 +80,21 @@
             if (rowCount > 2) {
                 $(this).parents('tr').remove();
                 $('#rubric-rows').val($('#rubric-rows').val() - 1);
+                var id = $(this).closest('tr').data('id');
 
-                $.ajax({
-                    url: '{{ route('rubric.deleteRow',[$rubric->id]) }}',
-                    type: 'post',
-                    data: $('#rubric-form-update').serialize(),
+                $('#myModal').data('id', id).modal('show');
+                $('#btnDeleteYes').click(function () {
+                    $.ajax({
+                        url: '{{ route('rubric.deleteRow',[$rubric->id]) }}',
+                        type: 'post',
+                        data: $('#rubric-form-update').serialize(),
 
-                })
+                    });
+                    var id = $('#myModal').data('id');
+                    $('[data-id=' + id + ']').remove();
+                    $('#myModal').modal('hide');
+                });
+
             } else {
                 $("#errorTable").addClass('alert alert-danger');
                 var html = ' <button type="button" class="close" data-dismiss="alert">×</button>\n' +
@@ -98,19 +106,24 @@
         });
         var columnCount = 0;
         $('body').on('click', 'input.deleteColumn', function () {
-                var columnCount = $("#rubric-table").find('tr')[0].cells.length;
+            var columnCount = $("#rubric-table").find('tr')[0].cells.length;
             if (columnCount > 2) {
                 var index = $(this).parents('th').index() + 1;
                 $(".deleteColumns thead tr th:nth-child(" + index + ")").remove();
                 $(".deleteColumns tbody tr td:nth-child(" + index + ")").remove();
                 $('#rubric-columns').val($('#rubric-columns').val() - 1);
-
-                $.ajax({
-                    url: '{{ route('rubric.deleteColumn',[$rubric->id]) }}',
-                    type: 'post',
-                    data: $('#rubric-form-update').serialize(),
-
-                })
+                var id = $(this).closest('tr').data('id');
+                $('#myModal').data('id', id).modal('show');
+                $('#btnDeleteYes').click(function () {
+                    $.ajax({
+                        url: '{{ route('rubric.deleteColumn',[$rubric->id]) }}',
+                        type: 'post',
+                        data: $('#rubric-form-update').serialize(),
+                    });
+                    var id = $('#myModal').data('id');
+                    $('[data-id=' + id + ']').remove();
+                    $('#myModal').modal('hide');
+                });
 
             } else {
                 $("#errorTable").addClass('alert alert-danger');
@@ -122,6 +135,13 @@
 
             }
         });
+
+        $('#btnDeleteNo').click(function () {
+
+            window.location = '{{route('rubric.edit', $rubric->id)}}';
+
+        });
+
         function addRow() {
             $.ajax({
                 url: '{{ route('rubric.rowUpdate',[$rubric->id]) }}',
@@ -143,5 +163,17 @@
                 }
             })
         }
+
+        // $('input.btnDelete').on('click', function (e) {
+        //     e.preventDefault();
+        //     var id = $(this).closest('tr').data('id');
+        //     $('#myModal').data('id', id).modal('show');
+        // });
+
+        // $('#btnDelteYes').click(function () {
+        //     var id = $('#myModal').data('id');
+        //     $('[data-id=' + id + ']').remove();
+        //     $('#myModal').modal('hide');
+        // });
     </script>
 @endpush
