@@ -269,18 +269,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title" id="myModalLabel">Warning!</h3>
+                <h3 class="modal-title" id="myModalLabel">{{trans('common.warning')}}</h3>
 
             </div>
             <div class="modal-body">
-                <h4> Are you sure you want to DELETE?</h4>
+                <h4> {{trans('common.removeMsg')}}</h4>
 
             </div>
             <!--/modal-body-collapse -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="btnDeleteYes" >Yes</button>
+                <button type="button" class="btn btn-danger" id="btnDeleteYes" >{{trans('common.yes')}}</button>
 
-                <button type="button" class="btn btn-info" id="btnDeleteNo">No</button>
+                <button type="button" class="btn btn-info" id="btnDeleteNo">{{trans('common.no')}}</button>
             </div>
             <!--/modal-footer-collapse -->
         </div>

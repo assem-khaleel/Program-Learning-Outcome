@@ -1,4 +1,6 @@
-!function ($) {
+@push('script')
+<script>
+    !function ($) {
     "use strict";
 
     var SweetAlert = function () {
@@ -9,11 +11,11 @@
         $('.sa-warning').click(function () {
             var that = $(this);
             swal({
-                title: "{{trans('common.removeMsg')}}",
+                title: '{{trans('common.removeMsg')}}',
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "{{trans('common.yesDeleteIt')}}",
+                confirmButtonText: '{{trans('common.yesDeleteIt')}}',
                 closeOnConfirm: false
             }, function () {
                 var Id = that.data('id');
@@ -30,3 +32,5 @@
         "use strict";
         $.SweetAlert.init()
     }(window.jQuery);
+    </script>
+@endpush

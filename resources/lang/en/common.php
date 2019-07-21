@@ -59,4 +59,6 @@ return [
     'deleteRow' => 'Delete Row',
     'notDeleteLastRow' => 'Not Delete Last Row',
     'notDeleteLastColumn' => 'Not Delete Last Column',
+    'yes' => 'Yes',
+    'no' => 'No',
 ];
