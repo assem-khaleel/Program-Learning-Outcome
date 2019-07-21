@@ -13,7 +13,7 @@
                                 <input id="level-{{$columnLevel}}" name="levels[{{$columnLevel}}]" type="text"
                                        class="form-control {{ $errors->has('level') ? 'is-invalid' : '' }} form-control-sm"
                                        placeholder="{{trans('common.level').' '.++$count}}"
-                                       value="{{ old('levels.'.$columnLevel, $levels[$columnLevel] ?? '')  }}">
+                                       value="{{ old('levels.'.$columnLevel)  }}">
                                 @error('levels.'.$columnLevel)
                                 <small class="form-control-feedback text-white"> {{ $message }} </small>
                                 @enderror
@@ -24,7 +24,7 @@
                                 <input id="orderLevel-{{$columnLevel}}" name="orderLevel[{{$columnLevel}}]" type="text"
                                        class="form-control {{ $errors->has('level') ? 'is-invalid' : '' }} form-control-sm"
                                        placeholder="{{trans('common.order').' '.$count}}"
-                                       value="{{ old('orderLevel.'.$columnLevel, $levels[$columnLevel] ?? '')  }}">
+                                       value="{{ old('orderLevel.'.$columnLevel)  }}">
                                 @error('orderLevel.'.$columnLevel)
                                 <small class="form-control-feedback text-white"> {{ $message }} </small>
                                 @enderror
@@ -45,7 +45,7 @@
                                     <input id="indicator-{{$row}}" name="indicators[{{$row}}]" type="text"
                                            class="form-control {{ $errors->has('indicators') ? 'is-invalid' : '' }} form-control-sm"
                                            placeholder="{{trans('common.indicator')}}"
-                                           value="{{ old('indicators.'.$row, $indicators[$row] ?? '') }}">
+                                           value="{{ old('indicators.'.$row) }}">
                                     @error('indicators.'.$row)
                                     <small class="form-control-feedback text-danger"> {{ $message }} </small>
                                     @enderror
@@ -53,7 +53,7 @@
                                     <input id="orderIndicator-{{$row}}" name="orderIndicator[{{$row}}]" type="text"
                                            class="form-control {{ $errors->has('order') ? 'is-invalid' : '' }} form-control-sm"
                                            placeholder="{{trans('common.order')}}"
-                                           value="{{ old('orderIndicator.'.$row, $order[$row] ?? '') }}">
+                                           value="{{ old('orderIndicator.'.$row) }}">
                                     @error('orderIndicator.'.$row)
                                     <small class="form-control-feedback text-danger"> {{ $message }} </small>
                                     @enderror
@@ -61,7 +61,7 @@
                                     <input id="score-{{$row}}" name="score[{{$row}}]" type="text"
                                            class="form-control {{ $errors->has('score') ? 'is-invalid' : '' }} form-control-sm"
                                            placeholder="{{trans('common.score')}}"
-                                           value="{{ old('score.'.$row, $score[$row] ?? '') }}">
+                                           value="{{ old('score.'.$row) }}">
                                     @error('score.'.$row)
                                     <small class="form-control-feedback text-danger"> {{ $message }} </small>
                                     @enderror
@@ -78,7 +78,7 @@
                                     <textarea
                                               name="description[{{$row}}][{{$column}}]"
                                               class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }} form-control-sm"
-                                              placeholder="{{trans('common.description')}}">{{ old('description.'.$row.'.'.$column, $description[$row][$column] ?? '' )}}</textarea>
+                                              placeholder="{{trans('common.description')}}">{{ old('description.'.$row.'.'.$column)}}</textarea>
                                         @error('description.'.$row.'.'.$column)
                                         <small class="form-control-feedback text-danger">{{ $message }}</small>
                                         @enderror
@@ -115,7 +115,6 @@
     <!-- ============================================================== -->
 </div>
 
-
 @push('script')
     <script type="text/javascript">
         var rowCounter = 0;
@@ -126,7 +125,12 @@
                 $(this).parents('tr').remove();
 
             } else {
-                alert("not delete last row");
+                $("#errorTable").addClass('alert alert-danger');
+                var html = ' <button type="button" class="close" data-dismiss="alert">×</button>\n' +
+                    '<strong>\n' +
+                    '{{trans('common.notDeleteLastRow')}}' +
+                    '      </strong>';
+                $("#errorTable").append(html);
             }
         });
 
@@ -138,7 +142,13 @@
                 $(".deleteColumns thead tr th:nth-child(" + ($(this).index() + 1) + ")").remove();
                 $(".deleteColumns tbody tr td:nth-child(" + ($(this).index() + 1) + ")").remove();
             } else {
-                alert("not delete last column");
+                $("#errorTable").addClass('alert alert-danger');
+                var html = ' <button type="button" class="close" data-dismiss="alert">×</button>\n' +
+                    '<strong>\n' +
+                    '{{trans('common.notDeleteLastColumn')}}' +
+                    '      </strong>';
+                $("#errorTable").append(html);
+
             }
         });
 
