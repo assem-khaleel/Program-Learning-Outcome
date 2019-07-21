@@ -17,7 +17,6 @@ return [
     'createDepartment' => 'Create Department',
     'thereAreNoDepartments' => 'There Are No Departments',
     'notFoundDepartment' => 'Not found Department',
-    'college' => 'College',
     'selectCollege' => 'Select College',
-
+    'department' => 'Department',
 ];
