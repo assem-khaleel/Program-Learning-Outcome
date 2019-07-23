@@ -31,15 +31,18 @@ class AssignmentController extends Controller
 
     private $courseSection;
 
+    private $student;
+
     /**
      * CollegeController constructor.
      * @param College $college
      */
-    public function __construct(Assignment $assignment , Course $course , CourseSection $courseSection)
+    public function __construct(Assignment $assignment , Course $course , CourseSection $courseSection , Student $student )
     {
         $this->assignment = $assignment;
         $this->course = $course;
         $this->courseSection=$courseSection;
+        $this->student = $student;
     }
 
 
@@ -187,6 +190,32 @@ class AssignmentController extends Controller
             return redirect()->back()->with('message', ['type' => 'success', 'text' => trans('common.updateUNPublished')]);
 
         }
+
+    }
+
+    public function evaluate($id){
+
+        $assignment = $this->assignment->findOrFail($id);
+
+        $courseSections = $assignment->courseSection;
+
+        $students = $assignment->courseSection->students ;
+
+
+//        $courseSections = $this->courseSection->where('id', $assignment->course_sections_id)->get();
+//
+//        $students = $this->student->all();
+//
+//        foreach($courseSections as $section){
+//            //dd($section);
+//            foreach($section->students as $student){
+//
+//                $students = $students->where('id',$student->pivot->student_id )->first();
+//                //dd($students);
+//            }
+//        }
+
+        return view('settings.assignments.evaluate')->with('assignment', $assignment)->with('assignment',$assignment)->with('courseSections',$courseSections)->with('students',$students);
 
     }
 

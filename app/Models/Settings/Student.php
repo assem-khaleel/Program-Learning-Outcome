@@ -6,12 +6,10 @@ use App\Models\Settings\Course;
 use App\Models\Settings\CourseSection;
 use App\Models\Settings\Program;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
 {
 
-    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -38,5 +36,7 @@ class Student extends Model
     public function program(){
         return $this->belongsTo(Program::class);
     }
+
+
 
 }

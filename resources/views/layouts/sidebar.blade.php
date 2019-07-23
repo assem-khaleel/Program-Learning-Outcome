@@ -150,6 +150,7 @@
                         <li><a href="{{route('program.index')}}">Programs</a></li>
                         <li><a href="{{route('course.index')}}">Courses</a></li>
                         <li><a href="{{route('semester.index')}}">Semesters</a></li>
+                        <li><a href="{{route('student.index')}}">Students</a></li>
                     </ul>
                 </li>
                 <li>

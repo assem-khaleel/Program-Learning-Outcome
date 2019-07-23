@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: dura
+ * User: Assem
  * Date: 2/07/19
  * Time: 9:28 AM
  */
@@ -16,8 +16,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
                 <li class="breadcrumb-item"><a
-                            href="{{route('learning-outcome.index')}}">{{trans('learningOutcome.learningOutcomes')}}</a>
-                </li>
+                            href="{{route('students',[$courseSection])}}">{{trans('student.students')}}</a></li>
             </ol>
         </div>
     </div>
@@ -36,18 +35,17 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title pull-left">{{trans('learningOutcome.learningOutcomes') }} </h4>
-                        <a href="{{route('learning-outcome.create')}}" class="pull-right btn-sm btn btn-info"
-                           type="button"><span class="btn-label"><i
-                                        class="fa fa-plus"></i></span> {{trans('learningOutcome.createLearningOutcome')}}
-                        </a>
+                        <h4 class="card-title pull-left">{{trans('student.students') }} </h4>
+                        <button class="pull-right btn-sm btn btn-info" data-target="#student-modal" data-toggle="modal">
+                            <span class="btn-label"><i class="fa fa-plus"></i></span> {{trans('student.createStudent')}}
+                        </button>
                     </div>
                     <div class="card-body">
 
-                        @if ($learningOutcomes->isEmpty())
+                        @if ($courseSection->students->isEmpty())
                             <div class="bd-footer">
                                 <div class="text-center">
-                                    <h5>{{trans('learningOutcome.thereAreNoLearningOutcomes')}}</h5>
+                                    <h5>{{trans('student.thereAreNoStudents')}}</h5>
                                 </div>
                             </div>
                         @else
@@ -56,41 +54,29 @@
                                     <thead>
                                     <tr>
                                         <th>{{trans('common.nameEn') }}</th>
-                                        <th>{{trans('common.nameAr') }}</th>
-                                        <th>{{trans('common.descriptionEn') }}</th>
-                                        <th>{{trans('common.descriptionAr') }}</th>
-                                        <th>{{trans('programs.program') }}</th>
+                                        <th>{{trans('programs.programs') }}</th>
                                         <th class="text-nowrap text-center">{{trans('common.actions')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($learningOutcomes as $learningOutcome)
+                                    @foreach($courseSection->students as $student)
                                         <tr>
-
-                                            <td>{{$learningOutcome->name_en}}</td>
-                                            <td>{{$learningOutcome->name_ar}}</td>
-                                            <td>{{$learningOutcome->description_en}}</td>
-                                            <td>{{$learningOutcome->description_ar}}</td>
-                                            <td>{{$learningOutcome->program->name}}</td>
-
+                                            <td>{{$student->name_en}}</td>
+                                            <td>{{$student->program->name}}</td>
                                             <td class="text-nowrap text-center">
-                                                <a href="{{route('learning-outcome.edit', [$learningOutcome->id])}}"
-                                                   data-toggle="tooltip"
-                                                   data-original-title="{{trans('common.edit')}}"><i
-                                                            class="fa fa-edit"
-                                                            style="margin: 5px"></i></a>
 
                                                 <a href="javascript:void(0);" class="sa-warning"
-                                                   data-id="{{ $learningOutcome->id }}"
+                                                   data-id="{{ $student->id }}"
                                                    data-toggle="tooltip"
                                                    data-original-title="{{trans('common.delete')}}"><i
                                                             class="fa fa-trash"
                                                             style="margin: 5px"></i></a>
 
                                                 <form style="display: inline-block;" method="POST"
-                                                      id="id-{{ $learningOutcome->id }}"
-                                                      action="{{route('learning-outcome.destroy', $learningOutcome->id)}}">
-                                                    @method('DELETE')
+                                                      id="id-{{ $student->id }}"
+                                                      action="{{route('deleteStudents')}}">
+                                                    <input type="hidden" name="course_section_id" value="{{$courseSection->id}}">
+                                                    <input type="hidden" name="student_id" value="{{$student->id}}" >
                                                     @csrf
                                                 </form>
                                             </td>
@@ -101,24 +87,9 @@
                             </div>
                         @endif
                     </div>
-                    <div class="card-footer text-center">
-                        <div class="btn-group mr-2" role="group" aria-label="First group">
-                            {{$learningOutcomes->links()}}
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <!-- row -->
-
-        <!-- ============================================================== -->
-        <!-- End PAge Content -->
-        <!-- ============================================================== -->
-
+        @include('settings.courseSections.modal.share')
     </div>
-    <!-- ============================================================== -->
-    <!-- End Container fluid  -->
-    <!-- ============================================================== -->
-
 @endsection
-

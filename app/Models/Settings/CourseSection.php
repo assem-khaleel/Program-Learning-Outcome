@@ -68,4 +68,8 @@ class CourseSection extends Model
     public function semester(){
         return $this->belongsTo(Semester::class);
     }
+    public function students(){
+        return $this->belongsToMany(Student::class,'course_section_student','course_section_id','student_id');
+
+    }
 }

@@ -1,12 +1,14 @@
 <?php
 return [
 
-    'Assignments' => 'Assignments',
-    'createAssignment' => 'Create Assignment',
-    'thereAreNoAssignments' => 'There Are No Assignments',
-    'notFoundAssignment' => 'Not found Assignment',
+    'students' => 'Students',
+    'createStudent' => 'Create Student',
+    'thereAreNoStudents' => 'There Are No Students',
+    'notFoundStudent' => 'Not found Student',
     'selectAssignment' => 'Select Assignment',
-    'course' => 'Course',
+    'studentName' => 'Student Name',
+    'studentNumber' => 'Student Number',
+
     'selectCourse' => 'Select Course section',
     'descriptionEn' => 'Description English',
     'descriptionar' => 'Description Arabic',
