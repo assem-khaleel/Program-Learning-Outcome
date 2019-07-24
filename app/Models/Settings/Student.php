@@ -5,17 +5,24 @@ namespace App\Models\Settings;
 use App\Models\Settings\Course;
 use App\Models\Settings\CourseSection;
 use App\Models\Settings\Program;
+use Eloquent;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
 {
 
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+
+    protected $dates = ['deleted_at'];
+
     protected $fillable = ['name_en','program_id','student_no'];
 
 
@@ -36,7 +43,5 @@ class Student extends Model
     public function program(){
         return $this->belongsTo(Program::class);
     }
-
-
 
 }

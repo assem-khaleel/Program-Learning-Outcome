@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRubricId extends Migration
+class AddSoftDeletesToStudentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,10 @@ class AddRubricId extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('students', function (Blueprint $table) {
+            $table->softDeletes();
+
+        });
     }
 
     /**
@@ -23,6 +26,9 @@ class AddRubricId extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('students', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+
+        });
     }
 }

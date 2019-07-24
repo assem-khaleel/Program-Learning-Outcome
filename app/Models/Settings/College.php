@@ -51,11 +51,13 @@ class College extends Model
     /**
      * @return string
      */
-    public function getNameAttribute() {
+    public function getNameAttribute()
+    {
         return App::getLocale() == 'ar' ? $this->name_ar : $this->name_en;
     }
 
-    public function departments(){
+    public function departments()
+    {
         return $this->hasMany(Department::class);
     }
 }

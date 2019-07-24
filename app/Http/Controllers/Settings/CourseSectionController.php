@@ -152,8 +152,8 @@ class CourseSectionController extends Controller
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('courseSections.notFoundCourseSection')]);
     }
 
-    public function students($id){
-
+    public function students($id)
+    {
         $courseSection = $this->courseSection->find($id);
         $students = $this->student->all();
         return view('settings.courseSections.students')->with('courseSection', $courseSection)->with('students', $students);
@@ -161,6 +161,10 @@ class CourseSectionController extends Controller
 
     public function storeStudents(Request $request)
     {
+        $request->validate([
+            'student_id' => "required|unique:course_section_student"
+
+        ]);
         /** @var CourseSection $courseSection */
         $courseSection = $this->courseSection->find($request->get('course_section_id'));
         $studentId = $request->get('student_id');

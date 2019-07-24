@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRubricId extends Migration
+class CreateRubricLevelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,14 @@ class AddRubricId extends Migration
      */
     public function up()
     {
-        Schema::table('assignments', function (Blueprint $table) {
-            $table->bigInteger('rubric_id')->unsigned()->nullable();
+        Schema::create('rubric_levels', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('level');
+            $table->bigInteger('rubric_id')->unsigned();
             $table->foreign('rubric_id')->references('id')->on('rubrics')->onDelete('cascade');
+            $table->integer('order')->unsigned();
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -26,12 +31,6 @@ class AddRubricId extends Migration
      */
     public function down()
     {
-        Schema::table('assignments', function (Blueprint $table) {
-
-
-            $table->foreign('rubric_id')
-                ->references('id')->on('rubrics')
-                ->onDelete('cascade');
-        });
+        Schema::dropIfExists('rubric_levels');
     }
 }

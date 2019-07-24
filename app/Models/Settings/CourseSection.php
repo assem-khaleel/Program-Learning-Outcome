@@ -3,6 +3,7 @@
 namespace App\Models\Settings;
 
 use Eloquent;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
@@ -41,6 +42,7 @@ use Illuminate\Support\Carbon;
  * @property-read Course $course
  * @property-read Semester $semester
  * @property-read User $teacher
+ * @property-read Collection|Assignment[] $assignments
  */
 class CourseSection extends Model
 {
@@ -53,19 +55,23 @@ class CourseSection extends Model
      */
     protected $fillable = ['code', 'teacher_id', 'course_id', 'semester_id'];
 
-    public function course(){
+    public function course()
+    {
         return $this->belongsTo(Course::class);
     }
 
-    public function teacher(){
+    public function teacher()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function assignments(){
+    public function assignments()
+    {
         return $this->hasMany(Assignment::class);
     }
 
-    public function semester(){
+    public function semester()
+    {
         return $this->belongsTo(Semester::class);
     }
     public function students(){

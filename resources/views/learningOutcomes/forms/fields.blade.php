@@ -3,7 +3,7 @@
 
         <div class="col-md-12">
             <div class="form-group row">
-                <label class="control-label col-md-2">{{trans('programs.programs')}}</label>
+                <label class="control-label col-md-2">{{trans('programs.program')}}</label>
                 <div class="col-md-10">
                     <select class="select2 form-control custom-select" style="width: 100%; height:36px;"
                             name="program_id"

@@ -13,12 +13,17 @@
                         <div class="form-group row">
                             <label for="student_id" class="control-label col-md-2">{{ trans('student.students') }}</label><br>
                             <div  class="col-md-10">
-                                <select id="student_id" class="category form-control" name="student_id">
+                                <select id="student_id" class="category form-control {{ $errors->has('student_id') ? 'is-invalid' : '' }}" name="student_id">
                                     <option value="">{{ trans('student.students') }}</option>
                                     @foreach($students as $student)
                                         <option value="{{ $student->id }}">{{ $student->name_en }}</option>
                                     @endforeach
                                 </select>
+                                @if ($errors->has('student_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('student_id')}}</strong>
+                                        </span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -46,9 +51,15 @@
     </div>
 </div>
 
+@push('script')
+<script type="text/javascript">
+    @if (count($errors) > 0)
+    $('#student-modal').modal('show');
+    @endif
+</script>
 
 
-
+@endpush
 
 
 

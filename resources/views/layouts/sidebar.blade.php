@@ -112,28 +112,9 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-small-cap">FORMS, TABLE &amp; WIDGETS</li>
-                <li class="two-column"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">Forms</span></a>
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book fa-fw"></i><span class="hide-menu">Rubrics</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="form-basic.html">Basic Forms</a></li>
-                        <li><a href="form-layout.html">Form Layouts</a></li>
-                        <li><a href="form-addons.html">Form Addons</a></li>
-                        <li><a href="form-material.html">Form Material</a></li>
-                        <li><a href="form-float-input.html">Floating Lable</a></li>
-                        <li><a href="form-pickers.html">Form Pickers</a></li>
-                        <li><a href="form-upload.html">File Upload</a></li>
-                        <li><a href="form-mask.html">Form Mask</a></li>
-                        <li><a href="form-validation.html">Form Validation</a></li>
-                        <li><a href="form-bootstrap-validation.html">Form Bootstrap Validation</a></li>
-                        <li><a href="form-dropzone.html">File Dropzone</a></li>
-                        <li><a href="form-icheck.html">Icheck control</a></li>
-                        <li><a href="form-img-cropper.html">Image Cropper</a></li>
-                        <li><a href="form-bootstrapwysihtml5.html">HTML5 Editor</a></li>
-                        <li><a href="form-typehead.html">Form Typehead</a></li>
-                        <li><a href="form-wizard.html">Form Wizard</a></li>
-                        <li><a href="form-xeditable.html">Xeditable Editor</a></li>
-                        <li><a href="form-summernote.html">Summernote Editor</a></li>
-                        <li><a href="form-tinymce.html">Tinymce Editor</a></li>
+                        <li><a href="{{route('rubric.index')}}">Rubric</a></li>
                     </ul>
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book fa-fw"></i><span class="hide-menu">Program Learning Outcome</span></a>
@@ -209,21 +190,6 @@
                         </li>
                         <li>
                         </li>
-                    </ul>
-                </li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-arrange-send-backward"></i><span class="hide-menu">Multi level dd</span></a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a href="#">item 1.1</a></li>
-                        <li><a href="#">item 1.2</a></li>
-                        <li> <a class="has-arrow" href="#" aria-expanded="false">Menu 1.3</a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="#">item 1.3.1</a></li>
-                                <li><a href="#">item 1.3.2</a></li>
-                                <li><a href="#">item 1.3.3</a></li>
-                                <li><a href="#">item 1.3.4</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">item 1.4</a></li>
                     </ul>
                 </li>
 
