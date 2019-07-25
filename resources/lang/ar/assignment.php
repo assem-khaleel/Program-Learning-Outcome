@@ -1,7 +1,8 @@
 <?php
 return [
 
-    'Assignments' => 'Assignments',
+    'assignments' => 'Assignments',
+    'assignment' => 'Assignment',
     'createAssignment' => 'Create Assignment',
     'thereAreNoAssignments' => 'There Are No Assignments',
     'notFoundAssignment' => 'Not found Assignment',

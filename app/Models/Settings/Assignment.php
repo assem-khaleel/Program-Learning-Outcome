@@ -76,7 +76,7 @@ class Assignment extends Model
     }
 
     public function courseSection(){
-        return $this->belongsTo(CourseSection::class);
+        return $this->belongsTo(CourseSection::class, 'course_sections_id');
     }
 
     public function students()

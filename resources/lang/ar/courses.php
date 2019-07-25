@@ -15,6 +15,7 @@ return [
     */
 
     'courses' => 'Courses',
+    'course' => 'Course',
     'createCourse' => 'Create Course',
     'thereAreNoCourses' => 'There Are No Courses',
     'notFoundCourse' => 'Not found Course',

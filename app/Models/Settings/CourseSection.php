@@ -67,7 +67,7 @@ class CourseSection extends Model
 
     public function assignments()
     {
-        return $this->hasMany(Assignment::class);
+        return $this->hasMany(Assignment::class, 'course_sections_id');
     }
 
     public function semester()

@@ -85,7 +85,6 @@
                 type : 'post',
                 data: $('#rubric-form').serialize(),
                 success: function (results) {
-                    console.log(results);
                     $('#rubric').html(results);
                 }
             })
