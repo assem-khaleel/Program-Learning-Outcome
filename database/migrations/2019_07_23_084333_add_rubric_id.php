@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPublished extends Migration
+class AddRubricId extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddPublished extends Migration
     public function up()
     {
         Schema::table('assignments', function (Blueprint $table) {
-            $table->boolean('published')->default(0);
+            $table->bigInteger('rubric_id')->unsigned()->nullable();
+            $table->foreign('rubric_id')->references('id')->on('rubrics')->onDelete('cascade');
         });
     }
 
@@ -25,6 +26,12 @@ class AddPublished extends Migration
      */
     public function down()
     {
+        Schema::table('assignments', function (Blueprint $table) {
 
+
+            $table->foreign('rubric_id')
+                ->references('id')->on('rubrics')
+                ->onDelete('cascade');
+        });
     }
 }

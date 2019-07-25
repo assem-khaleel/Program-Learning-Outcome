@@ -35,13 +35,12 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title pull-left">{{trans('assignment.Assignments') }} </h4>
+                        <h4 class="card-title pull-left">{{trans('assignment.Assignments') }}</h4>
                         <a href="{{route('assignment.create')}}" class="pull-right btn-sm btn btn-info"
                            type="button"><span class="btn-label"><i
                                         class="fa fa-plus"></i></span> {{trans('assignment.createAssignment')}}</a>
                     </div>
                     <div class="card-body">
-
                         @if ($assignments->isEmpty())
                             <div class="bd-footer">
                                 <div class="text-center">
@@ -56,6 +55,7 @@
                                         <th>{{trans('common.nameEn') }}</th>
                                         <th>{{trans('common.nameAr') }}</th>
                                         <th>{{trans('assignment.course') }}</th>
+                                        <th>{{trans('assignment.courseSection') }}</th>
                                         <th class="text-nowrap text-center">{{trans('common.actions')}}</th>
                                     </tr>
                                     </thead>
@@ -66,6 +66,7 @@
                                             <td>{{$assignment->name_en}}</td>
                                             <td>{{$assignment->name_ar}}</td>
                                             <td>{{$assignment->courseSection->course->name ?? '-'}}</td>
+                                            <td class="text-center">{{$assignment->courseSection->code}}</td>
 
                                             <td class="text-nowrap text-center">
                                                 <a href="{{route('assignment.edit', [$assignment->id])}}"
@@ -88,16 +89,17 @@
                                                     @csrf
                                                 </form>
 
-                                                <a href="{{route('publish', $assignment->id)}}" class="share-assignment" name="published"
+
+                                                <a href="{{route('publish', $assignment->id)}}" class="share-assignment"
                                                    data-toggle="tooltip"
                                                    data-id-upload="{{ $assignment->id }}"
-                                                   data-original-title="{{trans('assignment.publishSudents')}}"><i
-                                                            class="fa fa-upload"
+                                                   data-original-title="{{$assignment->published ?trans('assignment.unpublishSudents'):trans('assignment.publishSudents')}}"><i
+                                                            class=" fa fa-upload {{$assignment->published ? 'text-danger':''}}"
                                                             style="margin: 5px"></i></a>
 
                                                 @if($assignment->published)
 
-                                                <a  class="share-assignment"
+                                                <a  href="{{route('evaluate', $assignment->id)}}" class="share-assignment"
                                                     data-toggle="tooltip"
                                                     data-id-upload="{{ $assignment->id }}"
                                                     data-original-title="{{trans('assignment.evaluate')}}"><i
@@ -131,42 +133,8 @@
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
-    @include('settings.assignments.modal.share')
 
 
-    @push('script')
-<script>
-
-        // $(".share-assignment").click(function (e) {
-        //     e.preventDefault();
-        //
-        //     var $modal = $('#assignment-publish-modal');
-        //
-        //     var assignment_id = $(this).data('id-upload');
-        //     var course_id = $(this).data('id-upload');
-        //
-        //     $modal.find('#publish-form').empty();
-        //     $.ajax({
-        //         url: '/assignment-publish/'+assignment_id,
-        //         dataType:'json',
-        //         success: function (e) {
-        //             console.log(e.length);
-        //             if(e.length===0){
-        //                 $modal.find('#publish-form').append('<div class="col-lg-12 text-center h1">There is no assignment</div>');
-        //             }else{
-        //                 $('#publish-form').html(e.html);
-        //                 $('#assignment-publish-modal').modal('show');
-        //             }
-        //         },
-        //         error: function (e) {
-        //             console.log(e);
-        //         }
-        //     });
-        // });
-
-</script>
-
-@endpush
 
 @endsection
 

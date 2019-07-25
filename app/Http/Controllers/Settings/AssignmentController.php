@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Settings;
 
+use App\Models\Rubric;
 use App\Models\Setting\Institution;
 use App\Models\Settings\Assignment;
 use App\Models\Settings\Course;
@@ -31,15 +32,21 @@ class AssignmentController extends Controller
 
     private $courseSection;
 
+    private $student;
+
+    private $rubric;
+
     /**
      * CollegeController constructor.
      * @param College $college
      */
-    public function __construct(Assignment $assignment , Course $course , CourseSection $courseSection)
+    public function __construct(Assignment $assignment , Course $course , CourseSection $courseSection , Student $student,Rubric $rubric)
     {
         $this->assignment = $assignment;
         $this->course = $course;
         $this->courseSection=$courseSection;
+        $this->student = $student;
+        $this->rubric = $rubric;
     }
 
 
@@ -64,8 +71,9 @@ class AssignmentController extends Controller
     {
         $courses = $this->course->all();
         $course_scetions = $this->courseSection->all();
+        $rubrics = $this->rubric->all();
 
-        return view('settings.assignments.create')->with('courses',$courses)->with('courseSections',$course_scetions);
+        return view('settings.assignments.create')->with('courses',$courses)->with('courseSections',$course_scetions)->with('rubrics',$rubrics);
 
     }
 
@@ -77,8 +85,6 @@ class AssignmentController extends Controller
      */
     public function store(AssignmentRequest $request)
     {
-
-
 
         $request['created_by'] = Auth::user()->id;
 
@@ -110,8 +116,10 @@ class AssignmentController extends Controller
         $course_scetions = $this->courseSection->all();
 
         $courses = $this->course->all();
+        $rubrics = $this->rubric->all();
 
-        return view('settings.assignments.edit')->with('courses', $courses)->with('assignment', $assignment)->with('courseSections',$course_scetions);
+
+        return view('settings.assignments.edit')->with('courses', $courses)->with('assignment', $assignment)->with('courseSections',$course_scetions)->with('rubrics',$rubrics);
     }
 
     /**
@@ -170,8 +178,6 @@ class AssignmentController extends Controller
             return ['status' => true, 'html' => view('assignments.modal.share')->with('assignments', $assignment)->with('students', $students)->with('courses', $course)->render()];
         }
 
-
-
     public function toogle($id)
     {
         $assignment = $this->assignment->findOrFail($id);
@@ -190,5 +196,16 @@ class AssignmentController extends Controller
 
     }
 
+    public function evaluate($id){
+
+        $assignment = $this->assignment->findOrFail($id);
+
+        $courseSections = $assignment->courseSection;
+
+        $students = $assignment->courseSection->students ;
+
+        return view('settings.assignments.evaluate')->with('assignment', $assignment)->with('assignment',$assignment)->with('courseSections',$courseSections)->with('students',$students);
+
+    }
 
 }

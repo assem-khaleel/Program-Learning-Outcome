@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('wrapper')
+
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
@@ -7,7 +8,8 @@
         <div class="col-md-12 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('assignment.index')}}">{{trans('assignment.Assignments')}}</a></li>
+                <li class="breadcrumb-item"><a
+                            href="{{route('student.index')}}">{{trans('student.students')}}</a></li>
             </ol>
         </div>
     </div>
@@ -27,14 +29,15 @@
                 <div class="card card-outline-info">
                     <div class="card-header">
                         <h4 class="m-b-0 text-white">
-                            {{trans('assignment.createAssignment')}}
+                            {{trans('common.edit')}}
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form method="post" action='{{route('assignment.store')}}' class="form-horizontal">
+                        <form method="post" action="{{route('student.update',[$student->id])}}" class="form-horizontal">
                             @csrf
+                            @method('PUT')
+                            @include('settings.students.forms.fields')
 
-                            @include('settings.assignments.forms.fields')
                         </form>
                     </div>
                 </div>
@@ -47,5 +50,5 @@
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
-
 @endsection
+

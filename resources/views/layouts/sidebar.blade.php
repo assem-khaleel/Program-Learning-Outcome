@@ -43,6 +43,7 @@
                         <li><a href="{{route('program.index')}}">Programs</a></li>
                         <li><a href="{{route('course.index')}}">Courses</a></li>
                         <li><a href="{{route('semester.index')}}">Semesters</a></li>
+                        <li><a href="{{route('student.index')}}">Students</a></li>
                     </ul>
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="{{route('assignment.index')}}" aria-expanded="false"><i class="fa fa-check-square-o fa-fw"></i><span class="hide-menu">Assignments</span></a>

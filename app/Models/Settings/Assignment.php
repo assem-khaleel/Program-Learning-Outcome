@@ -2,6 +2,7 @@
 
 namespace App\Models\Settings;
 
+use App\Models\Rubric;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -59,7 +60,7 @@ class Assignment extends Model
      *
      * @var array
      */
-    protected $fillable = ['name_en', 'name_ar','course_id','description_en','description_ar','course_sections_id','created_by','published'];
+    protected $fillable = ['name_en', 'name_ar','course_id','description_en','description_ar','course_sections_id','created_by','published','rubric_id'];
 
     /**
      * @return string
@@ -84,5 +85,8 @@ class Assignment extends Model
         return $this->belongsToMany(Student::class,'assignment_student','student_id','assignment_id');
     }
 
+    public function rubric(){
+        return $this->belongsTo(Rubric::class,'rubric_id');
+    }
 
 }

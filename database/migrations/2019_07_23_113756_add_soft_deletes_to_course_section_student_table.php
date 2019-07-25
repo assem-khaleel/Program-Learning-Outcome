@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPublished extends Migration
+class AddSoftDeletesToCourseSectionStudentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddPublished extends Migration
      */
     public function up()
     {
-        Schema::table('assignments', function (Blueprint $table) {
-            $table->boolean('published')->default(0);
+        Schema::table('course_section_student', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -25,6 +25,8 @@ class AddPublished extends Migration
      */
     public function down()
     {
-
+        Schema::table('course_section_student', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 }

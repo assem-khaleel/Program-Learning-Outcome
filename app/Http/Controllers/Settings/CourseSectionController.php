@@ -6,10 +6,11 @@ use App\Http\Requests\Courses\CourseSectionRequest;
 use App\Models\Settings\Course;
 use App\Models\Settings\CourseSection;
 use App\Models\Settings\Semester;
+use App\Models\Settings\Student;
 use App\Models\Settings\User;
 use App\Http\Controllers\Controller;
 use Exception;
-use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
@@ -31,6 +32,10 @@ class CourseSectionController extends Controller
      * @var Semester
      */
     private $semester;
+    /**
+     * @var Student
+     */
+    private $student;
 
     /**
      * CourseSectionController constructor.
@@ -38,19 +43,21 @@ class CourseSectionController extends Controller
      * @param User $user
      * @param Course $course
      * @param Semester $semester
+     * @param Student $student
      */
-    public function __construct(CourseSection $courseSection, User $user, Course $course, Semester $semester)
+    public function __construct(CourseSection $courseSection, User $user, Course $course, Semester $semester,Student $student)
     {
         $this->courseSection = $courseSection;
         $this->user = $user;
         $this->course = $course;
         $this->semester = $semester;
+        $this->student = $student;
     }
 
 
     /**
      * @param $id
-     * @return Factory|View
+     * @return View
      */
     public function show($id)
     {
@@ -113,6 +120,7 @@ class CourseSectionController extends Controller
      */
     public function update(CourseSectionRequest $request, $id)
     {
+        /** @var courseSection $courseSection */
         $courseSection = $this->courseSection->find($id);
 
         if (!empty($courseSection)) {
@@ -143,4 +151,36 @@ class CourseSectionController extends Controller
 
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('courseSections.notFoundCourseSection')]);
     }
+
+    public function students($id)
+    {
+        $courseSection = $this->courseSection->find($id);
+        $students = $this->student->all();
+        return view('settings.courseSections.students')->with('courseSection', $courseSection)->with('students', $students);
+    }
+
+    public function storeStudents(Request $request)
+    {
+        $request->validate([
+            'student_id' => "required|unique:course_section_student"
+
+        ]);
+        /** @var CourseSection $courseSection */
+        $courseSection = $this->courseSection->find($request->get('course_section_id'));
+        $studentId = $request->get('student_id');
+        $courseSection->students()->attach([$studentId]);
+
+        return redirect()->route('students', ['id' => $courseSection->id])->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
+    }
+
+    public function deleteStudents(Request $request)
+    {
+        $courseSection = $this->courseSection->find($request->get('course_section_id'));
+        $studentId = $request->get('student_id');
+        $courseSection->students()->detach([$studentId]);
+
+        return redirect()->route('students', ['id' => $courseSection->id])->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
+
+    }
+
 }

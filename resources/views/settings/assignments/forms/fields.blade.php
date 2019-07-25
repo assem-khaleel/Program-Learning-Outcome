@@ -24,6 +24,27 @@
 
         <div class="col-md-12">
             <div class="form-group row">
+                <label class="control-label col-md-2">{{trans('rubrics.rubrics')}}</label>
+                <div class="col-md-10">
+                    <select class="select2 form-control custom-select" style="width: 100%; height:36px;" name="rubric_id"
+                            data-placeholder="{{trans('assignment.selectRubric')}}">
+                        <option value="">{{trans('assignment.selectRubric')}}</option>
+                        @foreach($rubrics as $rubric)
+                            <option value="{{$rubric->id}}"
+                                    {{old('rubric_id') == $rubric->id || !empty($assignment->rubric_id) && ($rubric->id == $assignment->rubric_id) ? 'selected' : '' }}>
+                                  {{$rubric->name}}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('rubric_id')
+                    <small class="form-control-feedback text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group row">
                 <label for="name_en" class="control-label col-md-2">{{ trans('common.nameEn') }}</label>
                 <div class="col-md-10">
                     <input id="name_en" name="name_en" type="text"

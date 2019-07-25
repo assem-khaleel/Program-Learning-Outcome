@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Settings\Assignment;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -65,5 +66,9 @@ class Rubric extends Model
     public function rubricLevels()
     {
         return $this->hasMany(RubricLevels::class);
+    }
+
+    public function assignments(){
+        return $this->hasMany(Assignment::class);
     }
 }

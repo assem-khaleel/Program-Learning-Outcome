@@ -7,7 +7,7 @@
         <div class="col-md-12 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('assignment.index')}}">{{trans('assignment.Assignments')}}</a></li>
+                <li class="breadcrumb-item active"><a href="{{route('students')}}">{{trans('student.students')}}</a></li>
             </ol>
         </div>
     </div>
@@ -27,14 +27,14 @@
                 <div class="card card-outline-info">
                     <div class="card-header">
                         <h4 class="m-b-0 text-white">
-                            {{trans('assignment.createAssignment')}}
+                            {{trans('student.createStudent')}}
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form method="post" action='{{route('assignment.store')}}' class="form-horizontal">
+                        <form method="post" action='{{route('student.store')}}' class="form-horizontal">
                             @csrf
 
-                            @include('settings.assignments.forms.fields')
+                            @include('settings.students.forms.fields')
                         </form>
                     </div>
                 </div>
