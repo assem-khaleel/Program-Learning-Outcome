@@ -85,10 +85,11 @@ class AssignmentController extends Controller
      */
     public function store(AssignmentRequest $request)
     {
-
         $request['created_by'] = Auth::user()->id;
 
-        $this->assignment->create($request->all());
+        if (!empty($this->assignment)) {
+            $this->assignment->create($request->all());
+        }
 
         return redirect()->route('assignment.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
     }
