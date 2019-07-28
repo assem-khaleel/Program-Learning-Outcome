@@ -17,5 +17,7 @@ return [
     'unpublishSudents' => 'Unpuplish',
     'shareAssignment' => 'Share Assignment',
     'evaluate' => 'Evaluate',
-
+    'pleaseSelectStudent ' => 'Please Select Student',
+    'studentsInSection' => 'Students in Section',
+    'evaluateTheStudent' => 'evaluate the student :',
 ];

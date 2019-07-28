@@ -21,6 +21,8 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
                 <li class="breadcrumb-item active"><a
+                        href="{{route('assignment.index')}}">{{trans('assignment.assignments')}}</a></li>
+                <li class="breadcrumb-item active"><a
                         href="{{route('evaluate', [$assignment->id])}}">{{trans('assignment.evaluate')}}</a></li>
             </ol>
         </div>
@@ -38,7 +40,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title" id="1">Students in Section</h4><br>
+                        <h4 class="card-title" id="1">{{trans('assignment.studentsInSection')}}</h4><br>
                         @foreach($students as $student)
                             <p>
                                 <a href="{{route('assignment.studentEvaluate', ['id '=> $assignment->id, 'studentId' => $student->id])}}"
@@ -53,7 +55,7 @@
                 <div class="card">
                     <div class="card-body">
                         @if(!empty($studentCurrent))
-                            <h4 class="card-title">evaluate the student : {{$studentCurrent->name_en}}</h4>
+                            <h4 class="card-title">{{trans('assignment.evaluateTheStudent') . $studentCurrent->name_en}}</h4>
                             <form method="post" action="{{route('assignment.assigmentEvaluation')}}"
                                   class="form-horizontal" id="rubric-form-update">
                                 @csrf
@@ -150,8 +152,7 @@
                                 </div>
                             </form>
                         @else
-                            please select student
-
+                            <div class="text-center">{{trans('assignment.pleaseSelectStudent ')}}</div>
                         @endif
                     </div>
                 </div>
