@@ -12,7 +12,9 @@ use App\Http\Requests\Assignments\AssignmentRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Settings\CourseSection;
 use App\Models\Settings\Student;
+use Exception;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,22 +25,31 @@ class AssignmentController extends Controller
 
     /**
      * @var Assignment $assignment
-     * @var Course
      */
     private $assignment;
-
+    /**
+     * @var Course
+     */
     private $course;
-
+    /**
+     * @var CourseSection
+     */
     private $courseSection;
-
+    /**
+     * @var Student
+     */
     private $student;
-
+    /**
+     * @var Rubric
+     */
     private $rubric;
     /**
      * @var RubricCells
      */
     private $rubricCell;
-
+    /**
+     * @var AssessmentEvaluations
+     */
     private $assigmentEvaluations;
 
     /**
@@ -93,7 +104,7 @@ class AssignmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param AssignmentRequest $request
      * @return Response
      */
     public function store(AssignmentRequest $request)
@@ -110,7 +121,7 @@ class AssignmentController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return Response
+     * @return void
      */
     public function show($id)
     {
@@ -153,7 +164,7 @@ class AssignmentController extends Controller
             return redirect()->route('assignment.index')->with('message', ['type' => 'success', 'text' => trans('common.updateSuccess')]);
         }
 
-        return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('course.notFoundCourse')]);
+        return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);
     }
 
     /**
@@ -161,11 +172,10 @@ class AssignmentController extends Controller
      *
      * @param int $id
      * @return Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy($id)
     {
-
         $assignment = $this->assignment->find($id);
 
         if (!empty($assignment)) {
@@ -177,50 +187,47 @@ class AssignmentController extends Controller
 
     }
 
-
-    public function publish(Assignment $assignment, CourseSection $courseSection, $id, Student $student, Request $request)
-    {
-
-        $assignment_id = $assignment->find($id);
-
-        $assignment = $assignment > create($request->all($assignment_id));
-        $course = $assignment->course;
-
-        $students = $assignment->students->sync(array_filter($course));
-
-
-        return ['status' => true, 'html' => view('assignments.modal.share')->with('assignments', $assignment)->with('students', $students)->with('courses', $course)->render()];
-    }
-
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
     public function toogle($id)
     {
-        $assignment = $this->assignment->findOrFail($id);
+        $assignment = $this->assignment->find($id);
+        if (!empty($assignment)) {
+            $assignment->published = !$assignment->published;
 
-        $assignment->published = !$assignment->published;
+            $assignment->save();
 
-        $assignment->save();
+            if ($assignment->published) {
 
-        if ($assignment->published) {
+                return redirect()->back()->with('message', ['type' => 'success', 'text' => trans('common.updatePublished')]);
+            } else {
+                return redirect()->back()->with('message', ['type' => 'success', 'text' => trans('common.updateUNPublished')]);
 
-            return redirect()->back()->with('message', ['type' => 'success', 'text' => trans('common.updatePublished')]);
-        } else {
-            return redirect()->back()->with('message', ['type' => 'success', 'text' => trans('common.updateUNPublished')]);
-
+            }
         }
 
+        return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);
     }
 
+    /**
+     * @param $id
+     * @return Factory|RedirectResponse|View
+     */
     public function evaluate($id)
     {
 
         $assignment = $this->assignment->find($id);
+        if (!empty($assignment)) {
+            $courseSections = $assignment->courseSection;
 
-        $courseSections = $assignment->courseSection;
+            $students = $assignment->courseSection->students;
 
-        $students = $assignment->courseSection->students;
+            return view('settings.assignments.evaluate')->with('assignment', $assignment)->with('courseSections', $courseSections)->with('students', $students);
+        }
 
-        return view('settings.assignments.evaluate')->with('assignment', $assignment)->with('courseSections', $courseSections)->with('students', $students);
-
+        return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);
     }
 
     /**
@@ -246,7 +253,7 @@ class AssignmentController extends Controller
                 ->with('students', $assignment->courseSection->students);
 
         }
-
+        return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);
     }
 
     /**
@@ -275,9 +282,11 @@ class AssignmentController extends Controller
 
                 }
             }
+
             return redirect()->route('evaluate', $request->assessmentId)
                 ->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
         }
+        return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);
 
     }
 
