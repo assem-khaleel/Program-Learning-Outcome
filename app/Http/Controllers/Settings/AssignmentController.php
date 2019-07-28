@@ -269,7 +269,7 @@ class AssignmentController extends Controller
             $assigmentEvaluations = $this->assigmentEvaluations->whereAssessmentId($request->assessmentId)->whereStudentId($request->studentId)->get();
             if (!empty($assigmentEvaluations)) {
                 foreach ($assigmentEvaluations as $keyEvaluation => $evaluation)
-                    $assigmentEvaluationIds[$keyEvaluation] = $evaluation->id;
+                    $assessmentEvaluationIds[$keyEvaluation] = $evaluation->id;
             }
             foreach ($request->get('cells') as $key => $cell) {
 
@@ -277,7 +277,8 @@ class AssignmentController extends Controller
                     $this->assigmentEvaluations->create(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                 } else {
-                    $assigmentEvaluation = $this->assigmentEvaluations->find($assigmentEvaluationIds[$key]);
+                    /** @var array $assessmentEvaluationIds */
+                    $assigmentEvaluation = $this->assigmentEvaluations->find($assessmentEvaluationIds[$key]);
                     $assigmentEvaluation->update(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                 }
