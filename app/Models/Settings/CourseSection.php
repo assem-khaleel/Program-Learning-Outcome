@@ -43,6 +43,7 @@ use Illuminate\Support\Carbon;
  * @property-read Semester $semester
  * @property-read User $teacher
  * @property-read Collection|Assignment[] $assignments
+ * @property-read Collection|Student[] $students
  */
 class CourseSection extends Model
 {

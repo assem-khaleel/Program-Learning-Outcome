@@ -84,7 +84,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    @if ($courses->isEmpty())
+                    @if ($courseSections->isEmpty())
                         <div class="bd-footer">
                             <div class="text-center">
                                 <h5>{{trans('courses.thereAreNoCourses')}}</h5>
@@ -95,24 +95,32 @@
                         <table class="table color-bordered-table info-bordered-table table-striped m-b-0">
                             <thead>
                             <tr>
-                                <th>{{trans('courses.course')}}</th>
+                                <th>{{trans('courses.course')}} / course sections</th>
                                 <th>{{trans('assignment.assignment')}}</th>
                                 <th>Number of students</th>
                                 <th>{{trans('common.progress')}}</th>
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($courseSections as $courseSection)
                             <tr>
-
-                                <td>course 1</td>
-                                <td>assessment 1</td>
+                                <td>{{ $courseSection->course->name .'-'. $courseSection->code}}</td>
+                                <td>
+                                    <ul>
+                                        @foreach($courseSection->assignments as $assignment)
+                                            <li>
+                                                {{$assignment->name}}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </td>
                                 <td>23</td>
                                 <td>
                                     <div class="chart easy-pie-chart-2" data-percent="90">
                                         <span class="percent">90</span></div>
                                 </td>
                             </tr>
-
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -120,7 +128,7 @@
                 </div>
                 <div class="card-footer text-center">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                        {{$courses->links()}}
+                        {{$courseSections->links()}}
                     </div>
                 </div>
             </div>

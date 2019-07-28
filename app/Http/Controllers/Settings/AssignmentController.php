@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Settings;
 
+use App\Http\Requests\Assignments\AssessmentEvaluationRequest;
+use App\Models\AssessmentEvaluations;
 use App\Models\Rubric;
-use App\Models\Setting\Institution;
+use App\Models\RubricCells;
 use App\Models\Settings\Assignment;
 use App\Models\Settings\Course;
-
 use App\Http\Requests\Assignments\AssignmentRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Settings\CourseSection;
-use App\Models\Settings\Program;
 use App\Models\Settings\Student;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-use phpDocumentor\Reflection\DocBlock\Tags\Author;
+use Illuminate\View\View;
 
 class AssignmentController extends Controller
 {
@@ -24,7 +24,6 @@ class AssignmentController extends Controller
     /**
      * @var Assignment $assignment
      * @var Course
-
      */
     private $assignment;
 
@@ -35,25 +34,39 @@ class AssignmentController extends Controller
     private $student;
 
     private $rubric;
+    /**
+     * @var RubricCells
+     */
+    private $rubricCell;
+
+    private $assigmentEvaluations;
 
     /**
      * CollegeController constructor.
-     * @param College $college
+     * @param Assignment $assignment
+     * @param Course $course
+     * @param CourseSection $courseSection
+     * @param Student $student
+     * @param Rubric $rubric
+     * @param RubricCells $rubricCell
+     * @param AssessmentEvaluations $assessmentEvaluations
      */
-    public function __construct(Assignment $assignment , Course $course , CourseSection $courseSection , Student $student,Rubric $rubric)
+    public function __construct(Assignment $assignment, Course $course, CourseSection $courseSection, Student $student, Rubric $rubric, RubricCells $rubricCell, AssessmentEvaluations $assessmentEvaluations)
     {
         $this->assignment = $assignment;
         $this->course = $course;
-        $this->courseSection=$courseSection;
+        $this->courseSection = $courseSection;
         $this->student = $student;
         $this->rubric = $rubric;
+        $this->rubricCell = $rubricCell;
+        $this->assigmentEvaluations = $assessmentEvaluations;
     }
 
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -65,7 +78,7 @@ class AssignmentController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -73,15 +86,15 @@ class AssignmentController extends Controller
         $course_scetions = $this->courseSection->all();
         $rubrics = $this->rubric->all();
 
-        return view('settings.assignments.create')->with('courses',$courses)->with('courseSections',$course_scetions)->with('rubrics',$rubrics);
+        return view('settings.assignments.create')->with('courses', $courses)->with('courseSections', $course_scetions)->with('rubrics', $rubrics);
 
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(AssignmentRequest $request)
     {
@@ -96,8 +109,8 @@ class AssignmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function show($id)
     {
@@ -107,8 +120,8 @@ class AssignmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function edit($id)
     {
@@ -119,15 +132,15 @@ class AssignmentController extends Controller
         $rubrics = $this->rubric->all();
 
 
-        return view('settings.assignments.edit')->with('courses', $courses)->with('assignment', $assignment)->with('courseSections',$course_scetions)->with('rubrics',$rubrics);
+        return view('settings.assignments.edit')->with('courses', $courses)->with('assignment', $assignment)->with('courseSections', $course_scetions)->with('rubrics', $rubrics);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -146,8 +159,9 @@ class AssignmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
+     * @throws \Exception
      */
     public function destroy($id)
     {
@@ -164,19 +178,19 @@ class AssignmentController extends Controller
     }
 
 
-    public function publish(Assignment $assignment,CourseSection $courseSection,$id,Student $student,Request $request)
+    public function publish(Assignment $assignment, CourseSection $courseSection, $id, Student $student, Request $request)
     {
 
         $assignment_id = $assignment->find($id);
 
-        $assignment = $assignment>create($request->all($assignment_id));
+        $assignment = $assignment > create($request->all($assignment_id));
         $course = $assignment->course;
 
         $students = $assignment->students->sync(array_filter($course));
 
 
-            return ['status' => true, 'html' => view('assignments.modal.share')->with('assignments', $assignment)->with('students', $students)->with('courses', $course)->render()];
-        }
+        return ['status' => true, 'html' => view('assignments.modal.share')->with('assignments', $assignment)->with('students', $students)->with('courses', $course)->render()];
+    }
 
     public function toogle($id)
     {
@@ -189,22 +203,81 @@ class AssignmentController extends Controller
         if ($assignment->published) {
 
             return redirect()->back()->with('message', ['type' => 'success', 'text' => trans('common.updatePublished')]);
-        } else{
+        } else {
             return redirect()->back()->with('message', ['type' => 'success', 'text' => trans('common.updateUNPublished')]);
 
         }
 
     }
 
-    public function evaluate($id){
+    public function evaluate($id)
+    {
 
-        $assignment = $this->assignment->findOrFail($id);
+        $assignment = $this->assignment->find($id);
 
         $courseSections = $assignment->courseSection;
 
-        $students = $assignment->courseSection->students ;
+        $students = $assignment->courseSection->students;
 
-        return view('settings.assignments.evaluate')->with('assignment', $assignment)->with('assignment',$assignment)->with('courseSections',$courseSections)->with('students',$students);
+        return view('settings.assignments.evaluate')->with('assignment', $assignment)->with('courseSections', $courseSections)->with('students', $students);
+
+    }
+
+    /**
+     * @param $id
+     * @param $studentId
+     * @return Factory|View
+     */
+    public function studentEvaluate($id, $studentId)
+    {
+        /** @var Assignment $assignment */
+        $assignment = $this->assignment->find($id);
+        $studentCurrent = $this->student->find($studentId);
+        if (!empty($assignment) && !empty($studentCurrent)) {
+            $cells = $this->rubricCell->whereHas('rubricIndicator', function ($query) use ($assignment) {
+                $query->where('rubric_id', $assignment->rubric_id);
+            })->get();
+
+            return view('settings.assignments.evaluate')
+                ->with('assignment', $assignment)
+                ->with('studentCurrent', $studentCurrent)
+                ->with('courseSections', $assignment->courseSection)
+                ->with('cells', $cells)
+                ->with('students', $assignment->courseSection->students);
+
+        }
+
+    }
+
+    /**
+     * @param AssessmentEvaluationRequest $request
+     * @return Factory|View
+     */
+    public function assigmentEvaluations(AssessmentEvaluationRequest $request)
+    {
+        /** @var Assignment $assignment */
+        $assignment = $this->assignment->find($request->assessmentId);
+        $studentCurrent = $this->student->find($request->studentId);
+        if (!empty($assignment) && !empty($studentCurrent)) {
+            $assigmentEvaluations = $this->assigmentEvaluations->whereAssessmentId($request->assessmentId)->whereStudentId($request->studentId)->get();
+            if (!empty($assigmentEvaluations)) {
+                foreach ($assigmentEvaluations as $keyEvaluation => $evaluation)
+                    $assigmentEvaluationIds[$keyEvaluation] = $evaluation->id;
+            }
+            foreach ($request->get('cells') as $key => $cell) {
+
+                if ($assigmentEvaluations->isEmpty()) {
+                    $this->assigmentEvaluations->create(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+
+                } else {
+                    $assigmentEvaluation = $this->assigmentEvaluations->find($assigmentEvaluationIds[$key]);
+                    $assigmentEvaluation->update(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+
+                }
+            }
+            return redirect()->route('evaluate', $request->assessmentId)
+                ->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
+        }
 
     }
 

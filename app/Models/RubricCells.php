@@ -40,6 +40,7 @@ use Illuminate\Support\Carbon;
  * @mixin Eloquent
  * @property Carbon|null $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|RubricCells whereDeletedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\AssessmentEvaluations[] $assigmentEvaluations
  */
 class RubricCells extends Model
 {
@@ -68,5 +69,8 @@ class RubricCells extends Model
         return $this->belongsTo(RubricLevels::class, 'level_id');
     }
 
-
+    public function assigmentEvaluations()
+    {
+        return $this->hasMany(AssessmentEvaluations::class, 'rubric_cell_id');
+    }
 }

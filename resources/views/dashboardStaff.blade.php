@@ -99,7 +99,7 @@
                     <div class="card-header">
                         courses statistics
                     </div>
-                    @if ($courses->isEmpty())
+                    @if ($courseSections->isEmpty())
                         <div class="bd-footer">
                             <div class="text-center">
                                 <h5>{{trans('courses.thereAreNoCourses')}}</h5>
@@ -110,25 +110,31 @@
                             <table class="table color-bordered-table info-bordered-table table-striped m-b-0">
                                 <thead>
                                 <tr>
-                                    <th>{{trans('courses.course')}}</th>
-                                    <th>{{trans('assignment.assignment')}}</th>
-                                    <th>Number of course sections</th>
+                                    <th>{{trans('courses.course')}} / course sections</th>
                                     <th>Number of students</th>
+                                    <th>{{trans('assignment.assignment')}}</th>
                                     <th>{{trans('common.progress')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    @foreach($courses as $course)
-                                        <td>{{$course->name}}</td>
-                                        <td>assessment 1</td>
-                                        <td>{{$course->courseSection->count()}}</td>
-                                        <td>23</td>
+                                @foreach($courseSections as $courseSection)
+                                    <tr>
+                                        <td>{{ $courseSection->course->name .'-'. $courseSection->code}}</td>
+                                        <td>{{$courseSection->students->count()}}</td>
+                                        <td>
+                                            <ul>
+                                                @foreach($courseSection->assignments as $assignment)
+                                                    <li>
+                                                        {{$assignment->name}}
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
                                         <td>
                                             <div class="chart easy-pie-chart-2" data-percent="90">
                                                 <span class="percent">90</span></div>
                                         </td>
-                                </tr>
+                                    </tr>
                                 @endforeach
                                 </tbody>
                             </table>
@@ -137,7 +143,7 @@
                 </div>
                 <div class="card-footer text-center">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                        {{$courses->links()}}
+                        {{$courseSections->links()}}
                     </div>
                 </div>
             </div>

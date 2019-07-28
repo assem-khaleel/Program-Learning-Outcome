@@ -2,6 +2,7 @@
 
 namespace App\Models\Settings;
 
+use App\Models\AssessmentEvaluations;
 use App\Models\Rubric;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
@@ -50,6 +51,10 @@ use Illuminate\Support\Facades\App;
  * @method static Builder|Assignment withTrashed()
  * @method static Builder|Assignment withoutTrashed()
  * @mixin Eloquent
+ * @property int|null $rubric_id
+ * @property-read Collection|AssessmentEvaluations[] $assessmentEvaluations
+ * @property-read Rubric|null $rubric
+ * @method static \Illuminate\Database\Eloquent\Builder|Assignment whereRubricId($value)
  */
 class Assignment extends Model
 {
@@ -66,7 +71,7 @@ class Assignment extends Model
      * @return string
      */
     public function getNameAttribute() {
-        return App::getLocale() == 'ar' ? $this->name_en : $this->name_en;
+        return App::getLocale() == 'ar' ? $this->name_ar : $this->name_en;
     }
 
     /**
@@ -89,4 +94,8 @@ class Assignment extends Model
         return $this->belongsTo(Rubric::class,'rubric_id');
     }
 
+    public function assessmentEvaluations()
+    {
+        return $this->hasMany(AssessmentEvaluations::class, 'assessment_id');
+    }
 }
