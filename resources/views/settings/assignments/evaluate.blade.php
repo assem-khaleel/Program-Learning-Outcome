@@ -55,7 +55,7 @@
                 <div class="card">
                     <div class="card-body">
                         @if(!empty($studentCurrent))
-                            <h4 class="card-title">{{trans('assignment.evaluateTheStudent') . '' . $studentCurrent->name_en}}</h4>
+                            <h4 class="card-title">{{trans('assignment.evaluateTheStudent') . ' ' . $studentCurrent->name_en}}</h4>
                             <form method="post" action="{{route('assignment.assigmentEvaluation')}}"
                                   class="form-horizontal" id="rubric-form-update">
                                 @csrf
