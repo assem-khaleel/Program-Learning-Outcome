@@ -13,18 +13,17 @@
     <!-- ============================================================== -->
 
     <div class="row page-titles">
-        <div class="col-md-5 align-self-center">
-
-           <h3 class="text-themecolor"> {{$assignment->name." ". '-'. " "}} {{$courseSections->code}}</h3>
-       </div>
         <div class="col-md-7 align-self-center">
+            <h3 class="text-themecolor">{{trans('assignment.analysisFor')}} {{$assignment->name." ". '-'. " "}} {{$assignment->courseSection->course->name." ". '-'. " "}} {{$assignment->rubric->name}}</h3>
+        </div>
+        <div class="col-md-5 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
                 <li class="breadcrumb-item active"><a
-                            href="{{route('evaluate', [$assignment->id])}}">{{trans('assignment.evaluate')}}</a></li>
+                        href="{{route('editAnalysis', [$assignment->id])}}">{{trans('common.edit')}}
+                    </a></li>
             </ol>
         </div>
-
     </div>
     <!-- ============================================================== -->
     <!-- End Bread crumb and right sidebar toggle -->
@@ -35,31 +34,19 @@
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title" id="1">{{trans('evaluate.StudentsSection')}}</h4><br>
-                        @foreach($students as $student)
-                            <p>
-                               {{$student->name_en}}
-                            </p>
-                            @endforeach
-                    </div>
-                </div>
-            </div>
+            <div class="col-12">
 
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title" id="1">{{trans('evaluate.evaluateStudent')}}</h4> <br>
+                <form method="post" action='{{route('updateAnalysis', [$assignment->id])}}' class="form-horizontal" >
+                    @csrf
+                    @method('PUT')
 
+                    @include('settings.assignments.forms.anlysis')
+                </form>
 
-                    </div>
-                </div>
             </div>
         </div>
 
-        </div>
+    </div>
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
     <!-- ============================================================== -->

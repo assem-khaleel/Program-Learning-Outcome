@@ -16,5 +16,10 @@ return [
     'unpublishSudents' => 'Unpuplish',
     'shareAssignment' => 'Share Assignment',
     'evaluate' => 'Evaluate',
+    'analysis' => 'Analysis',
+    'analysisFor' => 'Analysis for',
+    'createAnalysis' => 'Create Analysis',
+    'editAnalysis' => 'Edit Analysis',
+
 
 ];
