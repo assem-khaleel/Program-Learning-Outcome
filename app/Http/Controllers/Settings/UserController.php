@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Requests\Users\UserRequest;
 use App\Mail\UserPassword;
-use App\model\File;
+use App\Models\File;
 use App\Models\Settings\User;
 use App\Http\Controllers\Controller;
 use App\Notifications\ChangePassword;
