@@ -55,7 +55,7 @@
                 <div class="card">
                     <div class="card-body">
                         @if(!empty($studentCurrent))
-                            <h4 class="card-title">{{trans('assignment.evaluateTheStudent') . $studentCurrent->name_en}}</h4>
+                            <h4 class="card-title">{{trans('assignment.evaluateTheStudent') . '' . $studentCurrent->name_en}}</h4>
                             <form method="post" action="{{route('assignment.assigmentEvaluation')}}"
                                   class="form-horizontal" id="rubric-form-update">
                                 @csrf
@@ -105,7 +105,9 @@
                                                             <td>
                                                                 <div class="col-md-12 m-b-0">
                                                                     <div class="form-group row">
-                                                                        {{ $cell->description ?? '' }}
+                                                                        <textarea  rows="2" cols="15" readonly>
+                                                                            {{ $cell->description ?? '' }}
+                                                                        </textarea>
                                                                     </div>
                                                                 </div>
                                                                 <input type="radio"
