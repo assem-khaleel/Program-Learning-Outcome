@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Settings;
 
-use App\Http\Requests\Assignments\AssessmentEvaluationRequest;
 use App\Models\AssessmentEvaluations;
 use App\Models\Rubric;
 use App\Models\RubricCells;
@@ -257,10 +256,10 @@ class AssignmentController extends Controller
     }
 
     /**
-     * @param AssessmentEvaluationRequest $request
+     * @param Request $request
      * @return Factory|View
      */
-    public function assigmentEvaluations(AssessmentEvaluationRequest $request)
+    public function assigmentEvaluations(Request $request)
     {
         /** @var Assignment $assignment */
         $assignment = $this->assignment->find($request->assessmentId);
