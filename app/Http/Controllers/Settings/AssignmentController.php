@@ -279,7 +279,7 @@ class AssignmentController extends Controller
                 if (count($request->get('cells')) > $assigmentEvaluations->count())
                 {
                     $checkAssigmentEvaluations = $this->assigmentEvaluations->whereAssessmentId($request->assessmentId)->whereStudentId($request->studentId)->whereRubricCellId($cell)->first();
-                    if (!empty($checkAssigmentEvaluations))
+                    if (!isset($checkAssigmentEvaluations))
                     {
                         $this->assigmentEvaluations->create(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
