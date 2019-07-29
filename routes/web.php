@@ -14,9 +14,7 @@
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    Route::get('/','HomeController@index');
 
     Route::get('/home', 'HomeController@index')->name('home');
 
@@ -33,6 +31,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('student', 'StudentController');
 
         Route::get('assignment/publish/{id}', 'AssignmentController@toogle')->name('publish');
+        Route::get('assignment/studentEvaluate/{id}/{studentId}', 'AssignmentController@studentEvaluate')->name('assignment.student_evaluate');
+        Route::post('assignment/assigmentEvaluations', 'AssignmentController@assigmentEvaluations')->name('assignment.assigment_evaluation');
         Route::get('assignment/evaluate/{id}', 'AssignmentController@evaluate')->name('evaluate');
         Route::get('assignment/analysis/{id}', 'AssignmentController@analysis')->name('analysis');
         Route::post('students/create', 'CourseSectionController@storeStudents')->name('storeStudents');

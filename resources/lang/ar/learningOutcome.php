@@ -13,9 +13,12 @@ return [
     |
     */
 
-    'learningOutcomes' => 'Learning Outcomes',
+    'learningOutcomes' => 'Program Learning Outcomes',
+    'learningOutcome' => 'Program Learning Outcome',
     'createLearningOutcome' => 'Create Learning Outcome',
     'thereAreNoLearningOutcomes' => 'There Are No Learning Outcomes',
     'notFoundLearningOutcome' => 'Not found Learning Outcome',
     'selectProgram' => 'Select Program',
+    'plos' => 'PLOs',
+    'plo' => 'PLO',
 ];

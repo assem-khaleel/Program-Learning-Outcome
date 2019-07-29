@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModifyCreatedBy extends Migration
+class AddModifyCreatedBy extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,9 @@ class ModifyCreatedBy extends Migration
     public function up()
     {
         Schema::table('assignments', function (Blueprint $table) {
-            $table->bigInteger('created_by')->unsigned()->nullable();
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-
+            $table->dropColumn('created_by');
         });
+
     }
 
     /**
@@ -28,8 +27,8 @@ class ModifyCreatedBy extends Migration
     public function down()
     {
         Schema::table('assignments', function (Blueprint $table) {
-            $table->foreign('created_by')
-                ->references('id')->on('users')
-                ->onDelete('cascade');        });
+            $table->bigInteger('created_by')->unsigned()->nullable()->change();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 }

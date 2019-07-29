@@ -48,8 +48,8 @@ use Illuminate\Support\Carbon;
  * @property-read File $image
  * @property-read Collection|CourseSection[] $courseSection
  * @property-read Collection|Rubric[] $rubric
- * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Settings\Assignment[] $assignment
+ * @mixin Eloquent
+ * @property-read Collection|Assignment[] $assignment
  */
 class User extends Authenticatable
 {

@@ -38,7 +38,7 @@
                     <input id="rows" name="rows" type="text"
                            class="form-control {{ $errors->has('rows') ? 'is-invalid' : '' }}"
                            placeholder="{{trans('common.rows')}}"
-                           value="{{ old('rows', $rubric->countIndicators ?? '') }}">
+                           value="{{ old('rows') }}">
                     @error('rows')
                     <small class="form-control-feedback text-danger"> {{ $message }} </small>
                     @enderror
@@ -53,7 +53,7 @@
                     <input id="columns" name="columns" type="text"
                            class="form-control {{ $errors->has('columns') ? 'is-invalid' : '' }}"
                            placeholder="{{trans('common.columns')}}"
-                           value="{{ old('columns', $rubric->countLevels ?? '') }}">
+                           value="{{ old('columns') }}">
                     @error('columns')
                     <small class="form-control-feedback text-danger"> {{ $message }} </small>
                     @enderror
