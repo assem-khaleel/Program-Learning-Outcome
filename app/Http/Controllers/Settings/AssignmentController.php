@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Requests\Analysis\AnalysisRequest;
-use App\Models\AssessmentEvaluations;
+use App\Models\AssignmentEvaluation;
 use App\Models\Rubric;
 use App\Models\RubricAnalysis;
 use App\Models\RubricCells;
@@ -50,7 +50,7 @@ class AssignmentController extends Controller
      */
     private $rubricCell;
     /**
-     * @var AssessmentEvaluations
+     * @var AssignmentEvaluation
      */
     private $assigmentEvaluations;
     /**
@@ -66,10 +66,10 @@ class AssignmentController extends Controller
      * @param Student $student
      * @param Rubric $rubric
      * @param RubricCells $rubricCell
-     * @param AssessmentEvaluations $assessmentEvaluations
+     * @param AssignmentEvaluation $assessmentEvaluations
      * @param RubricAnalysis $analysis
      */
-    public function __construct(Assignment $assignment, Course $course, CourseSection $courseSection, Student $student, Rubric $rubric, RubricCells $rubricCell, AssessmentEvaluations $assessmentEvaluations, RubricAnalysis $analysis)
+    public function __construct(Assignment $assignment, Course $course, CourseSection $courseSection, Student $student, Rubric $rubric, RubricCells $rubricCell, AssignmentEvaluation $assessmentEvaluations, RubricAnalysis $analysis)
     {
         $this->assignment = $assignment;
         $this->course = $course;
@@ -271,11 +271,11 @@ class AssignmentController extends Controller
     public function assigmentEvaluations(Request $request)
     {
         /** @var Assignment $assignment */
-        $assignment = $this->assignment->find($request->assessmentId);
+        $assignment = $this->assignment->find($request->assignmentId);
         $studentCurrent = $this->student->find($request->studentId);
         if (!empty($assignment) && !empty($studentCurrent))
         {
-            $assigmentEvaluations = $this->assigmentEvaluations->whereAssessmentId($request->assessmentId)->whereStudentId($request->studentId)->get();
+            $assigmentEvaluations = $this->assigmentEvaluations->whereAssignmentsId($request->assignmentId)->whereStudentId($request->studentId)->get();
             if (!empty($assigmentEvaluations))
             {
                 foreach ($assigmentEvaluations as $keyEvaluation => $evaluation)
@@ -286,28 +286,30 @@ class AssignmentController extends Controller
 
                 if (count($request->get('cells')) > $assigmentEvaluations->count())
                 {
-                    $checkAssigmentEvaluations = $this->assigmentEvaluations->whereAssessmentId($request->assessmentId)->whereStudentId($request->studentId)->whereRubricCellId($cell)->first();
+                    $checkAssigmentEvaluations = $this->assigmentEvaluations->whereAssignmentsId($request->assignmentId)->whereStudentId($request->studentId)->whereRubricCellId($cell)->first();
                     if (!isset($checkAssigmentEvaluations))
                     {
-                        $this->assigmentEvaluations->create(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+                        $this->assigmentEvaluations->create(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                     } else {
                         /** @var array $assessmentEvaluationIds */
                         $assigmentEvaluation = $this->assigmentEvaluations->find($checkAssigmentEvaluations->id);
-                        $assigmentEvaluation->update(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+                        $assigmentEvaluation->update(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                     }
                 } elseif ($assigmentEvaluations->isEmpty()) {
-                    $this->assigmentEvaluations->create(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+                    dd('rtgrtg');
+
+                    $this->assigmentEvaluations->create(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                 } else {
                     /** @var array $assessmentEvaluationIds */
                     $assigmentEvaluation = $this->assigmentEvaluations->find($assessmentEvaluationIds[$key]);
-                    $assigmentEvaluation->update(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+                    $assigmentEvaluation->update(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
                 }
             }
 
-            return redirect()->route('evaluate', $request->assessmentId)
+            return redirect()->route('evaluate', $request->assignmentId)
                 ->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
         }
 

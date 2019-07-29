@@ -14,7 +14,8 @@ class AddModifyCreatedBy extends Migration
     public function up()
     {
         Schema::table('assignments', function (Blueprint $table) {
-            $table->dropColumn('created_by');
+            $table->bigInteger('created_by')->unsigned()->nullable()->change();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
         });
 
     }
@@ -27,8 +28,8 @@ class AddModifyCreatedBy extends Migration
     public function down()
     {
         Schema::table('assignments', function (Blueprint $table) {
-            $table->bigInteger('created_by')->unsigned()->nullable()->change();
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->dropColumn('created_by');
+
         });
     }
 }

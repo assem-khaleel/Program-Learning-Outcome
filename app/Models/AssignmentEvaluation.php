@@ -11,31 +11,30 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\AssessmentEvaluations
+ * App\model\AssignmentEvaluation
  *
+ * @property-read Assignment $assessment
+ * @property-read RubricCells $rubricCell
+ * @property-read Student $student
+ * @method static Builder|AssignmentEvaluation newModelQuery()
+ * @method static Builder|AssignmentEvaluation newQuery()
+ * @method static Builder|AssignmentEvaluation query()
+ * @mixin Eloquent
  * @property int $id
- * @property int $assessment_id
+ * @property int $assignments_id
  * @property int $student_id
  * @property int $rubric_cell_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Assignment $assessment
- * @property-read \App\Models\RubricCells $rubricCell
- * @property-read Student $student
- * @method static Builder|AssessmentEvaluations newModelQuery()
- * @method static Builder|AssessmentEvaluations newQuery()
- * @method static Builder|AssessmentEvaluations query()
- * @method static Builder|AssessmentEvaluations whereAssignmentsId($value)
- * @method static Builder|AssessmentEvaluations whereCreatedAt($value)
- * @method static Builder|AssessmentEvaluations whereId($value)
- * @method static Builder|AssessmentEvaluations whereRubricCellId($value)
- * @method static Builder|AssessmentEvaluations whereStudentId($value)
- * @method static Builder|AssessmentEvaluations whereUpdatedAt($value)
- * @mixin Eloquent
+ * @method static Builder|AssignmentEvaluation whereAssignmentsId($value)
+ * @method static Builder|AssignmentEvaluation whereCreatedAt($value)
+ * @method static Builder|AssignmentEvaluation whereId($value)
+ * @method static Builder|AssignmentEvaluation whereRubricCellId($value)
+ * @method static Builder|AssignmentEvaluation whereStudentId($value)
+ * @method static Builder|AssignmentEvaluation whereUpdatedAt($value)
  */
-class AssessmentEvaluations extends Model
+class AssignmentEvaluation extends Model
 {
-
     /**
      * The attributes that are mass assignable.
      *

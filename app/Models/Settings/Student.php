@@ -2,7 +2,7 @@
 
 namespace App\Models\Settings;
 
-use App\Models\AssessmentEvaluations;
+use App\Models\AssignmentEvaluation;
 use App\Models\Settings\Course;
 use App\Models\Settings\CourseSection;
 use App\Models\Settings\Program;
@@ -24,7 +24,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Collection|\App\Models\Settings\CourseSection[] $CourseSections
- * @property-read Collection|AssessmentEvaluations[] $assigmentEvaluations
+ * @property-read Collection|AssignmentEvaluation[] $assigmentEvaluations
  * @property-read Collection|Assignment[] $assignments
  * @property-read \App\Models\Settings\Program $program
  * @method static bool|null forceDelete()
@@ -79,6 +79,6 @@ class Student extends Model
 
     public function assigmentEvaluations()
     {
-        return $this->hasMany(AssessmentEvaluations::class, 'assignment_id');
+        return $this->hasMany(AssignmentEvaluation::class, 'student_id');
     }
 }
