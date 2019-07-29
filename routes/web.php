@@ -32,8 +32,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 
         Route::get('assignment/publish/{id}', 'AssignmentController@toogle')->name('publish');
-        Route::get('assignment/studentEvaluate/{id}/{studentId}', 'AssignmentController@studentEvaluate')->name('assignment.studentEvaluate');
-        Route::post('assignment/assigmentEvaluations', 'AssignmentController@assigmentEvaluations')->name('assignment.assigmentEvaluation');
+        Route::get('assignment/studentEvaluate/{id}/{studentId}', 'AssignmentController@studentEvaluate')->name('assignment.student_evaluate');
+        Route::post('assignment/assigmentEvaluations', 'AssignmentController@assigmentEvaluations')->name('assignment.assigment_evaluation');
         Route::get('assignment/evaluate/{id}', 'AssignmentController@evaluate')->name('evaluate');
         Route::post('students/create', 'CourseSectionController@storeStudents')->name('storeStudents');
         Route::post('students/delete', 'CourseSectionController@deleteStudents')->name('deleteStudents');

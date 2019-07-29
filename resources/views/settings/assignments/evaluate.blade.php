@@ -43,7 +43,7 @@
                         <h4 class="card-title" id="1">{{trans('assignment.studentsInSection')}}</h4><br>
                         @foreach($students as $student)
                             <p>
-                                <a href="{{route('assignment.studentEvaluate', ['id '=> $assignment->id, 'studentId' => $student->id])}}"
+                                <a href="{{route('assignment.student_evaluate', ['id '=> $assignment->id, 'studentId' => $student->id])}}"
                                    class="nav-link {{!empty($studentCurrent) && ($studentCurrent->id == $student->id) ? 'active' : 'btn-secondary'}}">{{$student->name_en}}</a>
                             </p>
                         @endforeach
@@ -56,7 +56,7 @@
                     <div class="card-body">
                         @if(!empty($studentCurrent))
                             <h4 class="card-title">{{trans('assignment.evaluateTheStudent') . ' ' . $studentCurrent->name_en}}</h4>
-                            <form method="post" action="{{route('assignment.assigmentEvaluation')}}"
+                            <form method="post" action="{{route('assignment.assigment_evaluation')}}"
                                   class="form-horizontal" id="rubric-form-update">
                                 @csrf
 
@@ -139,7 +139,7 @@
                                                     <input name="assessmentId" type="hidden"
                                                            value="{{ $assignment->id }}">
                                                     <button type="submit"
-                                                            class="btn btn-linkedin">{{trans('common.update') }}</button>
+                                                            class="btn btn-linkedin">{{trans('common.save') }}</button>
 
                                                     <a href="{{route('rubric.index')}}"
                                                        class="btn btn-danger"> {{trans('common.cancel')}}</a>
