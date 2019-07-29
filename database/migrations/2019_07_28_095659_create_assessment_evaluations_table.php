@@ -15,8 +15,8 @@ class CreateAssessmentEvaluationsTable extends Migration
     {
         Schema::create('assessment_evaluations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('assessment_id')->unsigned();
-            $table->foreign('assessment_id')->references('id')->on('assignments')->onDelete('cascade');
+            $table->bigInteger('assignments_id')->unsigned();
+            $table->foreign('assignments_id')->references('id')->on('assignments')->onDelete('cascade');
             $table->bigInteger('student_id')->unsigned();
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->bigInteger('rubric_cell_id')->unsigned();

@@ -25,7 +25,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|AssessmentEvaluations newModelQuery()
  * @method static Builder|AssessmentEvaluations newQuery()
  * @method static Builder|AssessmentEvaluations query()
- * @method static Builder|AssessmentEvaluations whereAssessmentId($value)
+ * @method static Builder|AssessmentEvaluations whereAssignmentsId($value)
  * @method static Builder|AssessmentEvaluations whereCreatedAt($value)
  * @method static Builder|AssessmentEvaluations whereId($value)
  * @method static Builder|AssessmentEvaluations whereRubricCellId($value)
@@ -41,7 +41,7 @@ class AssessmentEvaluations extends Model
      *
      * @var array
      */
-    protected $fillable = ['assessment_id', 'student_id', 'rubric_cell_id'];
+    protected $fillable = ['assignments_id', 'student_id', 'rubric_cell_id'];
 
     public function rubricCell()
     {
