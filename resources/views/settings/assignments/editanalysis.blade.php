@@ -36,7 +36,7 @@
         <div class="row">
             <div class="col-12">
 
-                <form method="post" action='{{route('updateAnalysis', [$assignment->id])}}' class="form-horizontal" >
+                <form id="editForm" method="post" action='{{route('updateAnalysis', [$assignment->id])}}' class="form-horizontal" >
                     @csrf
                     @method('PUT')
 
@@ -52,4 +52,24 @@
     <!-- ============================================================== -->
 
 @endsection
+
+@push('script')
+    <script>
+        @if(!$assignment->published)
+        $("#editForm").click(function (e) {
+            e.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+
+            $("#editForm").find("textarea").val("");
+        });
+
+        @endif
+
+
+    </script>
+@endpush
 
