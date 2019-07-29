@@ -141,7 +141,7 @@
                                                     <button type="submit"
                                                             class="btn btn-linkedin">{{trans('common.save') }}</button>
 
-                                                    <a href="{{route('rubric.index')}}"
+                                                    <a href="{{route('evaluate', [$assignment->id])}}"
                                                        class="btn btn-danger"> {{trans('common.cancel')}}</a>
                                                 </div>
                                             </div>
