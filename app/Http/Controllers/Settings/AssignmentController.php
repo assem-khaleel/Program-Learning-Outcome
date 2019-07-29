@@ -273,22 +273,34 @@ class AssignmentController extends Controller
             }
             foreach ($request->get('cells') as $key => $cell) {
 
-                if ($assigmentEvaluations->isEmpty()) {
+                if (count($request->get('cells')) > $assigmentEvaluations->count())
+                {
+                    $checkAssigmentEvaluations = $this->assigmentEvaluations->whereAssessmentId($request->assessmentId)->whereStudentId($request->studentId)->whereRubricCellId($cell)->get();
+                    if ($checkAssigmentEvaluations->isEmpty())
+                    {
+                        $this->assigmentEvaluations->create(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+
+                    } else {
+                        /** @var array $assessmentEvaluationIds */
+                        $assigmentEvaluation = $this->assigmentEvaluations->find($assessmentEvaluationIds[$key]);
+                        $assigmentEvaluation->update(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+
+                    }
+                } elseif ($assigmentEvaluations->isEmpty()) {
                     $this->assigmentEvaluations->create(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                 } else {
                     /** @var array $assessmentEvaluationIds */
                     $assigmentEvaluation = $this->assigmentEvaluations->find($assessmentEvaluationIds[$key]);
                     $assigmentEvaluation->update(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
-
                 }
             }
 
             return redirect()->route('evaluate', $request->assessmentId)
                 ->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
         }
-        return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);
 
+        return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);
     }
 
 }
