@@ -265,24 +265,27 @@ class AssignmentController extends Controller
         /** @var Assignment $assignment */
         $assignment = $this->assignment->find($request->assessmentId);
         $studentCurrent = $this->student->find($request->studentId);
-        if (!empty($assignment) && !empty($studentCurrent)) {
+        if (!empty($assignment) && !empty($studentCurrent))
+        {
             $assigmentEvaluations = $this->assigmentEvaluations->whereAssessmentId($request->assessmentId)->whereStudentId($request->studentId)->get();
-            if (!empty($assigmentEvaluations)) {
+            if (!empty($assigmentEvaluations))
+            {
                 foreach ($assigmentEvaluations as $keyEvaluation => $evaluation)
                     $assessmentEvaluationIds[$keyEvaluation] = $evaluation->id;
             }
-            foreach ($request->get('cells') as $key => $cell) {
+            foreach ($request->get('cells') as $key => $cell)
+            {
 
                 if (count($request->get('cells')) > $assigmentEvaluations->count())
                 {
-                    $checkAssigmentEvaluations = $this->assigmentEvaluations->whereAssessmentId($request->assessmentId)->whereStudentId($request->studentId)->whereRubricCellId($cell)->get();
-                    if ($checkAssigmentEvaluations->isEmpty())
+                    $checkAssigmentEvaluations = $this->assigmentEvaluations->whereAssessmentId($request->assessmentId)->whereStudentId($request->studentId)->whereRubricCellId($cell)->first();
+                    if (!empty($checkAssigmentEvaluations))
                     {
                         $this->assigmentEvaluations->create(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                     } else {
                         /** @var array $assessmentEvaluationIds */
-                        $assigmentEvaluation = $this->assigmentEvaluations->find($assessmentEvaluationIds[$key]);
+                        $assigmentEvaluation = $this->assigmentEvaluations->find($checkAssigmentEvaluations->id);
                         $assigmentEvaluation->update(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                     }
