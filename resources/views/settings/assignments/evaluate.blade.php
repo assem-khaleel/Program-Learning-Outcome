@@ -113,7 +113,7 @@
                                                                 <input type="radio"
                                                                        class="with-gap radio-col-teal col-md-2"
                                                                        id="radio-{{ $cell->id  }}"
-                                                                       name="cells[{{ $keyIndicator }}]"
+                                                                       name="cells-[{{ $keyIndicator }}]"
                                                                        value="{{$cell->id}}" {{ $assignment->assessmentEvaluations->where('rubric_cell_id', $cell->id)->where('student_id', $studentCurrent->id)->where('assessment_id', $assignment->id)->isNotEmpty() ? 'checked=checked' : ''}}>
                                                                 <label for="radio-{{ $cell->id}}"></label>
                                                                 @error('cells.'.$keyLevel)
