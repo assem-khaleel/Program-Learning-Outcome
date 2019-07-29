@@ -20,4 +20,10 @@ return [
     'pleaseSelectStudent ' => 'Please Select Student',
     'studentsInSection' => 'Students in Section',
     'evaluateTheStudent' => 'evaluate the student :',
+    'analysis' => 'Analysis',
+    'analysisFor' => 'Analysis for',
+    'createAnalysis' => 'Create Analysis',
+    'editAnalysis' => 'Edit Analysis',
+
+
 ];

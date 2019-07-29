@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Requests\Assignments;
+namespace App\Http\Requests\Analysis;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AssignmentRequest extends FormRequest
+class AnalysisRequest extends FormRequest
 {
 
-
     protected $rules = [
+        'analysis' => 'required|string',
+        'recommendations' => 'required|string',
+        'actions' => 'required|string',
 
     ];
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -39,26 +40,20 @@ class AssignmentRequest extends FormRequest
         switch ($method) {
             case 'GET':
             case 'DELETE':
-                {
-                    return [];
-                }
+            {
+                return [];
+            }
             case 'POST':
-                $this->rules['name_en'] = 'required';
-                $this->rules['rubric_id'] = 'required';
-                $this->rules['course_sections_id'] = "required|exists:course_sections,id";
-                $this->rules['name_ar'] = 'required';
-                $this->rules['created_by'] =   'nullable|numeric';
-
+                $this->rules['analysis'] = 'required|string';
+                $this->rules['recommendations'] = 'required|string';
+                $this->rules['actions'] = "required|string";
                 break;
             case 'PATCH':
             case 'PUT':
-            $this->rules['name_en'] = 'required';
-            $this->rules['rubric_id'] = 'required';
-            $this->rules['course_sections_id'] = "required|exists:course_sections,id";
-            $this->rules['name_ar'] =  'required';
-            $this->rules['created_by'] =   'nullable|numeric';
-
-            break;
+            $this->rules['analysis'] = 'required|string';
+            $this->rules['recommendations'] = 'required|string';
+            $this->rules['actions'] = "required|string";
+                break;
             default:
                 break;
         }

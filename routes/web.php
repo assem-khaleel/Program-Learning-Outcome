@@ -30,12 +30,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('assignment', 'AssignmentController');
         Route::resource('student', 'StudentController');
 
-
         Route::get('assignment/publish/{id}', 'AssignmentController@toogle')->name('publish');
         Route::get('assignment/studentEvaluate/{id}/{studentId}', 'AssignmentController@studentEvaluate')->name('assignment.student_evaluate');
         Route::post('assignment/assigmentEvaluations', 'AssignmentController@assigmentEvaluations')->name('assignment.assigment_evaluation');
         Route::get('assignment/evaluate/{id}', 'AssignmentController@evaluate')->name('evaluate');
+        Route::get('assignment/analysis/{id}', 'AssignmentController@analysis')->name('analysis');
         Route::post('students/create', 'CourseSectionController@storeStudents')->name('storeStudents');
+        Route::post('analysis/create', 'AssignmentController@storeAnalysis')->name('storeAnalysis');
+        Route::get('analysis/{id}/edit', 'AssignmentController@editAnalysis')->name('editAnalysis');
+        Route::put('analysis/{id}', 'AssignmentController@updateAnalysis')->name('updateAnalysis');
+
         Route::post('students/delete', 'CourseSectionController@deleteStudents')->name('deleteStudents');
 
         Route::get('students/{id}', 'CourseSectionController@students')->name('students');

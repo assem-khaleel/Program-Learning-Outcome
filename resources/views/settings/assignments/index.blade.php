@@ -105,7 +105,23 @@
                                                     data-original-title="{{trans('assignment.evaluate')}}"><i
                                                             class="fa fa-check"
                                                             style="margin: 5px"></i></a>
+
+                                                @if(!empty($assignment->analysis))
+                                                    <a  href="{{route('editAnalysis', $assignment->id)}}" class="share-assignment btn btn-outline-info" style="padding: 0px"
+                                                        data-toggle="tooltip"
+                                                        data-id-upload="{{ $assignment->id }}"
+                                                        data-original-title="{{trans('assignment.editAnalysis')}}"><i class="ti-settings" style="margin: 5px;color: green;border-color: green;background-color: #92da00"></i>
+                                                    </a>
+                                                    @else
+                                                        <a  href="{{route('analysis', $assignment->id)}}" class="share-assignment btn btn-outline-info" style="padding: 0px"
+                                                            data-toggle="tooltip"
+                                                            data-id-upload="{{ $assignment->id }}"
+                                                            data-original-title="{{trans('assignment.createAnalysis')}}"><i class="ti-settings" style="margin: 5px"></i>
+                                                        </a>
+
                                                     @endif
+
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

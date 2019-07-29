@@ -4,6 +4,7 @@ namespace App\Models\Settings;
 
 use App\Models\AssessmentEvaluations;
 use App\Models\Rubric;
+use App\Models\RubricAnalysis;
 use App\Models\RubricLevels;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
@@ -99,6 +100,11 @@ class Assignment extends Model
     public function users()
     {
         return $this->belongsTo(User::class,'created_by');
+    }
+
+    public function analysis()
+    {
+        return $this->hasOne(RubricAnalysis::class);
     }
 
     public function assessmentEvaluations()

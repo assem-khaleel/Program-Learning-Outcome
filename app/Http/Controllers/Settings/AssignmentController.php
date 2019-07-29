@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Settings;
 
+use App\Http\Requests\Analysis\AnalysisRequest;
 use App\Models\AssessmentEvaluations;
 use App\Models\Rubric;
+use App\Models\RubricAnalysis;
 use App\Models\RubricCells;
 use App\Models\Settings\Assignment;
 use App\Models\Settings\Course;
+
 use App\Http\Requests\Assignments\AssignmentRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Settings\CourseSection;
+use App\Models\Settings\Program;
 use App\Models\Settings\Student;
 use Exception;
 use Illuminate\Contracts\View\Factory;
@@ -51,6 +55,8 @@ class AssignmentController extends Controller
      */
     private $assigmentEvaluations;
 
+    private $analysis;
+
     /**
      * CollegeController constructor.
      * @param Assignment $assignment
@@ -61,7 +67,7 @@ class AssignmentController extends Controller
      * @param RubricCells $rubricCell
      * @param AssessmentEvaluations $assessmentEvaluations
      */
-    public function __construct(Assignment $assignment, Course $course, CourseSection $courseSection, Student $student, Rubric $rubric, RubricCells $rubricCell, AssessmentEvaluations $assessmentEvaluations)
+    public function __construct(Assignment $assignment, Course $course, CourseSection $courseSection, Student $student, Rubric $rubric, RubricCells $rubricCell, AssessmentEvaluations $assessmentEvaluations, RubricAnalysis $analysis)
     {
         $this->assignment = $assignment;
         $this->course = $course;
@@ -70,6 +76,7 @@ class AssignmentController extends Controller
         $this->rubric = $rubric;
         $this->rubricCell = $rubricCell;
         $this->assigmentEvaluations = $assessmentEvaluations;
+        $this->analysis = $analysis;
     }
 
 
@@ -224,6 +231,8 @@ class AssignmentController extends Controller
 
             $students = $assignment->courseSection->students;
 
+        $students = $assignment->courseSection->students ;
+
             return view('settings.assignments.evaluate')->with('assignment', $assignment)->with('courseSections', $courseSections)->with('students', $students);
         }
 
@@ -282,7 +291,41 @@ class AssignmentController extends Controller
                     if (!isset($checkAssigmentEvaluations))
                     {
                         $this->assigmentEvaluations->create(['assessment_id' => $request->assessmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+         $rubric = $this->rubric->where('id',$assignment->rubric_id)->get();
 
+
+
+        return view('settings.assignments.evaluate')->with('assignment', $assignment)->with('assignment',$assignment)->with('courseSections',$courseSections)->with('students',$students)->with('rubrics',$rubric);
+
+    }
+
+    public function analysis($id){
+
+        $assignment = $this->assignment->findOrFail($id);
+
+        $rubric = $assignment->rubric;
+
+        $analysis = $this->analysis->assignment;
+
+        return view('settings.assignments.analysis')->with('rubric',$rubric)->with('assignment',$assignment)->with('analysis',$analysis);
+    }
+
+    public function storeAnalysis(AnalysisRequest $request)
+    {
+        $this->analysis->create($request->all());
+
+        return redirect()->route('assignment.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
+    }
+
+    public function editAnalysis($id)
+    {
+        $assignment = $this->assignment->findOrFail($id);
+
+        $rubric = $assignment->rubric;
+
+        $analysis = $this->analysis->where('assignment_id',$assignment->id)->first();;
+
+        return view('settings.assignments.editanalysis')->with('assignment',$assignment)->with('analysis',$analysis)->with('rubrics',$rubric);
                     } else {
                         /** @var array $assessmentEvaluationIds */
                         $assigmentEvaluation = $this->assigmentEvaluations->find($checkAssigmentEvaluations->id);
@@ -306,4 +349,16 @@ class AssignmentController extends Controller
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);
     }
 
+    public function updateAnalysis(AnalysisRequest $request, $id)
+    {
+        $assignment = $this->assignment->findOrFail($id);
+
+        $analysis = $this->analysis->where('assignment_id',$assignment->id)->first();;
+
+        if (!empty($analysis)){
+            $analysis->update($request->all());
+        }
+
+        return redirect()->route('assignment.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
+    }
 }
