@@ -56,6 +56,7 @@ use Illuminate\Support\Facades\App;
  * @property-read Collection|AssessmentEvaluations[] $assessmentEvaluations
  * @property-read Rubric|null $rubric
  * @method static \Illuminate\Database\Eloquent\Builder|Assignment whereRubricId($value)
+ * @property-read User $users
  */
 class Assignment extends Model
 {
