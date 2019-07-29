@@ -2,7 +2,7 @@
 
 namespace App\Models\Settings;
 
-use App\Models\AssessmentEvaluations;
+use App\Models\AssignmentEvaluation;
 use App\Models\Rubric;
 use App\Models\RubricAnalysis;
 use App\Models\RubricLevels;
@@ -54,10 +54,11 @@ use Illuminate\Support\Facades\App;
  * @method static Builder|Assignment withoutTrashed()
  * @mixin Eloquent
  * @property int|null $rubric_id
- * @property-read Collection|AssessmentEvaluations[] $assessmentEvaluations
  * @property-read Rubric|null $rubric
  * @method static \Illuminate\Database\Eloquent\Builder|Assignment whereRubricId($value)
  * @property-read User $users
+ * @property-read RubricAnalysis $analysis
+ * @property-read Collection|AssignmentEvaluation[] $assessmentEvaluations
  */
 class Assignment extends Model
 {
@@ -109,6 +110,6 @@ class Assignment extends Model
 
     public function assessmentEvaluations()
     {
-        return $this->hasMany(AssessmentEvaluations::class, 'assessment_id');
+        return $this->hasMany(AssignmentEvaluation::class, 'assignments_id');
     }
 }

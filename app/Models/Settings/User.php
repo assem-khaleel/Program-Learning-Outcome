@@ -2,7 +2,7 @@
 
 namespace App\Models\Settings;
 
-use App\model\File;
+use App\Models\File;
 use App\Models\Rubric;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;

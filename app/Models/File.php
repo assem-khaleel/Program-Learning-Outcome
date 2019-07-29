@@ -1,6 +1,6 @@
 <?php
 
-namespace App\model;
+namespace App\Models;
 
 use Auth;
 use Eloquent;
