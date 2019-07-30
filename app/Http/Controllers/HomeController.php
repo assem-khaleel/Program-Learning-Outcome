@@ -58,8 +58,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-//        return $this->dashboardStaff();
-      return $this->dashboardFaculty();
+        return $this->dashboardStaff();
+//      return $this->dashboardFaculty();
     }
 
     /**
