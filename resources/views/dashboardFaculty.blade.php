@@ -99,7 +99,6 @@
                                 <th>{{trans('courses.course')}}</th>
                                 <th>course sections</th>
                                 <th>Number of students</th>
-
                                 <th>{{trans('common.progress')}}</th>
                             </tr>
                             </thead>
@@ -109,7 +108,7 @@
                                     <td>{{$assignment->name}}</td>
                                     <td>{{$assignment->courseSection->course->name}}</td>
                                     <td>{{$assignment->courseSection->code}}</td>
-                                    <th>{{$assignment->courseSection->students->count()}}</th>
+                                    <td>{{$assignment->courseSection->students->count()}}</td>
                                     <td>
                                         <div class="chart easy-pie-chart-2"
                                              data-percent="{{$assignment->progress}}">
