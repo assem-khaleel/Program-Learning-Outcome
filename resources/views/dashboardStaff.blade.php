@@ -102,7 +102,7 @@
                     @if ($assignments->isEmpty())
                         <div class="bd-footer">
                             <div class="text-center">
-                                <h5>{{trans('courses.thereAreNoCourses')}}</h5>
+                                <h5>{{trans('assignment.thereAreNoAssignments')}}</h5>
                             </div>
                         </div>
                     @else
