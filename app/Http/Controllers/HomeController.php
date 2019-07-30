@@ -101,8 +101,6 @@ class HomeController extends Controller
                 $item['progress'] = round($progress[$item->id] ?? 0, 2);
                 return $item;
             });
-        }else{
-            $countStudent = 0;
         }
 
         return view('dashboardStaff')->with('countCourses', $countCourses)->with('learningOutcomes', $learningOutcomes)
