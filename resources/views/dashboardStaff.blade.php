@@ -78,7 +78,7 @@
 
         <div class="card">
             <div class="card-header">
-                Monthly statistics
+               {{trans('common.monthlyStatistics')}}
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6">
@@ -94,14 +94,13 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-row">
                                 <div class="round align-self-center round-info"><i class="ti-bar-chart"></i></div>
                                 <div class="m-l-10 align-self-center">
-                                    <h3 class="m-b-0 countPlos">{{$learningOutcomes->count()}}</h3>
+                                    <h3 class="m-b-0 countPlos">{{$countLearningOutcomesMonthly}}</h3>
                                     <h5 class="text-muted m-b-0" data-toggle="tooltip" data-placement="bottom"
                                         title="{{trans('learningOutcome.learningOutcomes')}}">{{trans('learningOutcome.plos')}}</h5>
                                 </div>
@@ -109,14 +108,13 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-3 col-md-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-row">
                                 <div class="round align-self-center round-success"><i class="ti-check-box"></i></div>
                                 <div class="m-l-10 align-self-center">
-                                    <h3 class="m-b-0 countAssignments">{{$countAssignments}}</h3>
+                                    <h3 class="m-b-0 countAssignments">{{$countAssignmentsMonthly}}</h3>
                                     <h5 class="text-muted m-b-0" data-toggle="tooltip" data-placement="bottom"
                                         title="{{trans('assignment.assignments')}}">{{trans('assignment.assignments')}}</h5>
                                 </div>
@@ -124,7 +122,20 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-row">
+                                <div class="round align-self-center round-info"><i class="fa fa-quora fa-fw"></i></div>
+                                <div class="m-l-10 align-self-center">
+                                    <h3 class="m-b-0 countAssignments">{{$countRubricsMonthly}}</h3>
+                                    <h5 class="text-muted m-b-0" data-toggle="tooltip" data-placement="bottom"
+                                        title="{{trans('rubrics.rubrics')}}">{{trans('rubrics.rubrics')}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>

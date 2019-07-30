@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LearningOutcome;
+use App\Models\Rubric;
 use App\Models\Settings\Assignment;
 use App\Models\Settings\Course;
 use App\Models\Settings\CourseSection;
@@ -32,6 +33,10 @@ class HomeController extends Controller
      * @var CourseSection
      */
     private $courseSection;
+    /**
+     * @var Rubric
+     */
+    private $rubric;
 
     /**
      * Create a new controller instance.
@@ -41,14 +46,16 @@ class HomeController extends Controller
      * @param LearningOutcome $learningOutcome
      * @param Assignment $assignment
      * @param Student $student
+     * @param Rubric $rubric
      */
-    public function __construct(Course $course, CourseSection $courseSection, LearningOutcome $learningOutcome, Assignment $assignment, Student $student)
+    public function __construct(Course $course, CourseSection $courseSection, LearningOutcome $learningOutcome, Assignment $assignment, Student $student, Rubric $rubric)
     {
         $this->course = $course;
         $this->learningOutcome = $learningOutcome;
         $this->assignment = $assignment;
         $this->student = $student;
         $this->courseSection = $courseSection;
+        $this->rubric = $rubric;
     }
 
     /**
@@ -69,9 +76,15 @@ class HomeController extends Controller
     {
         $assignments = $this->assignment->with('assessmentEvaluations')->with('courseSection')->whereHas('courseSection')->paginate(15);
         $countCourses = $this->course->all()->count();
-        $countCoursesMonthly = $this->course->whereMonth('created_at' , Carbon::now()->month)->count();
         $learningOutcomes = $this->learningOutcome->all();
+
+        $countCoursesMonthly = $this->course->whereMonth('created_at' , Carbon::now()->month)->count();
+        $countLearningOutcomesMonthly = $this->learningOutcome->whereMonth('created_at' , Carbon::now()->month)->count();
+        $countAssignmentsMonthly = $this->assignment->whereMonth('created_at' , Carbon::now()->month)->count();
+        $countRubricsMonthly = $this->rubric->whereMonth('created_at' , Carbon::now()->month)->count();
+
         $countAssignments = $this->assignment->count();
+
         $students = $this->student->all();
         foreach ($assignments as $key => $assignment) {
             $countStudents = $assignment->courseSection->students->count();
@@ -92,7 +105,10 @@ class HomeController extends Controller
             $countStudent = 0;
         }
 
-        return view('dashboardStaff')->with('countCourses', $countCourses)->with('learningOutcomes', $learningOutcomes)->with('assignments', $assignments)->with('students', $students)->with('countAssignments', $countAssignments)->with('countCoursesMonthly', $countCoursesMonthly);
+        return view('dashboardStaff')->with('countCourses', $countCourses)->with('learningOutcomes', $learningOutcomes)
+            ->with('assignments', $assignments)->with('students', $students)->with('countAssignments', $countAssignments)
+            ->with('countCoursesMonthly', $countCoursesMonthly)->with('countLearningOutcomesMonthly', $countLearningOutcomesMonthly)
+            ->with('countAssignmentsMonthly', $countAssignmentsMonthly)->with('countRubricsMonthly', $countRubricsMonthly);
     }
 
     /**

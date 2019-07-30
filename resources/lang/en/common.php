@@ -62,4 +62,5 @@ return [
     'yes' => 'Yes',
     'no' => 'No',
     'progress' => 'Progress',
+    'monthlyStatistics' => 'Monthly Statistics',
 ];
