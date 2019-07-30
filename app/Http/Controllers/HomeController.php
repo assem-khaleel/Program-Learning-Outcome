@@ -102,7 +102,6 @@ class HomeController extends Controller
         })->paginate(15);
 
         $learningOutcomes = $this->learningOutcome->all();
-        $countAssignments = $this->assignment->count();
         $courseSections = $this->courseSection->whereTeacherId(auth()->id())->with('students')->whereHas('students')->get();
         foreach($courseSections as $courseSection)
         {
