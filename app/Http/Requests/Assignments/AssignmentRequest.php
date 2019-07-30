@@ -47,7 +47,7 @@ class AssignmentRequest extends FormRequest
                 $this->rules['rubric_id'] = 'required';
                 $this->rules['course_sections_id'] = "required|exists:course_sections,id";
                 $this->rules['name_ar'] = 'required';
-                $this->rules['created_by'] =   'nullable|numeric';
+                $this->rules['created_by'] =   'numeric';
 
                 break;
             case 'PATCH':
@@ -56,7 +56,7 @@ class AssignmentRequest extends FormRequest
             $this->rules['rubric_id'] = 'required';
             $this->rules['course_sections_id'] = "required|exists:course_sections,id";
             $this->rules['name_ar'] =  'required';
-            $this->rules['created_by'] =   'nullable|numeric';
+            $this->rules['created_by'] =   'numeric';
 
             break;
             default:

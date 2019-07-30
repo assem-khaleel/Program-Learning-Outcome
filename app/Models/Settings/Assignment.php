@@ -110,6 +110,6 @@ class Assignment extends Model
 
     public function assessmentEvaluations()
     {
-        return $this->hasMany(AssignmentEvaluation::class, 'assignments_id');
+        return $this->hasMany(AssignmentEvaluation::class, 'assignment_id');
     }
 }

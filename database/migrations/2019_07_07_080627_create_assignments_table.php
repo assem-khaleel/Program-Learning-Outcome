@@ -17,11 +17,15 @@ class CreateAssignmentsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name_en');
             $table->string('name_ar');
-            $table->string('created_by');
+            $table->bigInteger('created_by')->unsigned();
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->longText('description_en');
             $table->longText('description_ar');
             $table->bigInteger('course_sections_id')->unsigned();
             $table->foreign('course_sections_id')->references('id')->on('course_sections')->onDelete('cascade');
+            $table->bigInteger('rubric_id')->unsigned();
+            $table->foreign('rubric_id')->references('id')->on('rubrics')->onDelete('cascade');
+            $table->boolean('published')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

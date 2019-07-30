@@ -19,6 +19,7 @@ class CreateStudentsTable extends Migration
             $table->bigInteger('program_id')->unsigned();
             $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
             $table->bigInteger('student_no')->unsigned();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
