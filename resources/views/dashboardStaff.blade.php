@@ -80,14 +80,51 @@
             <div class="card-header">
                 Monthly statistics
             </div>
-            <div class="card-body">
-                <div class="pull-left">
-                    <div class="p-3 v-middle ranking-systems" id="name">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-row">
+                                <div class="round align-self-center round-success"><i class="ti-book"></i></div>
+                                <div class="m-l-10 align-self-center">
+                                    <h3 class="m-b-0 countCourses">{{$countCoursesMonthly}}</h3>
+                                    <h5 class="text-muted m-b-0" data-toggle="tooltip" data-placement="bottom"
+                                        title="{{trans('courses.courses')}}">{{trans('courses.courses')}}</h5></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="clearfix"></div>
-                    <div class="text-center systems-criteria" data-toggle="tooltip" data-placement="top" title="yukiy"
-                         id="name-1"></div>
                 </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-row">
+                                <div class="round align-self-center round-info"><i class="ti-bar-chart"></i></div>
+                                <div class="m-l-10 align-self-center">
+                                    <h3 class="m-b-0 countPlos">{{$learningOutcomes->count()}}</h3>
+                                    <h5 class="text-muted m-b-0" data-toggle="tooltip" data-placement="bottom"
+                                        title="{{trans('learningOutcome.learningOutcomes')}}">{{trans('learningOutcome.plos')}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-row">
+                                <div class="round align-self-center round-success"><i class="ti-check-box"></i></div>
+                                <div class="m-l-10 align-self-center">
+                                    <h3 class="m-b-0 countAssignments">{{$countAssignments}}</h3>
+                                    <h5 class="text-muted m-b-0" data-toggle="tooltip" data-placement="bottom"
+                                        title="{{trans('assignment.assignments')}}">{{trans('assignment.assignments')}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -157,8 +194,6 @@
 
     @push('script')
         <script src="{{asset('assets/plugins/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js')}}"></script>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
         <script>
             !function ($) {
                 "use strict";
@@ -197,72 +232,7 @@
             });
 
 
-            google.charts.load('current', {'packages': ['gauge']});
 
-
-            google.charts.setOnLoadCallback(drawChart);
-
-            function drawChart() {
-
-                var data = google.visualization.arrayToDataTable([
-                    ['Label', 'Value'],
-                    ['a', 60]
-                ]);
-
-                var options = {
-                    width: 100, height: 500,
-                    redFrom: 0, redTo: 33,
-                    yellowFrom: 34, yellowTo: 66,
-                    greenFrom: 67, greenTo: 100,
-                    minorTicks: 5, greenColor: '#2c897b',
-                    yellowColor: '#fcb437', redColor: '#db3636'
-                };
-
-                var chart = new google.visualization.Gauge(document.getElementById('name'));
-
-                document.getElementById('name-1').innerText = 'test';
-                chart.draw(data, options);
-            }
-
-            $({Counter: 0}).animate({
-                Counter: $('.countCourses').text()
-            }, {
-                duration: 2000,
-                easing: 'swing',
-                step: function () {
-                    $('.countCourses').text(Math.ceil(this.Counter));
-                }
-            });
-
-            $({Counter: 0}).animate({
-                Counter: $('.countPlos').text()
-            }, {
-                duration: 2000,
-                easing: 'swing',
-                step: function () {
-                    $('.countPlos').text(Math.ceil(this.Counter));
-                }
-            });
-
-            $({Counter: 0}).animate({
-                Counter: $('.countStudents').text()
-            }, {
-                duration: 2000,
-                easing: 'swing',
-                step: function () {
-                    $('.countStudents').text(Math.ceil(this.Counter));
-                }
-            });
-
-            $({Counter: 0}).animate({
-                Counter: $('.countAssignments').text()
-            }, {
-                duration: 2000,
-                easing: 'swing',
-                step: function () {
-                    $('.countAssignments').text(Math.ceil(this.Counter));
-                }
-            });
 
         </script>
     @endpush
