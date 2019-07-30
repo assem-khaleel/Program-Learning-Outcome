@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Controllers\Controller;
 
 
+use App\Http\Requests\Students\StudentsRequest;
 use App\Models\Settings\Assignment;
 use App\Models\Settings\Course;
 use App\Models\Settings\CourseSection;
@@ -79,7 +80,7 @@ class StudentController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StudentsRequest $request,$id=0)
     {
         $this->student->create($request->all());
 
@@ -122,7 +123,7 @@ class StudentController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(StudentsRequest $request, $id)
     {
         $student = $this->student->find($id);
 
