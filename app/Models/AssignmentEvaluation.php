@@ -25,7 +25,7 @@ use Illuminate\Support\Carbon;
  * @property int $rubric_cell_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @method static Builder|AssignmentEvaluation whereAssignmentsId($value)
+ * @method static Builder|AssignmentEvaluation whereAssignmentId($value)
  * @method static Builder|AssignmentEvaluation whereCreatedAt($value)
  * @method static Builder|AssignmentEvaluation whereId($value)
  * @method static Builder|AssignmentEvaluation whereRubricCellId($value)

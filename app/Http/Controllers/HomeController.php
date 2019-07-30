@@ -58,8 +58,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-//        return $this->dashboardStaff();
-      return $this->dashboardFaculty();
+        return $this->dashboardStaff();
+//      return $this->dashboardFaculty();
     }
 
     /**
@@ -81,7 +81,7 @@ class HomeController extends Controller
 
             $progress[$assignment->id] = $countRubricIndicators ? (($countAssessmentEvaluations / $countRubricIndicators) / $countStudents) * 100 : 0;
         }
-        if (empty($assignments)){
+        if (!empty($assignments)){
             /** @var float $progress */
             $assignments = $this->assignment->get()->map(function ($item) use ($progress) {
                 $item['progress'] = round($progress[$item->id] ?? 0, 2);
@@ -130,7 +130,7 @@ class HomeController extends Controller
             $progress[$assignment->id] = (($countAssessmentEvaluations / $countRubricIndicators) / $countStudents) * 100;
         }
 
-        if (empty($assignments)){
+        if (!empty($assignments)){
             /** @var float $progress */
             $assignments = $this->assignment->with('assessmentEvaluations')->with('courseSection')->whereHas('courseSection', function ($query){
                 $query->where('teacher_id', auth()->id());

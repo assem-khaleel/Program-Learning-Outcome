@@ -273,7 +273,7 @@ class AssignmentController extends Controller
         $studentCurrent = $this->student->find($request->studentId);
         if (!empty($assignment) && !empty($studentCurrent))
         {
-            $assigmentEvaluations = $this->assigmentEvaluations->whereAssignmentsId($request->assignmentId)->whereStudentId($request->studentId)->get();
+            $assigmentEvaluations = $this->assigmentEvaluations->whereAssignmentId($request->assignmentId)->whereStudentId($request->studentId)->get();
             if (!empty($assigmentEvaluations))
             {
                 foreach ($assigmentEvaluations as $keyEvaluation => $evaluation)
@@ -284,7 +284,7 @@ class AssignmentController extends Controller
 
                 if (count($request->get('cells')) > $assigmentEvaluations->count())
                 {
-                    $checkAssigmentEvaluations = $this->assigmentEvaluations->whereAssignmentsId($request->assignmentId)->whereStudentId($request->studentId)->whereRubricCellId($cell)->first();
+                    $checkAssigmentEvaluations = $this->assigmentEvaluations->whereAssignmentId($request->assignmentId)->whereStudentId($request->studentId)->whereRubricCellId($cell)->first();
                     if (!isset($checkAssigmentEvaluations))
                     {
                         $this->assigmentEvaluations->create(['assignment_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
