@@ -55,7 +55,7 @@
                         <div class="d-flex flex-row">
                             <div class="round align-self-center round-danger"><i class="ti-user"></i></div>
                             <div class="m-l-10 align-self-center">
-                                <h3 class="m-b-0 countStudents">485</h3>
+                                <h3 class="m-b-0 countStudents">{{$countStudent}}</h3>
                                 <h5 class="text-muted m-b-0" data-toggle="tooltip" data-placement="bottom"
                                     title="Students">students</h5></div>
                         </div>
@@ -84,7 +84,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    @if ($courseSections->isEmpty())
+                    @if ($assignments->isEmpty())
                         <div class="bd-footer">
                             <div class="text-center">
                                 <h5>{{trans('courses.thereAreNoCourses')}}</h5>
@@ -95,31 +95,27 @@
                         <table class="table color-bordered-table info-bordered-table table-striped m-b-0">
                             <thead>
                             <tr>
-                                <th>{{trans('courses.course')}} / course sections</th>
                                 <th>{{trans('assignment.assignment')}}</th>
+                                <th>{{trans('courses.course')}}</th>
+                                <th>course sections</th>
                                 <th>Number of students</th>
+
                                 <th>{{trans('common.progress')}}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($courseSections as $courseSection)
-                            <tr>
-                                <td>{{ $courseSection->course->name .'-'. $courseSection->code}}</td>
-                                <td>
-                                    <ul>
-                                        @foreach($courseSection->assignments as $assignment)
-                                            <li>
-                                                {{$assignment->name}}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td>23</td>
-                                <td>
-                                    <div class="chart easy-pie-chart-2" data-percent="90">
-                                        <span class="percent">90</span></div>
-                                </td>
-                            </tr>
+                            @foreach($assignments as $assignment)
+                                <tr>
+                                    <td>{{$assignment->name}}</td>
+                                    <td>{{$assignment->courseSection->course->name}}</td>
+                                    <td>{{$assignment->courseSection->code}}</td>
+                                    <th>{{$assignment->courseSection->students->count()}}</th>
+                                    <td>
+                                        <div class="chart easy-pie-chart-2"
+                                             data-percent="{{$assignment->progress}}">
+                                            <span class="percent">{{$assignment->progress}}</span></div>
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
@@ -128,7 +124,7 @@
                 </div>
                 <div class="card-footer text-center">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                        {{$courseSections->links()}}
+{{--                        {{$assignments->links()}}--}}
                     </div>
                 </div>
             </div>

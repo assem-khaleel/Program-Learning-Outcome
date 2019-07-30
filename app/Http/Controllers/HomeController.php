@@ -58,8 +58,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return $this->dashboardStaff();
-//      return $this->dashboardFaculty();
+//        return $this->dashboardStaff();
+      return $this->dashboardFaculty();
     }
 
     /**
@@ -94,16 +94,44 @@ class HomeController extends Controller
      */
     public function dashboardFaculty()
     {
-        $courseSections = $this->courseSection->with('course')->with('students')->with('assignments')->whereHas('assignments')->whereTeacherId(\Auth::id())->paginate(15);
-
         $countCourses = $this->course->whereHas('courseSection', function ($query) {
             $query->whereTeacherId(auth()->id());
         })->count();
+        $assignments = $this->assignment->with('assessmentEvaluations')->with('courseSection')->whereHas('courseSection', function ($query){
+            $query->where('teacher_id', auth()->id());
+        })->paginate(15);
 
         $learningOutcomes = $this->learningOutcome->all();
-        $assignments = $this->assignment->all();
+        $countAssignments = $this->assignment->count();
+        $courseSections = $this->courseSection->whereTeacherId(auth()->id())->with('students')->whereHas('students')->get();
+        foreach($courseSections as $courseSection)
+        {
+            $countStudent = $courseSection->students->count();
 
-        return view('dashboardFaculty')->with('courseSections', $courseSections)->with('countCourses', $countCourses)->with('learningOutcomes', $learningOutcomes)->with('assignments', $assignments);
+        }
+
+        /** @var Assignment $assignments */
+        foreach($assignments as $assignment)
+        {
+            $countStudents = $assignment->courseSection->students->count();
+
+            $countAssessmentEvaluations = $assignment->assessmentEvaluations->count();
+
+            $countRubricIndicators = $assignment->rubric->rubricIndicators->count();
+
+            $progress[$assignment->id] = (($countAssessmentEvaluations / $countRubricIndicators) / $countStudents) * 100;
+        }
+
+        $assignments = $this->assignment->with('assessmentEvaluations')->with('courseSection')->whereHas('courseSection', function ($query){
+            $query->where('teacher_id', auth()->id());
+        })->get()->map(function ($item) use ($progress) {
+
+            $item['progress'] = round($progress[$item->id] ?? 0, 2);
+            return $item;
+        });
+
+        /** @var CourseSection $countStudent */
+        return view('dashboardFaculty')->with('countStudent', $countStudent)->with('countCourses', $countCourses)->with('learningOutcomes', $learningOutcomes)->with('assignments', $assignments);
     }
 
 }
