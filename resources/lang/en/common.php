@@ -61,4 +61,5 @@ return [
     'notDeleteLastColumn' => 'Not Delete Last Column',
     'yes' => 'Yes',
     'no' => 'No',
+    'progress' => 'Progress',
 ];

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Profiles;
 
-use App\model\File;
+use App\Models\File;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

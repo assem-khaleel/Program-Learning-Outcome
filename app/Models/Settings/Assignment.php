@@ -2,6 +2,7 @@
 
 namespace App\Models\Settings;
 
+use App\Models\AssignmentEvaluation;
 use App\Models\Rubric;
 use App\Models\RubricAnalysis;
 use App\Models\RubricLevels;
@@ -52,6 +53,12 @@ use Illuminate\Support\Facades\App;
  * @method static Builder|Assignment withTrashed()
  * @method static Builder|Assignment withoutTrashed()
  * @mixin Eloquent
+ * @property int|null $rubric_id
+ * @property-read Rubric|null $rubric
+ * @method static \Illuminate\Database\Eloquent\Builder|Assignment whereRubricId($value)
+ * @property-read User $users
+ * @property-read RubricAnalysis $analysis
+ * @property-read Collection|AssignmentEvaluation[] $assessmentEvaluations
  */
 class Assignment extends Model
 {
@@ -68,7 +75,7 @@ class Assignment extends Model
      * @return string
      */
     public function getNameAttribute() {
-        return App::getLocale() == 'ar' ? $this->name_en : $this->name_en;
+        return App::getLocale() == 'ar' ? $this->name_ar : $this->name_en;
     }
 
     /**
@@ -79,7 +86,7 @@ class Assignment extends Model
     }
 
     public function courseSection(){
-        return $this->belongsTo(CourseSection::class,'course_sections_id');
+        return $this->belongsTo(CourseSection::class, 'course_sections_id');
     }
 
     public function students()
@@ -101,4 +108,8 @@ class Assignment extends Model
         return $this->hasOne(RubricAnalysis::class);
     }
 
+    public function assessmentEvaluations()
+    {
+        return $this->hasMany(AssignmentEvaluation::class, 'assignments_id');
+    }
 }

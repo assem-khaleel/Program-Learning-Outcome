@@ -1,7 +1,8 @@
 <?php
 return [
 
-    'Assignments' => 'Assignments',
+    'assignments' => 'Assignments',
+    'assignment' => 'Assignment',
     'createAssignment' => 'Create Assignment',
     'thereAreNoAssignments' => 'There Are No Assignments',
     'notFoundAssignment' => 'Not found Assignment',
@@ -16,6 +17,9 @@ return [
     'unpublishSudents' => 'Unpuplish',
     'shareAssignment' => 'Share Assignment',
     'evaluate' => 'Evaluate',
+    'pleaseSelectStudent ' => 'Please Select Student',
+    'studentsInSection' => 'Students in Section',
+    'evaluateTheStudent' => 'evaluate the student :',
     'analysis' => 'Analysis',
     'analysisFor' => 'Analysis for',
     'createAnalysis' => 'Create Analysis',

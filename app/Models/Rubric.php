@@ -41,6 +41,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Rubric withTrashed()
  * @method static Builder|Rubric withoutTrashed()
  * @mixin Eloquent
+ * @property-read Collection|Assignment[] $assignments
  */
 class Rubric extends Model
 {

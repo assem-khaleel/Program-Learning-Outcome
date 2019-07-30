@@ -26,12 +26,6 @@ class AddRubricId extends Migration
      */
     public function down()
     {
-        Schema::table('assignments', function (Blueprint $table) {
 
-
-            $table->foreign('rubric_id')
-                ->references('id')->on('rubrics')
-                ->onDelete('cascade');
-        });
     }
 }

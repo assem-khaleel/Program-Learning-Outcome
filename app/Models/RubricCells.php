@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\AssignmentEvaluation;
 use Eloquent;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -40,6 +42,7 @@ use Illuminate\Support\Carbon;
  * @mixin Eloquent
  * @property Carbon|null $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|RubricCells whereDeletedAt($value)
+ * @property-read Collection|AssignmentEvaluation[] $assigmentEvaluations
  */
 class RubricCells extends Model
 {
@@ -68,5 +71,8 @@ class RubricCells extends Model
         return $this->belongsTo(RubricLevels::class, 'level_id');
     }
 
-
+    public function assigmentEvaluations()
+    {
+        return $this->hasMany(AssignmentEvaluation::class, 'rubric_cell_id');
+    }
 }

@@ -43,6 +43,7 @@ use Illuminate\Support\Carbon;
  * @property-read Semester $semester
  * @property-read User $teacher
  * @property-read Collection|Assignment[] $assignments
+ * @property-read Collection|Student[] $students
  */
 class CourseSection extends Model
 {
@@ -67,7 +68,7 @@ class CourseSection extends Model
 
     public function assignments()
     {
-        return $this->hasMany(Assignment::class);
+        return $this->hasMany(Assignment::class, 'course_sections_id');
     }
 
     public function semester()
