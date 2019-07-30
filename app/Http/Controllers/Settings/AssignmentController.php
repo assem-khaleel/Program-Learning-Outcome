@@ -66,10 +66,10 @@ class AssignmentController extends Controller
      * @param Student $student
      * @param Rubric $rubric
      * @param RubricCells $rubricCell
-     * @param AssignmentEvaluation $assessmentEvaluations
+     * @param AssignmentEvaluation $assignmentEvaluations
      * @param RubricAnalysis $analysis
      */
-    public function __construct(Assignment $assignment, Course $course, CourseSection $courseSection, Student $student, Rubric $rubric, RubricCells $rubricCell, AssignmentEvaluation $assessmentEvaluations, RubricAnalysis $analysis)
+    public function __construct(Assignment $assignment, Course $course, CourseSection $courseSection, Student $student, Rubric $rubric, RubricCells $rubricCell, AssignmentEvaluation $assignmentEvaluations, RubricAnalysis $analysis)
     {
         $this->assignment = $assignment;
         $this->course = $course;
@@ -77,7 +77,7 @@ class AssignmentController extends Controller
         $this->student = $student;
         $this->rubric = $rubric;
         $this->rubricCell = $rubricCell;
-        $this->assigmentEvaluations = $assessmentEvaluations;
+        $this->assigmentEvaluations = $assignmentEvaluations;
         $this->analysis = $analysis;
     }
 
@@ -102,10 +102,10 @@ class AssignmentController extends Controller
     public function create()
     {
         $courses = $this->course->all();
-        $course_scetions = $this->courseSection->all();
+        $courseSections = $this->courseSection->all();
         $rubrics = $this->rubric->all();
 
-        return view('settings.assignments.create')->with('courses', $courses)->with('courseSections', $course_scetions)->with('rubrics', $rubrics);
+        return view('settings.assignments.create')->with('courses', $courses)->with('courseSections', $courseSections)->with('rubrics', $rubrics);
 
     }
 
@@ -119,9 +119,7 @@ class AssignmentController extends Controller
     {
         $request['created_by'] = Auth::user()->id;
 
-        if (!empty($this->assignment)) {
-            $this->assignment->create($request->all());
-        }
+        $this->assignment->create($request->all());
 
         return redirect()->route('assignment.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
     }
@@ -146,13 +144,16 @@ class AssignmentController extends Controller
     public function edit($id)
     {
         $assignment = $this->assignment->find($id);
-        $course_scetions = $this->courseSection->all();
+        if (!empty($assignment))
+        {
+            $courseSections = $this->courseSection->all();
+            $courses = $this->course->all();
+            $rubrics = $this->rubric->all();
 
-        $courses = $this->course->all();
-        $rubrics = $this->rubric->all();
+            return view('settings.assignments.edit')->with('courses', $courses)->with('assignment', $assignment)->with('courseSections', $courseSections)->with('rubrics', $rubrics);
+        }
+        return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);
 
-
-        return view('settings.assignments.edit')->with('courses', $courses)->with('assignment', $assignment)->with('courseSections', $course_scetions)->with('rubrics', $rubrics);
     }
 
     /**
@@ -228,11 +229,8 @@ class AssignmentController extends Controller
     {
         $assignment = $this->assignment->find($id);
         if (!empty($assignment)) {
-            $courseSections = $assignment->courseSection;
 
-            $students = $assignment->courseSection->students;
-
-            return view('settings.assignments.evaluate')->with('assignment', $assignment)->with('courseSections', $courseSections)->with('students', $students);
+            return view('settings.assignments.evaluate')->with('assignment', $assignment);
         }
 
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);
@@ -275,37 +273,36 @@ class AssignmentController extends Controller
         $studentCurrent = $this->student->find($request->studentId);
         if (!empty($assignment) && !empty($studentCurrent))
         {
-            $assigmentEvaluations = $this->assigmentEvaluations->whereAssignmentsId($request->assignmentId)->whereStudentId($request->studentId)->get();
+            $assigmentEvaluations = $this->assigmentEvaluations->whereAssignmentId($request->assignmentId)->whereStudentId($request->studentId)->get();
             if (!empty($assigmentEvaluations))
             {
                 foreach ($assigmentEvaluations as $keyEvaluation => $evaluation)
-                    $assessmentEvaluationIds[$keyEvaluation] = $evaluation->id;
+                    $assignmentEvaluationIds[$keyEvaluation] = $evaluation->id;
             }
             foreach ($request->get('cells') as $key => $cell)
             {
 
                 if (count($request->get('cells')) > $assigmentEvaluations->count())
                 {
-                    $checkAssigmentEvaluations = $this->assigmentEvaluations->whereAssignmentsId($request->assignmentId)->whereStudentId($request->studentId)->whereRubricCellId($cell)->first();
+                    $checkAssigmentEvaluations = $this->assigmentEvaluations->whereAssignmentId($request->assignmentId)->whereStudentId($request->studentId)->whereRubricCellId($cell)->first();
                     if (!isset($checkAssigmentEvaluations))
                     {
-                        $this->assigmentEvaluations->create(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+                        $this->assigmentEvaluations->create(['assignment_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                     } else {
-                        /** @var array $assessmentEvaluationIds */
+                        /** @var array $assignmentEvaluationIds */
                         $assigmentEvaluation = $this->assigmentEvaluations->find($checkAssigmentEvaluations->id);
-                        $assigmentEvaluation->update(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+                        $assigmentEvaluation->update(['assignment_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                     }
                 } elseif ($assigmentEvaluations->isEmpty()) {
-                    dd('rtgrtg');
 
-                    $this->assigmentEvaluations->create(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+                    $this->assigmentEvaluations->create(['assignment_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                 } else {
-                    /** @var array $assessmentEvaluationIds */
-                    $assigmentEvaluation = $this->assigmentEvaluations->find($assessmentEvaluationIds[$key]);
-                    $assigmentEvaluation->update(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+                    /** @var array $assignmentEvaluationIds */
+                    $assigmentEvaluation = $this->assigmentEvaluations->find($assignmentEvaluationIds[$key]);
+                    $assigmentEvaluation->update(['assignment_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
                 }
             }
 

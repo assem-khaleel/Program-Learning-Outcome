@@ -37,7 +37,7 @@
                     <div class="card-header">
                         <h4 class="card-title pull-left">{{trans('student.students') }} </h4>
                         <button class="pull-right btn-sm btn btn-info" data-target="#student-modal" data-toggle="modal">
-                            <span class="btn-label"><i class="fa fa-plus"></i></span> {{trans('student.createStudent')}}
+                            <span class="btn-label"><i class="fa fa-plus"></i></span> {{trans('student.addStudent')}}
                         </button>
                     </div>
                     <div class="card-body">
