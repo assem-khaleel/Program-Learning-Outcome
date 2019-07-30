@@ -67,14 +67,26 @@ class HomeController extends Controller
      */
     public function dashboardStaff()
     {
-        $courseSections = $this->courseSection->with('course')->with('students')->with('assignments')->whereHas('assignments')->paginate(15);
-
+        $assignments = $this->assignment->with('assessmentEvaluations')->with('courseSection')->whereHas('courseSection')->paginate(15);
         $countCourses = $this->course->all()->count();
         $learningOutcomes = $this->learningOutcome->all();
-        $assignments = $this->assignment->all();
+        $countAssignments = $this->assignment->count();
         $students = $this->student->all();
+        foreach ($assignments as $key => $assignment) {
+            $countStudents = $assignment->courseSection->students->count();
 
-        return view('dashboardStaff')->with('courseSections', $courseSections)->with('countCourses', $countCourses)->with('learningOutcomes', $learningOutcomes)->with('assignments', $assignments)->with('students', $students);
+            $countAssessmentEvaluations = $assignment->assessmentEvaluations->count();
+
+            $countRubricIndicators = $assignment->rubric->rubricIndicators->count();
+
+            $progress[$assignment->id] = (($countAssessmentEvaluations / $countRubricIndicators) / $countStudents) * 100;
+        }
+        $assignments = $this->assignment->get()->map(function ($item) use ($progress) {
+            $item['progress'] = round($progress[$item->id] ?? 0, 2);
+            return $item;
+        });
+
+        return view('dashboardStaff')->with('countCourses', $countCourses)->with('learningOutcomes', $learningOutcomes)->with('assignments', $assignments)->with('students', $students)->with('countAssignments', $countAssignments);
     }
 
     /**

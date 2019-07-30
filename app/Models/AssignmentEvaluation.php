@@ -13,7 +13,6 @@ use Illuminate\Support\Carbon;
 /**
  * App\model\AssignmentEvaluation
  *
- * @property-read Assignment $assessment
  * @property-read RubricCells $rubricCell
  * @property-read Student $student
  * @method static Builder|AssignmentEvaluation newModelQuery()
@@ -32,6 +31,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|AssignmentEvaluation whereRubricCellId($value)
  * @method static Builder|AssignmentEvaluation whereStudentId($value)
  * @method static Builder|AssignmentEvaluation whereUpdatedAt($value)
+ * @property-read Assignment $assignment
  */
 class AssignmentEvaluation extends Model
 {
@@ -47,7 +47,7 @@ class AssignmentEvaluation extends Model
         return $this->belongsTo(RubricCells::class, 'rubric_cell_id');
     }
 
-    public function assessment()
+    public function assignment()
     {
         return $this->belongsTo(Assignment::class, 'assignment_id');
     }

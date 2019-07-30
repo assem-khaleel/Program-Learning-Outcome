@@ -66,10 +66,10 @@ class AssignmentController extends Controller
      * @param Student $student
      * @param Rubric $rubric
      * @param RubricCells $rubricCell
-     * @param AssignmentEvaluation $assessmentEvaluations
+     * @param AssignmentEvaluation $assignmentEvaluations
      * @param RubricAnalysis $analysis
      */
-    public function __construct(Assignment $assignment, Course $course, CourseSection $courseSection, Student $student, Rubric $rubric, RubricCells $rubricCell, AssignmentEvaluation $assessmentEvaluations, RubricAnalysis $analysis)
+    public function __construct(Assignment $assignment, Course $course, CourseSection $courseSection, Student $student, Rubric $rubric, RubricCells $rubricCell, AssignmentEvaluation $assignmentEvaluations, RubricAnalysis $analysis)
     {
         $this->assignment = $assignment;
         $this->course = $course;
@@ -77,7 +77,7 @@ class AssignmentController extends Controller
         $this->student = $student;
         $this->rubric = $rubric;
         $this->rubricCell = $rubricCell;
-        $this->assigmentEvaluations = $assessmentEvaluations;
+        $this->assigmentEvaluations = $assignmentEvaluations;
         $this->analysis = $analysis;
     }
 
@@ -277,7 +277,7 @@ class AssignmentController extends Controller
             if (!empty($assigmentEvaluations))
             {
                 foreach ($assigmentEvaluations as $keyEvaluation => $evaluation)
-                    $assessmentEvaluationIds[$keyEvaluation] = $evaluation->id;
+                    $assignmentEvaluationIds[$keyEvaluation] = $evaluation->id;
             }
             foreach ($request->get('cells') as $key => $cell)
             {
@@ -290,7 +290,7 @@ class AssignmentController extends Controller
                         $this->assigmentEvaluations->create(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                     } else {
-                        /** @var array $assessmentEvaluationIds */
+                        /** @var array $assignmentEvaluationIds */
                         $assigmentEvaluation = $this->assigmentEvaluations->find($checkAssigmentEvaluations->id);
                         $assigmentEvaluation->update(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
@@ -301,8 +301,8 @@ class AssignmentController extends Controller
                     $this->assigmentEvaluations->create(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                 } else {
-                    /** @var array $assessmentEvaluationIds */
-                    $assigmentEvaluation = $this->assigmentEvaluations->find($assessmentEvaluationIds[$key]);
+                    /** @var array $assignmentEvaluationIds */
+                    $assigmentEvaluation = $this->assigmentEvaluations->find($assignmentEvaluationIds[$key]);
                     $assigmentEvaluation->update(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
                 }
             }
