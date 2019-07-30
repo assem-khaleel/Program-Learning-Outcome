@@ -69,6 +69,7 @@ class HomeController extends Controller
     {
         $assignments = $this->assignment->with('assessmentEvaluations')->with('courseSection')->whereHas('courseSection')->paginate(15);
         $countCourses = $this->course->all()->count();
+        $countCoursesMonthly = $this->course->whereMonth('created_at' , Carbon::now()->month)->count();
         $learningOutcomes = $this->learningOutcome->all();
         $countAssignments = $this->assignment->count();
         $students = $this->student->all();
@@ -87,9 +88,11 @@ class HomeController extends Controller
                 $item['progress'] = round($progress[$item->id] ?? 0, 2);
                 return $item;
             });
+        }else{
+            $countStudent = 0;
         }
 
-        return view('dashboardStaff')->with('countCourses', $countCourses)->with('learningOutcomes', $learningOutcomes)->with('assignments', $assignments)->with('students', $students)->with('countAssignments', $countAssignments);
+        return view('dashboardStaff')->with('countCourses', $countCourses)->with('learningOutcomes', $learningOutcomes)->with('assignments', $assignments)->with('students', $students)->with('countAssignments', $countAssignments)->with('countCoursesMonthly', $countCoursesMonthly);
     }
 
     /**
