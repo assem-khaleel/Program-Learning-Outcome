@@ -162,8 +162,8 @@ class CourseSectionController extends Controller
     public function storeStudents(Request $request)
     {
         $request->validate([
-            'student_id' => "required|unique:course_section_student"
-
+            'student_id' => 'required|unique:course_section_student,student_id,NULL,NULL,course_section_id,' . $request['course_section_id'],
+            'course_section_id' => 'required|unique:course_section_student,course_section_id,NULL,NULL,student_id,' . $request['student_id'],
         ]);
         /** @var CourseSection $courseSection */
         $courseSection = $this->courseSection->find($request->get('course_section_id'));
