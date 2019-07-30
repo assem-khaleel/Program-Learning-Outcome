@@ -81,6 +81,7 @@ class HomeController extends Controller
 
             $progress[$assignment->id] = (($countAssessmentEvaluations / $countRubricIndicators) / $countStudents) * 100;
         }
+        /** @var float $progress */
         $assignments = $this->assignment->get()->map(function ($item) use ($progress) {
             $item['progress'] = round($progress[$item->id] ?? 0, 2);
             return $item;
@@ -121,6 +122,7 @@ class HomeController extends Controller
             $progress[$assignment->id] = (($countAssessmentEvaluations / $countRubricIndicators) / $countStudents) * 100;
         }
 
+        /** @var float $progress */
         $assignments = $this->assignment->with('assessmentEvaluations')->with('courseSection')->whereHas('courseSection', function ($query){
             $query->where('teacher_id', auth()->id());
         })->get()->map(function ($item) use ($progress) {
