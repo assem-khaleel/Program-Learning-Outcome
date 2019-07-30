@@ -19,6 +19,7 @@ class CreateCourseSectionStudentTable extends Migration
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->bigInteger('course_section_id')->unsigned();
             $table->foreign('course_section_id')->references('id')->on('course_sections')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
