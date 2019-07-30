@@ -40,7 +40,7 @@ class AssignmentEvaluation extends Model
      *
      * @var array
      */
-    protected $fillable = ['assignments_id', 'student_id', 'rubric_cell_id'];
+    protected $fillable = ['assignment_id', 'student_id', 'rubric_cell_id'];
 
     public function rubricCell()
     {

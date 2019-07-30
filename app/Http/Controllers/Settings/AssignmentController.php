@@ -287,23 +287,22 @@ class AssignmentController extends Controller
                     $checkAssigmentEvaluations = $this->assigmentEvaluations->whereAssignmentsId($request->assignmentId)->whereStudentId($request->studentId)->whereRubricCellId($cell)->first();
                     if (!isset($checkAssigmentEvaluations))
                     {
-                        $this->assigmentEvaluations->create(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+                        $this->assigmentEvaluations->create(['assignment_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                     } else {
                         /** @var array $assignmentEvaluationIds */
                         $assigmentEvaluation = $this->assigmentEvaluations->find($checkAssigmentEvaluations->id);
-                        $assigmentEvaluation->update(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+                        $assigmentEvaluation->update(['assignment_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                     }
                 } elseif ($assigmentEvaluations->isEmpty()) {
-                    dd('rtgrtg');
 
-                    $this->assigmentEvaluations->create(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+                    $this->assigmentEvaluations->create(['assignment_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
 
                 } else {
                     /** @var array $assignmentEvaluationIds */
                     $assigmentEvaluation = $this->assigmentEvaluations->find($assignmentEvaluationIds[$key]);
-                    $assigmentEvaluation->update(['assignments_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
+                    $assigmentEvaluation->update(['assignment_id' => $request->assignmentId, 'student_id' => $request->studentId, 'rubric_cell_id' => $cell]);
                 }
             }
 
