@@ -110,7 +110,7 @@
                                     <td>
                                         <div class="chart easy-pie-chart-2"
                                              data-percent="{{$assignment->progress}}">
-                                            <span class="percent">{{$assignment->progress}}</span></div>
+                                            <span class="percent">{{$assignment->progress ?? 0}}</span></div>
                                     </td>
                                 </tr>
                             @endforeach
