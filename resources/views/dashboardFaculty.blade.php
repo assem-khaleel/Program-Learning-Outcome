@@ -8,8 +8,6 @@
         <div class="col-md-12 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
-                <li class="breadcrumb-item">Widget</li>
-                <li class="breadcrumb-item active">Data</li>
             </ol>
         </div>
     </div>
