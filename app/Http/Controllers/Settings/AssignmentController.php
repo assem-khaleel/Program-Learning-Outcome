@@ -102,10 +102,10 @@ class AssignmentController extends Controller
     public function create()
     {
         $courses = $this->course->all();
-        $course_scetions = $this->courseSection->all();
+        $courseSections = $this->courseSection->all();
         $rubrics = $this->rubric->all();
 
-        return view('settings.assignments.create')->with('courses', $courses)->with('courseSections', $course_scetions)->with('rubrics', $rubrics);
+        return view('settings.assignments.create')->with('courses', $courses)->with('courseSections', $courseSections)->with('rubrics', $rubrics);
 
     }
 
@@ -119,9 +119,7 @@ class AssignmentController extends Controller
     {
         $request['created_by'] = Auth::user()->id;
 
-        if (!empty($this->assignment)) {
-            $this->assignment->create($request->all());
-        }
+        $this->assignment->create($request->all());
 
         return redirect()->route('assignment.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
     }
@@ -146,13 +144,16 @@ class AssignmentController extends Controller
     public function edit($id)
     {
         $assignment = $this->assignment->find($id);
-        $course_scetions = $this->courseSection->all();
+        if (!empty($assignment))
+        {
+            $courseSections = $this->courseSection->all();
+            $courses = $this->course->all();
+            $rubrics = $this->rubric->all();
 
-        $courses = $this->course->all();
-        $rubrics = $this->rubric->all();
+            return view('settings.assignments.edit')->with('courses', $courses)->with('assignment', $assignment)->with('courseSections', $courseSections)->with('rubrics', $rubrics);
+        }
+        return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);
 
-
-        return view('settings.assignments.edit')->with('courses', $courses)->with('assignment', $assignment)->with('courseSections', $course_scetions)->with('rubrics', $rubrics);
     }
 
     /**
@@ -228,11 +229,8 @@ class AssignmentController extends Controller
     {
         $assignment = $this->assignment->find($id);
         if (!empty($assignment)) {
-            $courseSections = $assignment->courseSection;
 
-            $students = $assignment->courseSection->students;
-
-            return view('settings.assignments.evaluate')->with('assignment', $assignment)->with('courseSections', $courseSections)->with('students', $students);
+            return view('settings.assignments.evaluate')->with('assignment', $assignment);
         }
 
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);

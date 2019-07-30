@@ -15,7 +15,7 @@
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
 
-            <h3 class="text-themecolor"> {{$assignment->name." ". '-'. " "}} {{$courseSections->code}}</h3>
+            <h3 class="text-themecolor"> {{$assignment->name." ". '-'. " "}} {{$assignment->courseSection->code}}</h3>
         </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
@@ -41,7 +41,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title" id="1">{{trans('assignment.studentsInSection')}}</h4><br>
-                        @foreach($students as $student)
+                        @foreach($assignment->courseSection->students as $student)
                             <p>
                                 <a href="{{route('assignment.student_evaluate', ['id '=> $assignment->id, 'studentId' => $student->id])}}"
                                    class="nav-link {{!empty($studentCurrent) && ($studentCurrent->id == $student->id) ? 'active' : 'btn-secondary'}}">{{$student->name_en}}</a>
