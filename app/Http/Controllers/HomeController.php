@@ -93,7 +93,7 @@ class HomeController extends Controller
 
             $countRubricIndicators = $assignment->rubric->rubricIndicators->count();
 
-            $progress[$assignment->id] = $countRubricIndicators ? (($countAssessmentEvaluations / $countRubricIndicators) / $countStudents) * 100 : 0;
+            $progress[$assignment->id] = $countAssessmentEvaluations ? (($countAssessmentEvaluations / $countRubricIndicators) / $countStudents) * 100 : 0;
         }
         if ($assignments->isNotEmpty()){
             /** @var float $progress */
@@ -144,7 +144,7 @@ class HomeController extends Controller
 
             $countRubricIndicators = $assignment->rubric->rubricIndicators->count();
 
-            $progress[$assignment->id] = (($countAssessmentEvaluations / $countRubricIndicators) / $countStudents) * 100;
+            $progress[$assignment->id] = $countAssessmentEvaluations ? (($countAssessmentEvaluations / $countRubricIndicators) / $countStudents) * 100 : 0;
         }
 
         if ($assignments->isNotEmpty()){
