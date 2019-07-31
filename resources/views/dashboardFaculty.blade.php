@@ -55,7 +55,7 @@
                             <div class="m-l-10 align-self-center">
                                 <h3 class="m-b-0 countStudents">{{$countStudent}}</h3>
                                 <h5 class="text-muted m-b-0" data-toggle="tooltip" data-placement="bottom"
-                                    title="Students">students</h5></div>
+                                    title="{{trans('student.students')}}">{{trans('student.students')}}</h5></div>
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                             <tr>
                                 <th>{{trans('assignment.assignment')}}</th>
                                 <th>{{trans('courses.course')}}</th>
-                                <th>course sections</th>
+                                <th>course section</th>
                                 <th>Number of students</th>
                                 <th>{{trans('common.progress')}}</th>
                             </tr>
