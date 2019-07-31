@@ -160,7 +160,7 @@
                                 <tr>
                                     <th>{{trans('assignment.assignment')}}</th>
                                     <th>{{trans('courses.course')}}</th>
-                                    <th>course sections</th>
+                                    <th>course section</th>
                                     <th>Number of students</th>
 
                                     <th>{{trans('common.progress')}}</th>
