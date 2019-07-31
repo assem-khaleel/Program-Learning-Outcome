@@ -55,7 +55,7 @@
                             <div class="m-l-10 align-self-center">
                                 <h3 class="m-b-0 countStudents">{{$students->count()}}</h3>
                                 <h5 class="text-muted m-b-0" data-toggle="tooltip" data-placement="bottom"
-                                    title="Students">students</h5></div>
+                                    title="{{trans('student.students')}}">{{trans('student.students')}}</h5></div>
                         </div>
                     </div>
                 </div>
