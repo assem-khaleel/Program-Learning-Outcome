@@ -55,10 +55,7 @@ class Student extends Model
      * @var array
      */
 
-    protected $dates = ['deleted_at'];
-
     protected $fillable = ['name_en','program_id','student_no'];
-
 
     /**
      *  the course sections belongs to student
