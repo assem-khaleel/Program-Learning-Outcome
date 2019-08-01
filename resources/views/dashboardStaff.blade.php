@@ -175,7 +175,7 @@
                                         <td>{{$assignment->courseSection->students->count()}}</td>
                                         <td>
                                             <div class="chart easy-pie-chart-2"
-                                                 data-percent="{{$assignment->progress}}">
+                                                 data-percent="{{$assignment->progress ?? 0}}">
                                                 <span class="percent">{{$assignment->progress ?? 0}}</span></div>
                                         </td>
                                     </tr>
