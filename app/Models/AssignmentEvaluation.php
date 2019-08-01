@@ -32,6 +32,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|AssignmentEvaluation whereStudentId($value)
  * @method static Builder|AssignmentEvaluation whereUpdatedAt($value)
  * @property-read Assignment $assignment
+ * @property int $assignment_id
  */
 class AssignmentEvaluation extends Model
 {
