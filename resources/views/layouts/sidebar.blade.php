@@ -49,6 +49,13 @@
                 <li> <a class="has-arrow waves-effect waves-dark" href="{{route('assignment.index')}}" aria-expanded="false"><i class="fa fa-check-square-o fa-fw"></i><span class="hide-menu">Assignments</span></a>
                 </li>
 
+                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">{{trans('report.reports')}}</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a href="{{route('report.institution')}}">Institution </a></li>
+                        <li><a href="{{route('report')}}">students </a></li>
+                    </ul>
+                </li>
+
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

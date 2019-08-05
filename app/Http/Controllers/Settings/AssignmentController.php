@@ -204,6 +204,11 @@ class AssignmentController extends Controller
     public function toogle($id)
     {
         $assignment = $this->assignment->find($id);
+
+        if (!empty($assignment->analysis)){
+            return redirect()->back()->with('message', ['type' => 'error', 'text' => trans('common.unpublish')]);
+        }
+
         if (!empty($assignment)) {
             $assignment->published = !$assignment->published;
 
@@ -217,6 +222,7 @@ class AssignmentController extends Controller
 
             }
         }
+
 
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('assignment.notFoundAssignment')]);
     }
