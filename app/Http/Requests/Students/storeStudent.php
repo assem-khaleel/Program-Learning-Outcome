@@ -3,13 +3,9 @@
 namespace App\Http\Requests\Students;
 
 use Illuminate\Foundation\Http\FormRequest;
-/**
- * @property mixed student
- */
 
-class StudentsRequest extends FormRequest
+class storeStudent extends FormRequest
 {
-
     protected $rules = [
 
     ];
@@ -18,6 +14,7 @@ class StudentsRequest extends FormRequest
      *
      * @return bool
      */
+
     public function authorize()
     {
         return true;
@@ -44,20 +41,18 @@ class StudentsRequest extends FormRequest
                 return [];
             }
             case 'POST':
-                $this->rules['name_en'] = 'required|unique:students,name_en';
-                $this->rules['student_no'] = 'required|numeric|unique:students,student_no';
-                $this->rules['program_id'] = 'required|numeric';
 
-
+//                if($courseSection===0){
+//                    $this->rules['student_id'] = 'required';
+//                    $this->rules['course_section_id'] = 'required';
+//                }else {
+//                    $this->rules['student_id'] = 'required|unique:course_section_student,student_id,NULL,NULL,course_section_id,' . $this->courseSection;
+//                    $this->rules['course_section_id'] = 'required|unique:course_section_student,course_section_id,NULL,NULL,student_id,' .$this->courseSection;
+//                }
                 break;
             case 'PATCH':
             case 'PUT':
-                $this->rules['name_en'] = 'required|unique:students,name_en,' . $this->student;
-                $this->rules['student_no'] = 'required||numeric|unique:students,student_no,' . $this->student;
-                $this->rules['program_id'] = 'required|numeric';
-
-
-            break;
+                break;
             default:
                 break;
         }

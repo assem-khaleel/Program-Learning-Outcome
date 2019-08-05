@@ -14,6 +14,11 @@
 
 Route::group(['middleware' => ['auth']], function () {
 
+    Route::group(['prefix' => 'reports', 'namespace' => 'Reports'], function () {
+        Route::get('reports/institution', 'ReportController@institution')->name('report.institution');
+        Route::get('reports/students', 'ReportController@student')->name('report');
+    });
+
     Route::get('/','HomeController@index');
 
     Route::get('/home', 'HomeController@index')->name('home');
@@ -24,6 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('change-password', 'ProfileController@changePassword')->name('profiles.changePassword');
         Route::put('{id}', 'ProfileController@update')->name('profiles.update');
     });
+
 
     Route::group(['prefix' => 'settings', 'namespace' => 'Settings'], function () {
 

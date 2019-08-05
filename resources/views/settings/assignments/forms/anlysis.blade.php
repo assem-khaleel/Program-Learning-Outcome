@@ -1,8 +1,8 @@
 <div class="form-group">
     <label for="analysis">analysis</label>
-    <textarea rows="5" name="analysis"  class="form-control {{ $errors->has('analysis') ? 'is-invalid' : '' }}">
-        {{ old('analysis', ($analysis->analysis ?? '')) }}
-                </textarea>
+    <textarea rows="5" name="analysis"  class="form-control {{ $errors->has('analysis') ? 'is-invalid' : '' }}">  {{ old('analysis', ($analysis->analysis ?? '')) }}</textarea>
+
+
     @error('analysis')
     <small class="form-control-feedback text-danger"> {{ $message }} </small>
     @enderror
@@ -10,9 +10,9 @@
 
 <div class="form-group">
     <label for="recommendations">recommendations</label>
-    <textarea  rows="5" name="recommendations"  class="form-control {{ $errors->has('recommendations') ? 'is-invalid' : '' }}">
-        {{ old('recommendations', ($analysis->recommendations ?? '')) }}
-                </textarea>
+    <textarea  rows="5" name="recommendations"  class="form-control {{ $errors->has('recommendations') ? 'is-invalid' : '' }}">  {{ old('recommendations', ($analysis->recommendations ?? '')) }}</textarea>
+
+
     @error('recommendations')
     <small class="form-control-feedback text-danger"> {{ $message }} </small>
     @enderror
@@ -20,9 +20,9 @@
 
 <div class="form-group">
     <label for="actions">actions</label>
-    <textarea rows="5" name="actions" class="form-control {{ $errors->has('actions') ? 'is-invalid' : '' }}">
-          {{ old('actions', ($analysis->actions ?? '')) }}
-                </textarea>
+    <textarea rows="5" name="actions" class="form-control {{ $errors->has('actions') ? 'is-invalid' : '' }}">  {{ old('actions', ($analysis->actions ?? '')) }}</textarea>
+
+
     @error('actions')
     <small class="form-control-feedback text-danger"> {{ $message }} </small>
     @enderror

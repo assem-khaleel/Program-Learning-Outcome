@@ -60,4 +60,9 @@ class College extends Model
     {
         return $this->hasMany(Department::class);
     }
+    public function programs (){
+        return $this->hasManyThrough(Program::class,Department::class,'college_id','department_id','id','id');
+    }
+
+
 }
