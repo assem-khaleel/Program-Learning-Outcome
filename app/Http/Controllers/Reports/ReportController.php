@@ -20,10 +20,6 @@ class ReportController extends Controller
      */
     protected $college;
 
-    protected $department;
-
-    protected $program;
-
     protected $plo;
 
     protected $student;
@@ -33,11 +29,9 @@ class ReportController extends Controller
      * @param User $user
      * @param File $file
      */
-    public function __construct(College $college, Department $department, Program $program, LearningOutcome $plo,Student $student)
+    public function __construct(College $college,LearningOutcome $plo,Student $student)
     {
         $this->college = $college;
-        $this->department = $department;
-        $this->program = $program;
         $this->plo = $plo;
         $this->student= $student;
     }
