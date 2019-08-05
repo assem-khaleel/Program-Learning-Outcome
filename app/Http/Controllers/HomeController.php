@@ -93,8 +93,8 @@ class HomeController extends Controller
         foreach ($assignments as $key => $assignment) {
             $countStudents = $assignment->courseSection->students->count();
             $countAssessmentEvaluations = $assignment->assessmentEvaluations->count();
-            $countRubricIndicators = $assignment->rubric->rubricIndicators->count();
-            $progress[$assignment->id] = $countAssessmentEvaluations ? (($countAssessmentEvaluations / $countRubricIndicators) / $countStudents) * 100 : 0;
+            $countRubricLevels = $assignment->rubric->rubricLevels->count();
+            $progress[$assignment->id] = $countAssessmentEvaluations ? (($countAssessmentEvaluations / $countRubricLevels) / $countStudents) * 100 : 0;
         }
         if ($assignments->isNotEmpty()) {
             /** @var float $progress */
@@ -142,9 +142,9 @@ class HomeController extends Controller
 
             $countAssessmentEvaluations = $assignment->assessmentEvaluations->count();
 
-            $countRubricIndicators = $assignment->rubric->rubricIndicators->count();
+            $countRubricLevels = $assignment->rubric->rubricLevels->count();
 
-            $progress[$assignment->id] = $countAssessmentEvaluations ? (($countAssessmentEvaluations / $countRubricIndicators) / $countStudents) * 100 : 0;
+            $progress[$assignment->id] = $countAssessmentEvaluations ? (($countAssessmentEvaluations / $countRubricLevels) / $countStudents) * 100 : 0;
         }
 
         if ($assignments->isNotEmpty()){
