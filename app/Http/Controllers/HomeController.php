@@ -10,8 +10,10 @@ use App\Models\Settings\Course;
 use App\Models\Settings\CourseSection;
 use App\Models\Settings\Student;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class HomeController extends Controller
 {
@@ -159,6 +161,11 @@ class HomeController extends Controller
         return view('dashboardFaculty')->with('countStudent', $countStudent)->with('countCourses', $countCourses)->with('learningOutcomes', $learningOutcomes)->with('assignments', $assignments);
     }
 
+    /**
+     * @param Request $request
+     * @return array|RedirectResponse
+     * @throws Throwable
+     */
     public function getRubric(Request $request)
     {
         if (!$request->ajax()) {
