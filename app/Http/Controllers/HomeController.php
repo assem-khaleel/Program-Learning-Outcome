@@ -9,10 +9,8 @@ use App\Models\Settings\Assignment;
 use App\Models\Settings\Course;
 use App\Models\Settings\CourseSection;
 use App\Models\Settings\Student;
-use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class HomeController extends Controller
