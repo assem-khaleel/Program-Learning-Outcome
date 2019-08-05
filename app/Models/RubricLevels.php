@@ -49,7 +49,7 @@ class RubricLevels extends Model
      *
      * @var array
      */
-    protected $fillable = ['level', 'rubric_id', 'order'];
+    protected $fillable = ['level', 'rubric_id', 'order', 'percentage'];
 
     /**
      * @return BelongsTo

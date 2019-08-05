@@ -72,12 +72,17 @@
                                                     @php $count = 0 @endphp
                                                     @foreach($assignment->rubric->rubricLevels->sortBy('order') as $keyLevel => $level)
                                                         <th>
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-6">
                                                                 <label id="level-{{$keyLevel}}" type="text"
                                                                        class="form-control form-control-sm">
                                                                     {{ $level->level }}
                                                                 </label>
-
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label id="level-{{$keyLevel}}" type="text"
+                                                                       class=" form-control-sm">
+                                                                    {{ $level->percentage }} %
+                                                                </label>
                                                             </div>
                                                         </th>
                                                     @endforeach

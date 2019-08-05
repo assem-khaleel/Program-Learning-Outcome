@@ -63,4 +63,5 @@ return [
     'no' => 'No',
     'progress' => 'Progress',
     'monthlyStatistics' => 'Monthly Statistics',
+    'percentage' => 'Percentage',
 ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AssignmentEvaluation;
 use App\Models\LearningOutcome;
 use App\Models\Rubric;
 use App\Models\Settings\Assignment;
@@ -10,6 +11,7 @@ use App\Models\Settings\CourseSection;
 use App\Models\Settings\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -37,6 +39,10 @@ class HomeController extends Controller
      * @var Rubric
      */
     private $rubric;
+    /**
+     * @var AssignmentEvaluation
+     */
+    private $assignmentEvaluation;
 
     /**
      * Create a new controller instance.
@@ -47,8 +53,9 @@ class HomeController extends Controller
      * @param Assignment $assignment
      * @param Student $student
      * @param Rubric $rubric
+     * @param AssignmentEvaluation $assignmentEvaluation
      */
-    public function __construct(Course $course, CourseSection $courseSection, LearningOutcome $learningOutcome, Assignment $assignment, Student $student, Rubric $rubric)
+    public function __construct(Course $course, CourseSection $courseSection, LearningOutcome $learningOutcome, Assignment $assignment, Student $student, Rubric $rubric, AssignmentEvaluation $assignmentEvaluation)
     {
         $this->course = $course;
         $this->learningOutcome = $learningOutcome;
@@ -56,6 +63,7 @@ class HomeController extends Controller
         $this->student = $student;
         $this->courseSection = $courseSection;
         $this->rubric = $rubric;
+        $this->assignmentEvaluation = $assignmentEvaluation;
     }
 
     /**
@@ -77,36 +85,28 @@ class HomeController extends Controller
         $assignments = $this->assignment->with('assessmentEvaluations')->with('courseSection')->whereHas('courseSection')->paginate(15);
         $countCourses = $this->course->all()->count();
         $learningOutcomes = $this->learningOutcome->all();
-
-        $countCoursesMonthly = $this->course->whereMonth('created_at' , Carbon::now()->month)->count();
-        $countLearningOutcomesMonthly = $this->learningOutcome->whereMonth('created_at' , Carbon::now()->month)->count();
-        $countAssignmentsMonthly = $this->assignment->whereMonth('created_at' , Carbon::now()->month)->count();
-        $countRubricsMonthly = $this->rubric->whereMonth('created_at' , Carbon::now()->month)->count();
+        $rubrics = $this->rubric->whereHas('assignments')->get();
 
         $countAssignments = $this->assignment->count();
 
         $students = $this->student->all();
         foreach ($assignments as $key => $assignment) {
             $countStudents = $assignment->courseSection->students->count();
-
             $countAssessmentEvaluations = $assignment->assessmentEvaluations->count();
-
             $countRubricIndicators = $assignment->rubric->rubricIndicators->count();
-
             $progress[$assignment->id] = $countAssessmentEvaluations ? (($countAssessmentEvaluations / $countRubricIndicators) / $countStudents) * 100 : 0;
         }
-        if ($assignments->isNotEmpty()){
+        if ($assignments->isNotEmpty()) {
             /** @var float $progress */
-            $assignments = $this->assignment->get()->map(function ($item) use ($progress) {
+            $assignments->getCollection()->transform(function ($item) use ($progress) {
                 $item['progress'] = round($progress[$item->id] ?? 0, 2);
                 return $item;
             });
         }
 
         return view('dashboardStaff')->with('countCourses', $countCourses)->with('learningOutcomes', $learningOutcomes)
-            ->with('assignments', $assignments)->with('students', $students)->with('countAssignments', $countAssignments)
-            ->with('countCoursesMonthly', $countCoursesMonthly)->with('countLearningOutcomesMonthly', $countLearningOutcomesMonthly)
-            ->with('countAssignmentsMonthly', $countAssignmentsMonthly)->with('countRubricsMonthly', $countRubricsMonthly);
+          ->with('assignments', $assignments)->with('students', $students)->with('countAssignments', $countAssignments)
+          ->with('rubrics', $rubrics);
     }
 
     /**
@@ -149,9 +149,7 @@ class HomeController extends Controller
 
         if ($assignments->isNotEmpty()){
             /** @var float $progress */
-            $assignments = $this->assignment->with('assessmentEvaluations')->with('courseSection')->whereHas('courseSection', function ($query){
-                $query->where('teacher_id', auth()->id());
-            })->get()->map(function ($item) use ($progress) {
+            $assignments->getCollection()->transform(function ($item) use ($progress) {
                 $item['progress'] = round($progress[$item->id] ?? 0, 2);
                 return $item;
             });
@@ -161,4 +159,28 @@ class HomeController extends Controller
         return view('dashboardFaculty')->with('countStudent', $countStudent)->with('countCourses', $countCourses)->with('learningOutcomes', $learningOutcomes)->with('assignments', $assignments);
     }
 
+    public function getRubric(Request $request)
+    {
+        if (!$request->ajax()) {
+            return redirect()->route('home');
+        }
+
+       $currentRubric = $this->rubric->with('rubricIndicators')->find($request->rubric_id);
+
+        if (!empty($currentRubric))
+        {
+            $rubricLevels = $this->assignmentEvaluation
+                ->selectRaw('AVG(rubric_levels.percentage) as percentage')
+                ->selectRaw('rubric_cells.indicator_id')
+                ->join('rubric_cells', 'rubric_cells.id', '=', 'assignment_evaluations.rubric_cell_id')
+                ->join('rubric_levels', 'rubric_levels.id', '=', 'rubric_cells.level_id')
+                ->whereIn('rubric_cells.indicator_id', $currentRubric->rubricIndicators->pluck('id'))
+                ->groupBy('rubric_cells.indicator_id')
+                ->get();
+
+            return ['html' => view('drawChart')->with('currentRubric', $currentRubric)->with('rubricLevels', $rubricLevels)->render()];
+        }
+
+        return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('rubrics.notFoundRubric')]);
+    }
 }
