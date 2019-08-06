@@ -21,6 +21,8 @@ return [
     'successRemoved' => 'Successfully Removed !',
     'saveSuccess' => 'Saved successfully',
     'updateSuccess' => 'Successfully updated',
+    'updatePublished' => 'Successfully Published',
+    'updateUNPublished' => 'Successfully Unpublished',
     'update' => 'Update',
     'updateAndClose' => 'Update & Close',
     'updateAndContinue' => 'Update & Continue',
@@ -60,6 +62,9 @@ return [
     'yes' => 'Yes',
     'no' => 'No',
     'progress' => 'Progress',
+    'unpublish' => 'Cant Unpublish assignment , it has analysis!',
     'monthlyStatistics' => 'Monthly Statistics',
-
+    'percentage' => 'Percentage',
+    'numberOfStudents' => 'Number of Students',
+    'coursesStatistics' => ' Courses Statistics',
 ];
