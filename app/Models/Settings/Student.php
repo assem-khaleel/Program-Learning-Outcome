@@ -63,12 +63,12 @@ class Student extends Model
      */
     public function CourseSections()
     {
-        return $this->belongsToMany(CourseSection::class,'course_section_student','course_section_id','student_id');
+        return $this->belongsToMany(CourseSection::class,'course_section_student','student_id','course_section_id');
     }
 
     public function assignments()
     {
-        return $this->belongsToMany(Assignment::class,'assignment_student','assignment_id','student_id');
+        return $this->belongsToMany(Assignment::class,'assignment_student','student_id','assignment_id');
     }
 
     public function program(){
