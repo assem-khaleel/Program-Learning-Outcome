@@ -19,8 +19,8 @@
         <div class="col-md-5 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
-                <li class="breadcrumb-item active"><a
-                        href="{{route('analysis', [$assignment->id])}}">{{trans('assignment.analysis')}}</a></li>
+                <li class="breadcrumb-item"><a
+                        href="{{route('assignment.index')}}">{{trans('assignment.assignments')}}</a></li>
             </ol>
         </div>
     </div>
