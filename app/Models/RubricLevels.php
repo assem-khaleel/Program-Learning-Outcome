@@ -39,6 +39,8 @@ use Illuminate\Support\Carbon;
  * @property int $order
  * @method static \Illuminate\Database\Eloquent\Builder|RubricLevels whereOrder($value)
  * @property-read Rubric $rubric
+ * @property int|null $percentage
+ * @method static \Illuminate\Database\Eloquent\Builder|RubricLevels wherePercentage($value)
  */
 class RubricLevels extends Model
 {
@@ -49,7 +51,7 @@ class RubricLevels extends Model
      *
      * @var array
      */
-    protected $fillable = ['level', 'rubric_id', 'order'];
+    protected $fillable = ['level', 'rubric_id', 'order', 'percentage'];
 
     /**
      * @return BelongsTo

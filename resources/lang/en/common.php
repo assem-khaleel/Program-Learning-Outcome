@@ -64,4 +64,6 @@ return [
     'progress' => 'Progress',
     'unpublish' => 'Cant Unpublish assignment , it has analysis!',
 
+    'monthlyStatistics' => 'Monthly Statistics',
+    'percentage' => 'Percentage',
 ];

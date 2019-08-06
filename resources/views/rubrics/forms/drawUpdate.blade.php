@@ -59,6 +59,14 @@
                                 <small class="form-control-feedback text-white"> {{ $message }} </small>
                                 @enderror
 
+                                <input id="percentageLevel-{{$keyLevel}}" name="percentageLevel[{{$keyLevel}}]" type="text"
+                                       class="form-control {{ $errors->has('percentageLevel') ? 'is-invalid' : '' }} form-control-sm"
+                                       placeholder="{{trans('common.percentage').' '.$count}}"
+                                       value="{{ old('percentageLevel.'.$keyLevel, $level->percentage ?? '')  }}">
+                                @error('percentageLevel.'.$keyLevel)
+                                <small class="form-control-feedback text-white"> {{ $message }} </small>
+                                @enderror
+
                                 <input type="button" class="btn btn-sm btn-danger deleteColumn"
                                        value="{{trans('common.deleteColumn')}}"/>
 
@@ -83,6 +91,14 @@
                                            placeholder="{{trans('common.order').' '.$count}}"
                                            value="{{ old('orderLevel.'.$columnLevel)  }}">
                                     @error('orderLevel.'.$columnLevel)
+                                    <small class="form-control-feedback text-white"> {{ $message }} </small>
+                                    @enderror
+
+                                    <input id="percentageLevel-{{$columnLevel}}" name="percentageLevel[{{$columnLevel}}]" type="text"
+                                           class="form-control {{ $errors->has('percentageLevel') ? 'is-invalid' : '' }} form-control-sm"
+                                           placeholder="{{trans('common.percentage').' '.$count}}"
+                                           value="{{ old('percentageLevel.'.$columnLevel)  }}">
+                                    @error('percentageLevel.'.$columnLevel)
                                     <small class="form-control-feedback text-white"> {{ $message }} </small>
                                     @enderror
 

@@ -9,6 +9,8 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{trans('common.home')}}</a></li>
                 <li class="breadcrumb-item"><a
+                        href="{{route('course.index')}}">{{trans('courses.courses')}}</a></li>
+                <li class="breadcrumb-item"><a
                             href="{{route('course.index')}}">{{trans('courses.courses')}}</a></li>
             </ol>
         </div>
