@@ -37,9 +37,18 @@ class DepartmentController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $departments = $this->department->paginate(15);
+        $nameEn = $request->get('name_en');
+        $nameAr = $request->get('name_ar');
+        $college = $request->get('college');
+
+        $departments = $this->department->where('name_en','like','%'.$nameEn.'%')
+            ->where('name_ar','like','%'.$nameAr.'%')
+            ->whereHas('college',function ($query) use ($college){
+                $query->where('name_en','like','%'.$college.'%');
+            })
+            ->paginate(15);
 
         return view('settings.departments.index')->with('departments', $departments);
 
@@ -126,19 +135,4 @@ class DepartmentController extends Controller
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('department.notFoundDepartment')]);
     }
 
-    public function search(Request $request)
-    {
-        $nameEn = $request->get('name_en');
-        $nameAr = $request->get('name_ar');
-        $college = $request->get('college');
-
-        $departments = $this->department->where('name_en','like','%'.$nameEn.'%')
-            ->where('name_ar','like','%'.$nameAr.'%')
-            ->whereHas('college',function ($query) use ($college){
-            $query->where('name_en','like','%'.$college.'%');
-            })
-            ->paginate(15);
-
-        return view('settings.departments.index')->with('departments', $departments);
-    }
 }

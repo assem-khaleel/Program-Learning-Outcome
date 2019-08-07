@@ -92,9 +92,22 @@ class AssignmentController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $assignments = $this->assignment->paginate(15);
+        $searchEn = $request->get('search_assignment_en');
+        $searchAr = $request->get('search_assignment_ar');
+        $searchCourse = $request->get('search_course');
+        $searchCourseSection = $request->get('search_courseSection');
+
+        $assignments = $this->assignment->where('name_en','like','%'.$searchEn.'%')
+            ->where('name_ar','like','%'.$searchAr.'%')
+            ->whereHas('courseSection.course', function ($query) use ($searchCourse){
+                $query->where('name_en', 'like','%'.$searchCourse.'%');
+            })
+            ->whereHas('courseSection', function ($query) use ($searchCourseSection){
+                $query->where('code', 'like','%'.$searchCourseSection.'%');
+            })
+            ->paginate(15);
 
         return view('settings.assignments.index')->with('assignments', $assignments);
     }
@@ -406,23 +419,5 @@ class AssignmentController extends Controller
         return redirect()->route('assignment.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
     }
 
-    public function search(Request $request){
 
-        $searchEn = $request->get('search_assignment_en');
-        $searchAr = $request->get('search_assignment_ar');
-        $searchCourse = $request->get('search_course');
-        $searchCourseSection = $request->get('search_courseSection');
-
-        $assignments = $this->assignment->where('name_en','like','%'.$searchEn.'%')
-            ->where('name_ar','like','%'.$searchAr.'%')
-            ->whereHas('courseSection.course', function ($query) use ($searchCourse){
-                $query->where('name_en', 'like','%'.$searchCourse.'%');
-            })
-            ->whereHas('courseSection', function ($query) use ($searchCourseSection){
-                $query->where('code', 'like','%'.$searchCourseSection.'%');
-            })
-            ->paginate(15);
-
-        return view('settings.assignments.index')->with('assignments', $assignments);
-    }
 }

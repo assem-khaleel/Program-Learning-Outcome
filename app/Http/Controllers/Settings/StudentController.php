@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Settings;
+
 use App\Http\Controllers\Controller;
 
 
@@ -18,7 +19,6 @@ class StudentController extends Controller
     /**
      * @var Assignment $assignment
      * @var Course
-
      */
     private $assignment;
 
@@ -38,7 +38,7 @@ class StudentController extends Controller
      * @param Student $student
      * @param Program $program
      */
-    public function __construct(Assignment $assignment , Course $course , CourseSection $courseSection , Student $student, Program $program )
+    public function __construct(Assignment $assignment, Course $course, CourseSection $courseSection, Student $student, Program $program)
     {
         $this->assignment = $assignment;
         $this->course = $course;
@@ -47,15 +47,21 @@ class StudentController extends Controller
         $this->program = $program;
     }
 
-        /**
+    /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = $this->student->paginate(15);
+        $nameEn = $request->get('name_en');
+        $program = $request->get('program');
 
+        $students = $this->student->where('name_en', 'like', '%' . $nameEn . '%')
+            ->whereHas('program', function ($query) use ($program) {
+                $query->where('name_en', 'like', '%' . $program . '%');
+            })
+            ->paginate(15);
         return view('settings.students.index')->with('students', $students);
     }
 
@@ -70,7 +76,7 @@ class StudentController extends Controller
         $courseSections = $this->courseSection->all();
         $programs = $this->program->all();
 
-        return view('settings.students.create')->with('courses',$courses)->with('courseSections',$courseSections)->with('programs',$programs);
+        return view('settings.students.create')->with('courses', $courses)->with('courseSections', $courseSections)->with('programs', $programs);
 
     }
 
@@ -80,7 +86,7 @@ class StudentController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(StudentsRequest $request,$id=0)
+    public function store(StudentsRequest $request, $id = 0)
     {
         $this->student->create($request->all());
 
@@ -90,7 +96,7 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -101,7 +107,7 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -113,14 +119,14 @@ class StudentController extends Controller
         $programs = $this->program->all();
 
 
-        return view('settings.students.edit')->with('courses', $courses)->with('student', $student)->with('courseSections',$courseSections)->with('programs',$programs);
+        return view('settings.students.edit')->with('courses', $courses)->with('student', $student)->with('courseSections', $courseSections)->with('programs', $programs);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function update(StudentsRequest $request, $id)
@@ -156,17 +162,4 @@ class StudentController extends Controller
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('student.notFoundStudent')]);
     }
 
-        public function search(Request $request)
-         {
-        $nameEn = $request->get('name_en');
-        $program = $request->get('program');
-
-        $students = $this->student->where('name_en','like','%'.$nameEn.'%')
-            ->whereHas('program',function ($query) use ($program){
-               $query->where('name_en','like','%'.$program.'%');
-            })
-            ->paginate(15);
-
-        return view('settings.students.index')->with('students', $students);
-         }
 }

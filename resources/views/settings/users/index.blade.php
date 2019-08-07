@@ -41,13 +41,13 @@
                     </div><br>
                     @if($users->isNotEmpty())
                                         <div class="col-md-12">
-                                            <form action="{{route('searchUser')}}" method="get">
+                                            <form action="{{route('user.index')}}" method="get">
                                                 <div class="input-group">
                                                     <input type="search" class="form-control" name="name" placeholder="Name" id="search" value="{{request('name')}}">
                                                     <input type="search" class="form-control" name="email" placeholder="email" id="search" value="{{request('email')}}" >
                                                     <span class="input-group-prepend">
                                                       <button type="submit" class="btn btn-info">Search</button>
-                                                        <a href="{{ url('settings/user') }}" class="btn btn-danger">Reset</a>
+                                                        <a href="{{ route('user.index')}}" class="btn btn-danger">Reset</a>
                                                   </span>
                                                 </div>
                                             </form>

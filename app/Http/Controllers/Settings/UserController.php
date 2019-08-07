@@ -44,9 +44,15 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->user->paginate(15);
+        $name = $request->get('name');
+        $email = $request->get('email');
+
+        $users = $this->user->where('name', 'like', '%' . $name . '%')
+            ->where('email', 'like', '%' . $email . '%')
+            ->paginate(15);
+
 
         return view('settings.users.index')->with('users', $users);
     }
@@ -69,26 +75,26 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-            $newPassword = str_random(9);
-            $password = Hash::make($newPassword);
+        $newPassword = str_random(9);
+        $password = Hash::make($newPassword);
 
-            $user = $this->user->create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => $password,
-            ]);
+        $user = $this->user->create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $password,
+        ]);
 
-            if ($request->file('image')) {
-                $attributes['local_path'] = 'profile/images';
-                $attributes['file'] = $request->file('image');
-                $attributes['description'] = User::$PROFILE_IMAGE;
-                $attributes['fileable_id'] = $user->id;
-                $attributes['fileable_type'] = User::class;
-                $this->file->createFile($attributes);
-            }
+        if ($request->file('image')) {
+            $attributes['local_path'] = 'profile/images';
+            $attributes['file'] = $request->file('image');
+            $attributes['description'] = User::$PROFILE_IMAGE;
+            $attributes['fileable_id'] = $user->id;
+            $attributes['fileable_type'] = User::class;
+            $this->file->createFile($attributes);
+        }
 
-            Mail::to($user->email)->send(new UserPassword($user, $newPassword));
-            $user->notify(new ChangePassword($user, $newPassword));
+        Mail::to($user->email)->send(new UserPassword($user, $newPassword));
+        $user->notify(new ChangePassword($user, $newPassword));
 
         return redirect()->route('user.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
 
@@ -97,7 +103,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function show($id)
@@ -110,7 +116,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Response
      */
     public function edit($id)
@@ -131,7 +137,7 @@ class UserController extends Controller
     {
         $user = $this->user->find($id);
 
-        if (!empty($user)){
+        if (!empty($user)) {
 
             $user->update($request->all());
 
@@ -201,49 +207,38 @@ class UserController extends Controller
     public function changePassword(Request $request, $userId)
     {
 
-            if (Auth::Check()) {
+        if (Auth::Check()) {
 
-                $user = $this->user->find($userId);
-                $current_password = $user->password;
+            $user = $this->user->find($userId);
+            $current_password = $user->password;
 
-                if (Hash::check($request->get('current-password'), $current_password)) {
+            if (Hash::check($request->get('current-password'), $current_password)) {
 
-                    if ($request->get('new-password') == $request->get('new-password_confirmation')) {
-                        $this->validate($request, [
-                            'current-password' => 'required',
-                            'new-password' => 'required|string|min:8|confirmed',
-                        ]);
+                if ($request->get('new-password') == $request->get('new-password_confirmation')) {
+                    $this->validate($request, [
+                        'current-password' => 'required',
+                        'new-password' => 'required|string|min:8|confirmed',
+                    ]);
 
-                        $user->password = Hash::make($request->get('new-password'));;
-                        $user->save();
+                    $user->password = Hash::make($request->get('new-password'));;
+                    $user->save();
 
-                        return redirect()->back()->with('message', ['type' => 'success', 'text' => 'Password Changed Successfully !']);
-
-                    } else {
-                        return redirect()->back()->with('message', ['type' => 'error', 'text' => 'New Password Cannot Be Same As Your Current Password. Please Choose A Different Password']);
-
-                    }
+                    return redirect()->back()->with('message', ['type' => 'success', 'text' => 'Password Changed Successfully !']);
 
                 } else {
-                    return redirect()->back()->with('message', ['type' => 'error', 'text' => 'Your Current Password Does Not Matches With The Password You Provided. Please Try Again']);
+                    return redirect()->back()->with('message', ['type' => 'error', 'text' => 'New Password Cannot Be Same As Your Current Password. Please Choose A Different Password']);
 
                 }
 
             } else {
-                return redirect()->route('home');
+                return redirect()->back()->with('message', ['type' => 'error', 'text' => 'Your Current Password Does Not Matches With The Password You Provided. Please Try Again']);
+
             }
 
+        } else {
+            return redirect()->route('home');
+        }
+
     }
 
-    public function search(Request $request)
-    {
-        $name = $request->get('name');
-        $email = $request->get('email');
-
-        $users = $this->user->where('name','like','%'.$name.'%')
-            ->where('email','like','%'.$email.'%')
-            ->paginate(15);
-
-        return view('settings.users.index')->with('users', $users);
-    }
 }

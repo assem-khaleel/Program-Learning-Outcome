@@ -42,7 +42,7 @@
                     </div><br>
                     @if($semesters->isNotEmpty())
                         <div class="col-md-12">
-                            <form action="{{route('searchSemester')}}" method="get">
+                            <form action="{{route('semester.index')}}" method="get">
                                 <div class="input-group">
                                     <input type="search" class="form-control" name="name_en" placeholder="Name English" id="search" value="{{request('name_en')}}">
                                     <input type="search" class="form-control" name="name_ar" placeholder="Name Arabic" id="search" value="{{request('name_ar')}}" >
@@ -51,7 +51,7 @@
 
                                     <span class="input-group-prepend">
                                                       <button type="submit" class="btn btn-info">Search</button>
-                                                        <a href="{{ url('settings/semester') }}" class="btn btn-danger">Reset</a>
+                                                        <a href="{{ route('semester.index') }}" class="btn btn-danger">Reset</a>
                                                   </span>
                                 </div>
                             </form>

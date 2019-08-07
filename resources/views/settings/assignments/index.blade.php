@@ -41,7 +41,7 @@
                                         class="fa fa-plus"></i></span> {{trans('assignment.createAssignment')}}</a>
                     </div><br>
                     <div class="col-md-12">
-                        <form action="{{route('search')}}" method="get" >
+                        <form action="{{route('assignment.index')}}" method="get" >
                             <div class="input-group">
                                 <input type="search" class="form-control" name="search_assignment_en" placeholder="Assignment name(Eng)" id="search" value="{{request('search_assignment_en')}}" >
                                 <input type="search" class="form-control" name="search_assignment_ar" placeholder="Assignment name(Ar)" id="search" value="{{request('search_assignment_ar')}}" >
@@ -50,7 +50,7 @@
 
                                 <span class="input-group-prepend">
                                   <button type="submit" class="btn btn-info">Search</button>
-                                   <a href="{{ url('settings/assignment') }}" class="btn btn-danger">Reset</a>
+                                   <a href="{{ route('assignment.index') }}" class="btn btn-danger">Reset</a>
                               </span>
                             </div>
                         </form>

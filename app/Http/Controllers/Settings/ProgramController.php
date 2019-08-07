@@ -36,9 +36,18 @@ class ProgramController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $programs = $this->program->paginate(15);
+        $nameEn = $request->get('name_en');
+        $nameAr = $request->get('name_ar');
+        $department = $request->get('department');
+
+        $programs = $this->program->where('name_en','like','%'.$nameEn.'%')
+            ->where('name_ar','like','%'.$nameAr.'%')
+            ->whereHas('department',function ($query) use ($department){
+                $query->where('name_en','like','%'.$department.'%');
+            })
+            ->paginate(15);
 
         return view('settings.programs.index')->with('programs', $programs);
     }
@@ -115,19 +124,4 @@ class ProgramController extends Controller
         //
     }
 
-    public function search(Request $request)
-    {
-        $nameEn = $request->get('name_en');
-        $nameAr = $request->get('name_ar');
-        $department = $request->get('department');
-
-        $programs = $this->program->where('name_en','like','%'.$nameEn.'%')
-            ->where('name_ar','like','%'.$nameAr.'%')
-            ->whereHas('department',function ($query) use ($department){
-                $query->where('name_en','like','%'.$department.'%');
-            })
-            ->paginate(15);
-
-        return view('settings.programs.index')->with('programs', $programs);
-    }
 }

@@ -42,7 +42,7 @@
                     </div><br>
                     @if($programs->isNotEmpty())
                         <div class="col-md-12">
-                            <form action="{{route('searchProgram')}}" method="get">
+                            <form action="{{route('program.index')}}" method="get">
                                 <div class="input-group">
                                     <input type="search" class="form-control" name="name_en" placeholder="Name English" id="search" value="{{request('name_en')}}">
                                     <input type="search" class="form-control" name="name_ar" placeholder="Name Arabic" id="search" value="{{request('name_ar')}}" >
@@ -50,7 +50,7 @@
 
                                     <span class="input-group-prepend">
                                                       <button type="submit" class="btn btn-info">Search</button>
-                                                        <a href="{{ url('settings/program') }}" class="btn btn-danger">Reset</a>
+                                                        <a href="{{ route('program.index') }}" class="btn btn-danger">Reset</a>
                                                   </span>
                                 </div>
                             </form>
