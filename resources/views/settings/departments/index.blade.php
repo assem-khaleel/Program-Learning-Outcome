@@ -71,7 +71,7 @@
                                     <tr>
                                         <th>{{trans('common.nameEn') }}</th>
                                         <th>{{trans('common.nameAr') }}</th>
-                                        <th>{{trans('departments.college') }}</th>
+                                        <th>{{trans('colleges.college') }}</th>
                                         <th class="text-nowrap text-center">{{trans('common.actions')}}</th>
                                     </tr>
                                     </thead>

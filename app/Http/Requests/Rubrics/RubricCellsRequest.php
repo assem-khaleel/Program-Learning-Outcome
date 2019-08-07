@@ -19,6 +19,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property mixed descriptionIds
  * @property mixed description
  * @property mixed rubric
+ * @property mixed percentageLevel
  */
 class RubricCellsRequest extends FormRequest
 {
@@ -29,6 +30,7 @@ class RubricCellsRequest extends FormRequest
         'levels.*' => 'required',
         'orderLevel.*' => 'required|numeric|distinct',
         'orderIndicator.*' => 'required|numeric|distinct',
+        'percentageLevel.*' => 'required|numeric|distinct|max:100',
         'description.*.*' => 'required',
 
     ];

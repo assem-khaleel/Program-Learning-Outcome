@@ -163,12 +163,12 @@ class RubricController extends Controller
 
                     $levelId = $request->levelIds[$key];
                     $levelCheck = $rubric->rubricLevels->find($levelId);
-                    $levelCheck->update(['level' => $level, 'rubric_id' => $rubric->id, 'order' => $request->orderLevel[$key]]);
+                    $levelCheck->update(['level' => $level, 'rubric_id' => $rubric->id, 'order' => $request->orderLevel[$key], 'percentage' => $request->percentageLevel[$key]]);
                     $levelsID[$key] = $levelId;
 
                 } else {
 
-                    $level = $this->levels->create(['level' => $level, 'rubric_id' => $rubric->id, 'order' => $request->orderLevel[$key]]);
+                    $level = $this->levels->create(['level' => $level, 'rubric_id' => $rubric->id, 'order' => $request->orderLevel[$key], 'percentage' => $request->percentageLevel[$key]]);
                     $levelsID[$key] = $level->id;
 
                 }
@@ -341,7 +341,7 @@ class RubricController extends Controller
         }
 
         foreach ($request->levels as $key => $level) {
-            $levels = $this->levels->create(['level' => $level, 'rubric_id' => $request->rubric_id, 'order' => $request->orderLevel[$key]]);
+            $levels = $this->levels->create(['level' => $level, 'rubric_id' => $request->rubric_id, 'order' => $request->orderLevel[$key], 'percentage' => $request->percentageLevel[$key]]);
             $levelsID[$key] = $levels->id;
         }
 
