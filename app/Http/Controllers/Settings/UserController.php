@@ -159,7 +159,7 @@ class UserController extends Controller
                 }
             }
 
-            return redirect()->route('department.index')->with('message', ['type' => 'success', 'text' => trans('common.updateSuccess')]);
+            return redirect()->route('user.index')->with('message', ['type' => 'success', 'text' => trans('common.updateSuccess')]);
         }
 
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('users.notFoundUser')]);
@@ -186,10 +186,10 @@ class UserController extends Controller
 
             $user->delete();
 
-            return redirect()->route('department.index')->with('message', ['type' => 'success', 'text' => trans('common.successRemoved')]);
+            return redirect()->route('user.index')->with('message', ['type' => 'success', 'text' => trans('common.successRemoved')]);
         }
 
-        return redirect()->route('system-user.index')->with('message', ['type' => 'error', 'text' => 'users.notFoundUser']);
+        return redirect()->route('home')->with('message', ['type' => 'error', 'text' => 'users.notFoundUser']);
     }
 
     /**
