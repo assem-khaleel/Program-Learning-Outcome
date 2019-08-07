@@ -39,7 +39,22 @@
                         <a href="{{route('college.create')}}" class="pull-right btn-sm btn btn-info"
                            type="button"><span class="btn-label"><i
                                         class="fa fa-plus"></i></span> {{trans('colleges.createCollege')}}</a>
-                    </div>
+                    </div><br>
+                    @if($colleges->isNotEmpty())
+                        <div class="col-md-12">
+                            <form action="{{route('searcCollege')}}" method="get">
+                                <div class="input-group">
+                                    <input type="search" class="form-control" name="name_en" placeholder="Name English" id="search" value="{{request('name_en')}}">
+                                    <input type="search" class="form-control" name="name_ar" placeholder="Name Arabic" id="search" value="{{request('name_ar')}}" >
+                                    <span class="input-group-prepend">
+                                                      <button type="submit" class="btn btn-info">Search</button>
+                                                        <a href="{{ url('settings/college') }}" class="btn btn-danger">Reset</a>
+                                                  </span>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
+
                     <div class="card-body">
 
                         @if ($colleges->isEmpty())

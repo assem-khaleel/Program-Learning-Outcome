@@ -27,6 +27,26 @@
     <small class="form-control-feedback text-danger"> {{ $message }} </small>
     @enderror
 </div>
+<div class="col-md-12">
+    <div class="form-group row">
+        <label class="control-label col-md-2">{{trans('users.imageUpload')}}</label>
+        <div class="col-md-10 fileinput fileinput-new input-group"
+             data-provides="fileinput">
+            <div class="form-control" data-trigger="fileinput"><i
+                    class="glyphicon glyphicon-file fileinput-exists"></i> <span
+                    class="fileinput-filename"></span></div>
+            <span class="input-group-addon btn btn-default btn-file"> <span
+                    class="fileinput-new">{{trans('users.selectImage')}}</span> <span
+                    class="fileinput-exists">{{trans('users.change')}}</span>
+                                            <input type="file" name="image"> </span>
+            <a href="#" class="input-group-addon btn btn-default fileinput-exists"
+               data-dismiss="fileinput"></a>
+        </div>
+        @error('image')
+        <small class="form-control-feedback text-danger">{{ $message }}</small>
+        @enderror
+    </div>
+</div>
 
 <input type="hidden" name="assignment_id" value="{{$assignment->id}}">
 

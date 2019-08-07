@@ -39,9 +39,23 @@
                         <a href="{{route('student.create')}}" class="pull-right btn-sm btn btn-info"
                            type="button"><span class="btn-label"><i
                                         class="fa fa-plus"></i></span> {{trans('student.createStudent')}}</a>
-                    </div>
-                    <div class="card-body">
+                    </div><br>
+                    @if($students->isNotEmpty())
+                        <div class="col-md-12">
+                            <form action="{{route('searchStudent')}}" method="get">
+                                <div class="input-group">
+                                    <input type="search" class="form-control" name="name_en" placeholder="Name English" id="search" value="{{request('name_en')}}">
+                                    <input type="search" class="form-control" name="program" placeholder="Program" id="search" value="{{request('program')}}" >
 
+                                    <span class="input-group-prepend">
+                                                      <button type="submit" class="btn btn-info">Search</button>
+                                                        <a href="{{ url('settings/student') }}" class="btn btn-danger">Reset</a>
+                                                  </span>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
+                    <div class="card-body">
                         @if ($students->isEmpty())
                             <div class="bd-footer">
                                 <div class="text-center">

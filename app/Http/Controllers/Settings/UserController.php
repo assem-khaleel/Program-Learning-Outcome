@@ -85,7 +85,6 @@ class UserController extends Controller
                 $attributes['fileable_id'] = $user->id;
                 $attributes['fileable_type'] = User::class;
                 $this->file->createFile($attributes);
-
             }
 
             Mail::to($user->email)->send(new UserPassword($user, $newPassword));
@@ -152,7 +151,6 @@ class UserController extends Controller
                     $attributes['description'] = User::$PROFILE_IMAGE;
                     $attributes['fileable_id'] = $user->id;
                     $attributes['fileable_type'] = User::class;
-
                     $attributes['old_file'] = $user->image->path;
 
                     $user->image->updateFile($attributes);
@@ -235,5 +233,17 @@ class UserController extends Controller
                 return redirect()->route('home');
             }
 
+    }
+
+    public function search(Request $request)
+    {
+        $name = $request->get('name');
+        $email = $request->get('email');
+
+        $users = $this->user->where('name','like','%'.$name.'%')
+            ->where('email','like','%'.$email.'%')
+            ->paginate(15);
+
+        return view('settings.users.index')->with('users', $users);
     }
 }

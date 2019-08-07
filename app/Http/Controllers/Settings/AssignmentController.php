@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Requests\Analysis\AnalysisRequest;
 use App\Models\AssignmentEvaluation;
+use App\Models\File;
 use App\Models\Rubric;
 use App\Models\RubricAnalysis;
 use App\Models\RubricCells;
@@ -58,6 +59,9 @@ class AssignmentController extends Controller
      */
     private $analysis;
 
+
+    private $file;
+
     /**
      * CollegeController constructor.
      * @param Assignment $assignment
@@ -69,7 +73,7 @@ class AssignmentController extends Controller
      * @param AssignmentEvaluation $assignmentEvaluations
      * @param RubricAnalysis $analysis
      */
-    public function __construct(Assignment $assignment, Course $course, CourseSection $courseSection, Student $student, Rubric $rubric, RubricCells $rubricCell, AssignmentEvaluation $assignmentEvaluations, RubricAnalysis $analysis)
+    public function __construct(Assignment $assignment, Course $course, CourseSection $courseSection, Student $student, Rubric $rubric, RubricCells $rubricCell, AssignmentEvaluation $assignmentEvaluations, RubricAnalysis $analysis,File $file)
     {
         $this->assignment = $assignment;
         $this->course = $course;
@@ -79,6 +83,7 @@ class AssignmentController extends Controller
         $this->rubricCell = $rubricCell;
         $this->assigmentEvaluations = $assignmentEvaluations;
         $this->analysis = $analysis;
+        $this->file = $file;
     }
 
 
@@ -333,7 +338,22 @@ class AssignmentController extends Controller
 
     public function storeAnalysis(AnalysisRequest $request)
     {
-        $this->analysis->create($request->all());
+        $analysis = $this->analysis->create([
+            'analysis' => $request->analysis,
+            'recommendations' => $request->recommendations,
+            'actions' => $request->actions,
+            'assignment_id' => $request->assignment_id,
+
+        ]);
+
+        if ($request->file('image')) {
+            $attributes['local_path'] = 'profile/analysis';
+            $attributes['file'] = $request->file('image');
+            $attributes['description'] = RubricAnalysis::$PROFILE_IMAGE;
+            $attributes['fileable_id'] = $analysis->id;
+            $attributes['fileable_type'] = RubricAnalysis::class;
+            $this->file->createFile($attributes);
+        }
 
         return redirect()->route('assignment.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
     }
@@ -353,12 +373,56 @@ class AssignmentController extends Controller
     {
         $assignment = $this->assignment->findOrFail($id);
 
-        $analysis = $this->analysis->where('assignment_id',$assignment->id)->first();;
+        $analysis = $this->analysis->where('assignment_id',$assignment->id)->first();
 
         if (!empty($analysis)){
             $analysis->update($request->all());
         }
 
+        if ($request->file('image')) {
+
+            if (empty($analysis->image)) {
+
+                $attributes['local_path'] = 'profile/analysis';
+                $attributes['file'] = $request->file('image');
+                $attributes['description'] = RubricAnalysis::$PROFILE_IMAGE;
+                $attributes['fileable_id'] = $analysis->id;
+                $attributes['fileable_type'] = RubricAnalysis::class;
+
+                $this->file->createFile($attributes);
+            } else {
+
+                $attributes['local_path'] = 'profile/analysis';
+                $attributes['file'] = $request->file('image');
+                $attributes['description'] = RubricAnalysis::$PROFILE_IMAGE;
+                $attributes['fileable_id'] = $analysis->id;
+                $attributes['fileable_type'] = RubricAnalysis::class;
+                $attributes['old_file'] = $analysis->image->path;
+
+                $analysis->image->updateFile($attributes);
+            }
+        }
+
         return redirect()->route('assignment.index')->with('message', ['type' => 'success', 'text' => trans('common.saveSuccess')]);
+    }
+
+    public function search(Request $request){
+
+        $searchEn = $request->get('search_assignment_en');
+        $searchAr = $request->get('search_assignment_ar');
+        $searchCourse = $request->get('search_course');
+        $searchCourseSection = $request->get('search_courseSection');
+
+        $assignments = $this->assignment->where('name_en','like','%'.$searchEn.'%')
+            ->where('name_ar','like','%'.$searchAr.'%')
+            ->whereHas('courseSection.course', function ($query) use ($searchCourse){
+                $query->where('name_en', 'like','%'.$searchCourse.'%');
+            })
+            ->whereHas('courseSection', function ($query) use ($searchCourseSection){
+                $query->where('code', 'like','%'.$searchCourseSection.'%');
+            })
+            ->paginate(15);
+
+        return view('settings.assignments.index')->with('assignments', $assignments);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Requests\Programs\ProgramsRequest;
 use App\Models\Settings\Department;
 use App\Models\Settings\Program;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ProgramController extends Controller
@@ -112,5 +113,21 @@ class ProgramController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $nameEn = $request->get('name_en');
+        $nameAr = $request->get('name_ar');
+        $department = $request->get('department');
+
+        $programs = $this->program->where('name_en','like','%'.$nameEn.'%')
+            ->where('name_ar','like','%'.$nameAr.'%')
+            ->whereHas('department',function ($query) use ($department){
+                $query->where('name_en','like','%'.$department.'%');
+            })
+            ->paginate(15);
+
+        return view('settings.programs.index')->with('programs', $programs);
     }
 }

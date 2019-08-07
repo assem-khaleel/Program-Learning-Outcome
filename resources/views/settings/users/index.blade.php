@@ -38,7 +38,21 @@
                     <div class="card-header">
                         <h4 class="card-title pull-left">{{trans('users.users')}}</h4>
                         <a href="{{route('user.create')}}" class="pull-right btn-sm btn btn-info" type="button"><span class="btn-label"><i class="fa fa-plus"></i></span>{{trans('users.createUsers')}}</a>
-                    </div>
+                    </div><br>
+                    @if($users->isNotEmpty())
+                                        <div class="col-md-12">
+                                            <form action="{{route('searchUser')}}" method="get">
+                                                <div class="input-group">
+                                                    <input type="search" class="form-control" name="name" placeholder="Name" id="search" value="{{request('name')}}">
+                                                    <input type="search" class="form-control" name="email" placeholder="email" id="search" value="{{request('email')}}" >
+                                                    <span class="input-group-prepend">
+                                                      <button type="submit" class="btn btn-info">Search</button>
+                                                        <a href="{{ url('settings/user') }}" class="btn btn-danger">Reset</a>
+                                                  </span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        @endif
                     <div class="card-body">
 
                         @if ($users->isEmpty())

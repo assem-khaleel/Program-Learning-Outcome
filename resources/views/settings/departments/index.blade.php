@@ -39,7 +39,23 @@
                         <a href="{{route('department.create')}}" class="pull-right btn-sm btn btn-info"
                            type="button"><span class="btn-label"><i
                                         class="fa fa-plus"></i></span> {{trans('departments.createDepartment')}}</a>
-                    </div>
+                    </div><br>
+                    @if($departments->isNotEmpty())
+                        <div class="col-md-12">
+                            <form action="{{route('searchDepartment')}}" method="get">
+                                <div class="input-group">
+                                    <input type="search" class="form-control" name="name_en" placeholder="Name English" id="search" value="{{request('name_en')}}">
+                                    <input type="search" class="form-control" name="name_ar" placeholder="Name Arabic" id="search" value="{{request('name_ar')}}" >
+                                    <input type="search" class="form-control" name="college" placeholder="College" id="search" value="{{request('college')}}" >
+
+                                    <span class="input-group-prepend">
+                                                      <button type="submit" class="btn btn-info">Search</button>
+                                                        <a href="{{ url('settings/department') }}" class="btn btn-danger">Reset</a>
+                                                  </span>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
                     <div class="card-body">
 
                         @if ($departments->isEmpty())

@@ -39,7 +39,24 @@
                         <a href="{{route('semester.create')}}" class="pull-right btn-sm btn btn-info"
                            type="button"><span class="btn-label"><i
                                         class="fa fa-plus"></i></span> {{trans('semesters.createSemester')}}</a>
-                    </div>
+                    </div><br>
+                    @if($semesters->isNotEmpty())
+                        <div class="col-md-12">
+                            <form action="{{route('searchSemester')}}" method="get">
+                                <div class="input-group">
+                                    <input type="search" class="form-control" name="name_en" placeholder="Name English" id="search" value="{{request('name_en')}}">
+                                    <input type="search" class="form-control" name="name_ar" placeholder="Name Arabic" id="search" value="{{request('name_ar')}}" >
+                                    <input type="search" class="form-control" name="start_date" placeholder="Start Date" id="search" value="{{request('start_date')}}" >
+                                    <input type="search" class="form-control" name="end_date" placeholder="End Date" id="search" value="{{request('end_date')}}" >
+
+                                    <span class="input-group-prepend">
+                                                      <button type="submit" class="btn btn-info">Search</button>
+                                                        <a href="{{ url('settings/semester') }}" class="btn btn-danger">Reset</a>
+                                                  </span>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
                     <div class="card-body">
 
                         @if ($semesters->isEmpty())

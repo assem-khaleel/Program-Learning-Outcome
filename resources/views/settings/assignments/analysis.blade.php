@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-12">
 
-    <form method="post" action='{{route('storeAnalysis')}}' class="form-horizontal" >
+    <form method="post" action='{{route('storeAnalysis')}}' class="form-horizontal" enctype="multipart/form-data">
         @csrf
         @include('settings.assignments.forms.anlysis')
     </form>

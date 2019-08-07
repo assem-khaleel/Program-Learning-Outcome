@@ -7,6 +7,7 @@ use App\Models\Settings\College;
 use App\Models\Settings\Department;
 use Exception;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class DepartmentController extends Controller
@@ -123,5 +124,21 @@ class DepartmentController extends Controller
         }
 
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('department.notFoundDepartment')]);
+    }
+
+    public function search(Request $request)
+    {
+        $nameEn = $request->get('name_en');
+        $nameAr = $request->get('name_ar');
+        $college = $request->get('college');
+
+        $departments = $this->department->where('name_en','like','%'.$nameEn.'%')
+            ->where('name_ar','like','%'.$nameAr.'%')
+            ->whereHas('college',function ($query) use ($college){
+            $query->where('name_en','like','%'.$college.'%');
+            })
+            ->paginate(15);
+
+        return view('settings.departments.index')->with('departments', $departments);
     }
 }

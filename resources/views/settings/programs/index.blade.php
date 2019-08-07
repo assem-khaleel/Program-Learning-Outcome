@@ -39,7 +39,23 @@
                         <a href="{{route('program.create')}}" class="pull-right btn-sm btn btn-info"
                            type="button"><span class="btn-label"><i
                                         class="fa fa-plus"></i></span> {{trans('programs.createProgram')}}</a>
-                    </div>
+                    </div><br>
+                    @if($programs->isNotEmpty())
+                        <div class="col-md-12">
+                            <form action="{{route('searchProgram')}}" method="get">
+                                <div class="input-group">
+                                    <input type="search" class="form-control" name="name_en" placeholder="Name English" id="search" value="{{request('name_en')}}">
+                                    <input type="search" class="form-control" name="name_ar" placeholder="Name Arabic" id="search" value="{{request('name_ar')}}" >
+                                    <input type="search" class="form-control" name="department" placeholder="Department" id="search" value="{{request('department')}}" >
+
+                                    <span class="input-group-prepend">
+                                                      <button type="submit" class="btn btn-info">Search</button>
+                                                        <a href="{{ url('settings/program') }}" class="btn btn-danger">Reset</a>
+                                                  </span>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
                     <div class="card-body">
 
                         @if ($programs->isEmpty())

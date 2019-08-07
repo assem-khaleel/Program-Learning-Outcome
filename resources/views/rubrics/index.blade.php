@@ -41,7 +41,22 @@
                            type="button"><span class="btn-label"><i
                                         class="fa fa-plus"></i></span> {{trans('rubrics.createRubric')}}
                         </a>
-                    </div>
+                    </div><br>
+                    @if($rubrics->isNotEmpty())
+                        <div class="col-md-12">
+                            <form action="{{route('rubric.index')}}" method="get">
+                                <div class="input-group">
+                                    <input type="search" class="form-control" name="name" placeholder="Name" id="search" value="{{request('name')}}">
+                                    <input type="search" class="form-control" name="description" placeholder="Description" id="search" value="{{request('description')}}">
+                                    <input type="search" class="form-control" name="created_by" placeholder="Created By" id="search" value="{{request('created_by')}}" >
+                                    <span class="input-group-prepend">
+                                                      <button type="submit" class="btn btn-info">Search</button>
+                                                        <a href="{{route('rubric.index') }}" class="btn btn-danger">Reset</a>
+                                                  </span>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
                     <div class="card-body">
 
                         @if ($rubrics->isEmpty())

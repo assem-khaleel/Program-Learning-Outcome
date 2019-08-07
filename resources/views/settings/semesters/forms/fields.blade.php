@@ -102,7 +102,7 @@
         jQuery('#end_date').datepicker({
             startDate: '1d',
             autoclose: true,
-            todayHighlight: true
+            todayHighlight: true,
         });
     </script>
 @endpush

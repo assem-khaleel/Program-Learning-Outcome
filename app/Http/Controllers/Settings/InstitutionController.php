@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Requests\Institutions\InstitutionRequest;
 use App\Models\Settings\Institution;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class InstitutionController extends Controller
@@ -114,4 +115,5 @@ class InstitutionController extends Controller
     {
         //
     }
+
 }

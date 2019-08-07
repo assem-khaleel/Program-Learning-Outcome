@@ -155,4 +155,18 @@ class StudentController extends Controller
 
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('student.notFoundStudent')]);
     }
+
+        public function search(Request $request)
+         {
+        $nameEn = $request->get('name_en');
+        $program = $request->get('program');
+
+        $students = $this->student->where('name_en','like','%'.$nameEn.'%')
+            ->whereHas('program',function ($query) use ($program){
+               $query->where('name_en','like','%'.$program.'%');
+            })
+            ->paginate(15);
+
+        return view('settings.students.index')->with('students', $students);
+         }
 }

@@ -36,6 +36,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('assignment', 'AssignmentController');
         Route::resource('student', 'StudentController');
 
+        Route::get('search', 'AssignmentController@search')->name('search');
+        Route::get('search-users', 'UserController@search')->name('searchUser');
+        Route::get('search-collge', 'CollegeController@search')->name('searcCollege');
+        Route::get('search-department', 'DepartmentController@search')->name('searchDepartment');
+        Route::get('search-program', 'ProgramController@search')->name('searchProgram');
+        Route::get('search-course', 'CourseController@search')->name('searchCourse');
+        Route::get('search-semester', 'SemesterController@search')->name('searchSemester');
+        Route::get('search-student', 'StudentController@search')->name('searchStudent');
+
+
         Route::get('assignment/publish/{id}', 'AssignmentController@toogle')->name('publish');
         Route::get('assignment/studentEvaluate/{id}/{studentId}', 'AssignmentController@studentEvaluate')->name('assignment.student_evaluate');
         Route::post('assignment/assigmentEvaluations', 'AssignmentController@assigmentEvaluations')->name('assignment.assigment_evaluation');

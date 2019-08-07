@@ -123,4 +123,16 @@ class CourseController extends Controller
 
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('courses.notFoundCourse')]);
     }
+
+    public function search(Request $request)
+    {
+        $nameEn = $request->get('name_en');
+        $nameAr = $request->get('name_ar');
+
+        $courses = $this->course->where('name_en','like','%'.$nameEn.'%')
+            ->where('name_ar','like','%'.$nameAr.'%')
+            ->paginate(15);
+
+        return view('settings.courses.index')->with('courses', $courses);
+    }
 }

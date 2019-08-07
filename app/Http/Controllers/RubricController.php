@@ -56,9 +56,16 @@ class RubricController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $rubrics = $this->rubric->paginate(15);
+        $name = $request->get('name');
+        $desc = $request->get('description');
+        $create_bty = $request->get('created_by');
+
+        $rubrics = $this->rubric->where('name','like','%'.$name.'%')
+            ->where('description','like','%'.$desc.'%')
+            ->where('created_by','like','%'.$create_bty.'%')
+            ->paginate(15);
 
         return view('rubrics.index')->with('rubrics', $rubrics);
     }
@@ -90,6 +97,7 @@ class RubricController extends Controller
         }
 
         $request->merge(['created_by' => auth()->id()]);
+      //  dd($request->all());
         $rubric = $this->rubric->create($request->all());
 
         if (isset($request->saveContinue)) {

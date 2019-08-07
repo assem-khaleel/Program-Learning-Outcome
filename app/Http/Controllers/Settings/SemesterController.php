@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Requests\Semesters\SemesterRequest;
 use App\Models\Settings\Semester;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class SemesterController extends Controller
@@ -109,5 +110,23 @@ class SemesterController extends Controller
         }
 
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('semesters.notFoundSemester')]);
+    }
+
+    public function search(Request $request)
+    {
+        $nameEn = $request->get('name_en');
+        $nameAr = $request->get('name_ar');
+        $startDate = $request->get('start_date');
+        $endDate = $request->get('end_date');
+
+
+
+        $semesters = $this->semester->where('name_en','like','%'.$nameEn.'%')
+            ->where('name_ar','like','%'.$nameAr.'%')
+            ->where('start_date','like',$startDate.'%')
+            ->where('end_date','like',$endDate.'%')
+            ->paginate(15);
+
+        return view('settings.semesters.index')->with('semesters', $semesters);
     }
 }

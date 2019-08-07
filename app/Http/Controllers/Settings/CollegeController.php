@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Requests\Colleges\CollegeRequest;
 use App\Models\Settings\College;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CollegeController extends Controller
@@ -112,4 +113,17 @@ class CollegeController extends Controller
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('colleges.notFoundCollege')]);
 
     }
+
+    public function search(Request $request)
+    {
+        $nameEn = $request->get('name_en');
+        $nameAr = $request->get('name_ar');
+
+        $colleges = $this->college->where('name_en','like','%'.$nameEn.'%')
+            ->where('name_ar','like','%'.$nameAr.'%')
+            ->paginate(15);
+
+        return view('settings.colleges.index')->with('colleges', $colleges);
+    }
+
 }

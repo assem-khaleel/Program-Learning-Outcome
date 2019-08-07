@@ -36,10 +36,27 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title pull-left">{{trans('institutions.institutions') }} </h4>
+
+                        @if($institutions->isEmpty())
                         <a href="{{route('institution.create')}}" class="pull-right btn-sm btn btn-info"
                            type="button"><span class="btn-label"><i
                                         class="fa fa-plus"></i></span> {{trans('institutions.createInstitution')}}</a>
-                    </div>
+                            @endif
+                    </div><br>
+{{--                    @if($institutions->isNotEmpty())--}}
+{{--                    <div class="col-md-12">--}}
+{{--                        <form action="{{route('searchInstitution')}}" method="get">--}}
+{{--                            <div class="input-group">--}}
+{{--                                <input type="search" class="form-control" name="search_name_en" placeholder="Name(en)" id="search" >--}}
+{{--                                <input type="search" class="form-control" name="search_name_ar" placeholder="Name(ar)" id="search" >--}}
+{{--                                <span class="input-group-prepend">--}}
+{{--                                  <button type="submit" class="btn btn-info">Search</button>--}}
+{{--                                  <button type="submit" class="btn btn-danger">Reset</button>--}}
+{{--                              </span>--}}
+{{--                            </div>--}}
+{{--                        </form>--}}
+{{--                    </div>--}}
+{{--                    @endif--}}
                     <div class="card-body">
 
                         @if ($institutions->isEmpty())

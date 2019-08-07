@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LearningOutcomes\LearningOutcomeRequest;
 use App\Models\LearningOutcome;
 use App\Models\Settings\Program;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class LearningOutcomeController extends Controller
@@ -34,10 +35,22 @@ class LearningOutcomeController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $learningOutcomes = $this->learningOutcome->paginate(15);
+        $nameEn = $request->get('name_en');
+        $nameAr = $request->get('name_ar');
+        $descEn = $request->get('desc_en');
+        $descAr = $request->get('desc_ar');
+        $program = $request->get('program');
 
+        $learningOutcomes = $this->learningOutcome->where('name_en','like','%'.$nameEn.'%')
+            ->where('name_ar','like','%'.$nameAr.'%')
+            ->where('description_en','like','%'.$descEn.'%')
+            ->where('description_ar','like','%'.$descAr.'%')
+            ->whereHas('program',function ($query) use ($program){
+                $query->where('name_en','like','%'.$program.'%');
+            })
+            ->paginate(15);
         return view('learningOutcomes.index')->with('learningOutcomes', $learningOutcomes);
     }
 
@@ -131,4 +144,24 @@ class LearningOutcomeController extends Controller
 
         return redirect()->route('home')->with('message', ['type' => 'error', 'text' => trans('learningOutcome.notFoundLearningOutcome')]);
     }
+
+//    public function search(Request $request)
+//    {
+//        $nameEn = $request->get('name_en');
+//        $nameAr = $request->get('name_ar');
+//        $descEn = $request->get('desc_en');
+//        $descAr = $request->get('desc_ar');
+//        $program = $request->get('program');
+//
+//        $learningOutcomes = $this->learningOutcome->where('name_en','like','%'.$nameEn.'%')
+//            ->where('name_ar','like','%'.$nameAr.'%')
+//            ->where('description_en','like','%'.$descEn.'%')
+//            ->where('description_ar','like','%'.$descAr.'%')
+//            ->whereHas('program',function ($query) use ($program){
+//                $query->where('name_en','like','%'.$program.'%');
+//            })
+//            ->paginate(15);
+//
+//        return view('learningOutcomes.index')->with('learningOutcomes', $learningOutcomes);
+//    }
 }

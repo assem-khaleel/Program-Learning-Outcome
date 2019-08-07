@@ -41,7 +41,25 @@
                            type="button"><span class="btn-label"><i
                                         class="fa fa-plus"></i></span> {{trans('learningOutcome.createLearningOutcome')}}
                         </a>
-                    </div>
+                    </div><br>
+                    @if($learningOutcomes->isNotEmpty())
+                        <div class="col-md-12">
+                            <form action="{{route('learning-outcome.index')}}" method="get">
+                                <div class="input-group">
+                                    <input type="search" class="form-control" name="name_en" placeholder="Name English" id="search" value="{{request('name_en')}}">
+                                    <input type="search" class="form-control" name="name_ar" placeholder="Name Arabic" id="search" value="{{request('name_ar')}}" >
+                                    <input type="search" class="form-control" name="desc_en" placeholder="Description English" id="search" value="{{request('desc_en')}}">
+                                    <input type="search" class="form-control" name="desc_ar" placeholder="Description Arabic" id="search" value="{{request('desc_ar')}}" >
+                                    <input type="search" class="form-control" name="program" placeholder="Program" id="search" value="{{request('program')}}" >
+
+                                    <span class="input-group-prepend">
+                                                      <button type="submit" class="btn btn-info">Search</button>
+                                                        <a href="{{ route('learning-outcome.index') }}" class="btn btn-danger">Reset</a>
+                                                  </span>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
                     <div class="card-body">
 
                         @if ($learningOutcomes->isEmpty())

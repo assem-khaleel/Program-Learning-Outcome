@@ -72,4 +72,8 @@ class Rubric extends Model
     public function assignments(){
         return $this->hasMany(Assignment::class);
     }
+
+//    public function LearningOutcomes(){
+//        return $this->belongsTo(LearningOutcome::class,'');
+//    }
 }

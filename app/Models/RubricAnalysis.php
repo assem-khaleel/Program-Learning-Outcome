@@ -42,6 +42,12 @@ use Illuminate\Support\Carbon;
 class RubricAnalysis extends Model
 {
     use SoftDeletes;
+    public function image()
+    {
+        return $this->morphOne(File::class, 'fileable');
+    }
+
+    static $PROFILE_IMAGE = 'analysis description';
 
     protected $table = 'rubric_analysis';
     protected $fillable = ['assignment_id', 'analysis', 'recommendations','actions'];
