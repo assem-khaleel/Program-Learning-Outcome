@@ -108,7 +108,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        courses statistics
+                       {{trans('common.coursesStatistics')}}
                     </div>
                     @if ($assignments->isEmpty())
                         <div class="bd-footer">
@@ -123,8 +123,8 @@
                                 <tr>
                                     <th>{{trans('assignment.assignment')}}</th>
                                     <th>{{trans('courses.course')}}</th>
-                                    <th>course section</th>
-                                    <th>Number of students</th>
+                                    <th>{{trans('courseSections.courseSection')}}</th>
+                                    <th>{{trans('common.numberOfStudents')}}</th>
 
                                     <th>{{trans('common.progress')}}</th>
                                 </tr>
