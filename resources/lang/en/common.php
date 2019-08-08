@@ -63,7 +63,8 @@ return [
     'no' => 'No',
     'progress' => 'Progress',
     'unpublish' => 'Cant Unpublish assignment , it has analysis!',
-
     'monthlyStatistics' => 'Monthly Statistics',
     'percentage' => 'Percentage',
+    'numberOfStudents' => 'Number of Students',
+    'coursesStatistics' => ' Courses Statistics',
 ];

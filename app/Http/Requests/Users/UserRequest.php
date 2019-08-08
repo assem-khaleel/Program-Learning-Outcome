@@ -47,7 +47,7 @@ class UserRequest extends FormRequest
                 break;
             case 'PATCH':
             case 'PUT':
-                $this->rules['email'] = 'required|string|email|max:255|unique:users,email,' . $this->id;
+                $this->rules['email'] = 'required|string|email|max:255|unique:users,email,' . $this->user;
                 break;
             default:
                 break;
