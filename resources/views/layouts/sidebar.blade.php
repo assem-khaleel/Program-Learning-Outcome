@@ -15,14 +15,7 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="nav-small-cap">PERSONAL</li>
-                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a href="index.html">Minimal </a></li>
-                        <li><a href="index2.html">Analytical</a></li>
-                        <li><a href="index3.html">Demographical</a></li>
-                        <li><a href="index4.html">Modern</a></li>
-                    </ul>
+                <li> <a class="has-arrow waves-effect waves-dark" href="{{route('home')}}" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
                 </li>
                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-quora fa-fw"></i><span class="hide-menu">Rubrics</span></a>
                     <ul aria-expanded="false" class="collapse">
